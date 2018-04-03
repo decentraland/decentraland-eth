@@ -9,7 +9,7 @@ export type WatchOptions = {
 export class Event {
   constructor(public contract, public name) {
     if (!this.instance) {
-      throw new Error(`Could not find event "${name}" for ${contract.constructor.getContractName()} contract`)
+      throw new Error(`Could not find event "${name}" for ${contract.getContractName()} contract`)
     }
   }
 

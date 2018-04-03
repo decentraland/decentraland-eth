@@ -5,6 +5,7 @@ import { EmptyContract } from './Contract'
 import { Abi } from './abi'
 import { ethUtils } from './ethUtils'
 import { promisify } from '../utils/index'
+import { Contract } from '.'
 
 const log = new Log('Ethereum')
 let web3 = null
@@ -112,7 +113,7 @@ export namespace eth {
    * usable later via `.getContract`. Check {@link https://github.com/decentraland/decentraland-eth/tree/master/src/ethereum} for more info
    * @param  {array<Contract|object>} contracts - An array comprised of a wide variety of options: objects defining contracts, Contract subclasses or Contract instances.
    */
-  export function setContracts(contracts) {
+  export function setContracts(contracts: (object | { new (...args): Contract })[]) {
     if (!isConnected()) {
       throw new Error('Tried to set eth contracts without connecting successfully first')
     }
@@ -124,15 +125,15 @@ export namespace eth {
       if (typeof contractData === 'function') {
         // contractData is subclass of Contract
         contract = new contractData()
-        contractName = contractData.getContractName()
+        contractName = contract.getContractName()
       } else if (typeof contractData === 'object' && contractData.constructor !== Object) {
         // contractData is an instance of Contract or of one of its subclasses
         contract = contractData
-        contractName = contractData.constructor.getContractName()
+        contractName = contract.getContractName()
       } else {
         // contractData is an object defining the contract
         contract = new EmptyContract(contractData)
-        contractName = contractData.name
+        contractName = contract.constructor.name
       }
 
       if (!contractName) continue // skip
