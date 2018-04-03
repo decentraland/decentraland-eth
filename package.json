@@ -1,0 +1,71 @@
+{
+  "name": "decentraland-eth",
+  "version": "0.0.0-development",
+  "description": "Common functionality between the different Decentraland projects",
+  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "scripts": {
+    "docs": "npx typedoc --out out src/index.ts",
+    "lint:fix": "tslint --project tsconfig.json --fix",
+    "lint": "tslint --project tsconfig.json",
+    "init": "mkdir -p dist",
+    "trim-artifacts": "node ./scripts/contracts/index.js trim-artifacts --write",
+    "copy-contracts": "mkdir -p dist/contracts/artifacts && cp -r src/contracts/artifacts dist/contracts",
+    "contracts-manifest": "node ./scripts/contracts/index.js generate-manifest --write",
+    "contracts": "npm run trim-artifacts && npm run copy-contracts",
+    "clean": "(rm -r dist || true)",
+    "prebuild": "npm run clean && npm run lint && tsc -p scripts/tsconfig.json && npm run contracts",
+    "build": "tsc -p src/tsconfig.json",
+    "fastbuild": "npm run clean && tsc -p tsconfig.json",
+    "test": "npm run build && tsc -p specs/tsconfig.json && mocha specs/**/*.spec.js",
+    "semantic-release": "semantic-release",
+    "commitmsg": "validate-commit-msg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decentraland/decentraland-eth.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "common",
+    "modules",
+    "decentraland"
+  ],
+  "author": "Decentraland",
+  "license": "ISC",
+  "dependencies": {
+    "@ledgerhq/hw-app-eth": "^2.2.0",
+    "@ledgerhq/hw-transport-u2f": "^2.2.0",
+    "comma-separated-values": "^3.6.4",
+    "ledger-wallet-provider": "^2.0.0-beta.2",
+    "dotenv": "^4.0.0",
+    "web3": "^0.20.6"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "semi": false
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/glob": "^5.0.35",
+    "@types/mocha": "^5.0.0",
+    "@types/node": "^8.10.1",
+    "chai": "^4.1.2",
+    "commander": "^2.15.1",
+    "dcl-tslint-config-standard": "^1.0.1",
+    "ethereumjs-util": "^5.1.5",
+    "husky": "^0.14.3",
+    "mocha": "^4.0.1",
+    "prettier": "^1.8.2",
+    "rimraf": "^2.6.2",
+    "semantic-release": "^12.2.5",
+    "tslint": "^5.9.1",
+    "tslint-language-service": "^0.9.9",
+    "typescript": "^2.8.1",
+    "validate-commit-msg": "^2.14.0",
+    "web3-provider-engine": "^13.8.0"
+  }
+}
