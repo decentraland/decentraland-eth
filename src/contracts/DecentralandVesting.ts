@@ -1,5 +1,4 @@
 import { eth, Contract } from '../ethereum'
-import { env } from '../env'
 
 const { abi } = require('./artifacts/DecentralandVesting.json')
 
@@ -9,16 +8,12 @@ export type BigNumber = {
 
 /** DecentralandVesting contract class */
 export class DecentralandVesting extends Contract {
+  constructor(address: string = process.env.TERRAFORM_RESERVE_CONTRACT_ADDRESS) {
+    super(address, abi)
+  }
+
   getContractName() {
     return 'DecentralandVesting'
-  }
-
-  getDefaultAddress() {
-    return env.universalGet('TERRAFORM_RESERVE_CONTRACT_ADDRESS')
-  }
-
-  getDefaultAbi() {
-    return abi
   }
 
   async duration() {

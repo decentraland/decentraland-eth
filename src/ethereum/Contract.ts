@@ -3,8 +3,8 @@ import { Abi } from './abi'
 import { Event } from './Event'
 
 /** Class to work with Ethereum contracts */
-export abstract class Contract {
-  instance: any
+export abstract class Contract<T = any> {
+  instance: T
   abi: any
   address: string
 
@@ -13,9 +13,10 @@ export abstract class Contract {
    * @param  {object} [abi]     - Object describing the contract (compile result). If it's undefined, it'll use the result of calling {@link Contract#getDefaultAbi}
    * @return {Contract} instance
    */
-  constructor(address, abi?) {
-    this.setAddress(address || this.getDefaultAddress())
-    this.setAbi(abi || this.getDefaultAbi())
+  constructor(address: string, abi: object) {
+    this.setAddress(address)
+    this.setAbi(abi)
+
     this.instance = null
 
     this.abi.extend(this)
@@ -33,7 +34,7 @@ export abstract class Contract {
   /**
    * See {@link Contract#transaction}
    */
-  static async transaction(method, ...args): Promise<any> {
+  static async transaction(method: Function, ...args): Promise<any> {
     return promisify(method)(...args)
   }
 
@@ -51,23 +52,11 @@ export abstract class Contract {
   abstract getContractName(): string
 
   /**
-   * Get the default address used for this contract. You should override it on subclasses
-   * @return {string} - address
-   */
-  abstract getDefaultAddress(): string
-
-  /**
-   * Get the default abi used for this contract. You should override it on subclasses
-   * @return {object} - abi
-   */
-  abstract getDefaultAbi(): any
-
-  /**
    * Get the contract events from the abi
    * @return {Array<string>} - events
    */
   getEvents() {
-    return Abi.new(this.getDefaultAbi()).getEvents()
+    return Abi.new(this.abi).getEvents()
   }
 
   /**
@@ -104,7 +93,7 @@ export abstract class Contract {
    * @param  {...object} args   - Every argument after the name will be fordwarded to the transaction method, in order
    * @return {Promise} - promise that resolves when the transaction does
    */
-  transaction(method, ...args) {
+  transaction(method: string, ...args) {
     return Contract.transaction(this.instance[method], ...args)
   }
 
@@ -120,17 +109,5 @@ export abstract class Contract {
 
   getEvent(eventName) {
     return new Event(this, eventName)
-  }
-}
-
-export class EmptyContract extends Contract {
-  getContractName(): string {
-    throw new Error('EmptyContract: Method getContractName implemented.')
-  }
-  getDefaultAddress(): string {
-    throw new Error('EmptyContract: Method getDefaultAddress implemented.')
-  }
-  getDefaultAbi() {
-    throw new Error('EmptyContract: Method getDefaultAbi implemented.')
   }
 }

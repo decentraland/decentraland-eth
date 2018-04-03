@@ -1,3 +1,5 @@
+import { Contract } from '.'
+
 export type WatchOptions = {
   /** Indexed return values you want to filter the logs by */
   args?: any
@@ -7,7 +9,7 @@ export type WatchOptions = {
 
 /** Event class */
 export class Event {
-  constructor(public contract, public name) {
+  constructor(public contract: Contract, public name: string) {
     if (!this.instance) {
       throw new Error(`Could not find event "${name}" for ${contract.getContractName()} contract`)
     }

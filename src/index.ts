@@ -1,4 +1,5 @@
-import * as contracts from './contracts'
 export * from './ethereum'
+import * as contracts from './contracts'
+import * as txUtils from './ethereum/txUtils'
 
-export { contracts }
+export { contracts, txUtils }

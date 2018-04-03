@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// tslint:disable-no-console
 
 import * as program from 'commander'
 
@@ -21,8 +22,10 @@ export function main() {
 
       if (options.write) {
         await manifest.write(indexFile)
+        // tslint:disable-next-line
         console.log(`index file written on "${manifest.folderPath}"`)
       } else {
+        // tslint:disable-next-line
         console.log(indexFile)
       }
     })
@@ -52,7 +55,7 @@ export function main() {
   program.parse(process.argv)
 }
 
-async function generateIndex(manifest) {
+async function generateIndex(manifest): Promise<any> {
   console.log(`Geneating manifest for "${manifest.folderPath}"`)
 
   const contractPaths = await manifest.getPaths()

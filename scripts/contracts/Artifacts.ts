@@ -1,4 +1,5 @@
 import * as path from 'path'
+
 import { Artifact } from './Artifact'
 import { findFolderPath, globPromise, fsWriteFilePromise } from './utils'
 
@@ -15,22 +16,22 @@ export class Artifacts {
     this.folderPath = folderPath
   }
 
-  async buildCollection() {
+  async buildCollection(): Promise<Artifact[]> {
     const paths = await this.getPaths()
     this.collection = paths.map(path => new Artifact(path))
     return this.collection
   }
 
-  async getPaths() {
+  async getPaths(): Promise<string[]> {
     const artifactsPattern = path.join(this.folderPath, 'MANAToken.json')
     return globPromise(artifactsPattern)
   }
 
-  async trim() {
+  async trim(): Promise<string[]> {
     return Promise.all(this.collection.map(artifact => artifact.trim()))
   }
 
-  async write() {
+  async write(): Promise<void> {
     for (const artifact of this.collection) {
       const content = await artifact.trim()
       await fsWriteFilePromise(artifact.path, content)

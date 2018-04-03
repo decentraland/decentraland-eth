@@ -16,7 +16,6 @@
     "allowUnusedLabels": false,
     "newLine": "LF",
     "stripInternal": true,
-    "removeComments": true,
     "pretty": true,
     "plugins": [
       {

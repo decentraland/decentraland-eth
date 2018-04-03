@@ -1,7 +1,5 @@
 import * as CSV from 'comma-separated-values'
 import { Contract } from '../ethereum'
-import { env } from '../env'
-
 const { abi } = require('./artifacts/LANDRegistry.json')
 
 const MAX_NAME_LENGTH = 50
@@ -17,6 +15,10 @@ export class DataError extends Error {
 /** LANDToken contract class */
 export class LANDRegistry extends Contract {
   static DataError = DataError
+
+  constructor(address: string) {
+    super(address, abi)
+  }
 
   static decodeLandData(data = '') {
     const version = data.charAt(0)
@@ -62,14 +64,6 @@ export class LANDRegistry extends Contract {
 
   getContractName() {
     return 'LANDRegistry'
-  }
-
-  getDefaultAddress() {
-    return env.universalGet('LAND_REGISTRY_CONTRACT_ADDRESS')
-  }
-
-  getDefaultAbi() {
-    return abi
   }
 
   updateManyLandData(coordinates, data, opts = {}) {

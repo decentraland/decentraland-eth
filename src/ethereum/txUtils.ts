@@ -1,8 +1,5 @@
-import { Log } from '../log'
 import { sleep } from '../utils'
 import { eth } from './eth'
-
-const log = new Log('txUtils')
 
 /**
  * Some utility functions to work with Ethereum transactions.
@@ -45,16 +42,14 @@ export namespace txUtils {
    * @param  {string} txId - Transaction id to watch
    * @return {object} data - Current transaction data. See {@link txUtils#getTransaction}
    */
-  export async function waitForCompletion(txId) {
+  export async function waitForCompletion(txId): Promise<any> {
     const tx = await this.getTransaction(txId)
 
     if (this.isPending(tx) || !tx.recepeit) {
-      log.debug(`"${txId}" pending, wait ${this.TRANSACTION_FETCH_DELAY}ms`)
       await sleep(this.TRANSACTION_FETCH_DELAY)
       return this.waitForCompletion(txId)
     }
 
-    log.debug(`"${txId}" completed`)
     return tx
   }
 

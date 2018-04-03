@@ -1,13 +1,10 @@
-import { Log } from '../log'
-
 import { NodeWallet, LedgerWallet } from './wallets'
-import { EmptyContract } from './Contract'
 import { Abi } from './abi'
 import { ethUtils } from './ethUtils'
 import { promisify } from '../utils/index'
-import { Contract } from '.'
+import { Contract } from './Contract'
+import { error } from 'util'
 
-const log = new Log('Ethereum')
 let web3 = null
 
 export type ConnectOptions = {
@@ -46,22 +43,26 @@ export namespace eth {
       disconnect()
     }
 
-    const { contracts = [], defaultAccount, providerUrl, derivationPath } = options
+    const { defaultAccount, providerUrl, derivationPath } = options
 
     try {
       wallet = await connectWallet(defaultAccount, providerUrl, derivationPath)
       web3 = wallet.getWeb3()
 
-      setContracts(contracts)
+      // connect old contracts
+      setContracts(Object.values(contracts))
+
+      // connect new contracts
+      setContracts(options.contracts || [])
 
       return true
     } catch (error) {
-      log.info(`Error trying to connect Ethereum wallet: ${error.message}`)
+      console.info(`Error trying to connect Ethereum wallet: ${error.message}`)
       return false
     }
   }
 
-  export async function connectWallet(defaultAccount, providerUrl = '', derivationPath = null) {
+  export async function connectWallet(defaultAccount, providerUrl = '', derivationPath = null): Promise<any> {
     let wallet
     const networks = getNetworks()
 
@@ -113,30 +114,24 @@ export namespace eth {
    * usable later via `.getContract`. Check {@link https://github.com/decentraland/decentraland-eth/tree/master/src/ethereum} for more info
    * @param  {array<Contract|object>} contracts - An array comprised of a wide variety of options: objects defining contracts, Contract subclasses or Contract instances.
    */
-  export function setContracts(contracts: (object | { new (...args): Contract })[]) {
+  export function setContracts(_contracts: Contract[]) {
     if (!isConnected()) {
       throw new Error('Tried to set eth contracts without connecting successfully first')
     }
 
-    for (const contractData of contracts) {
-      let contract = null
-      let contractName = null
+    for (const contractData of _contracts) {
+      let contract: Contract = null
+      let contractName: string = null
 
-      if (typeof contractData === 'function') {
-        // contractData is subclass of Contract
-        contract = new contractData()
-        contractName = contract.getContractName()
-      } else if (typeof contractData === 'object' && contractData.constructor !== Object) {
+      if (typeof contractData === 'object' && contractData instanceof Contract) {
         // contractData is an instance of Contract or of one of its subclasses
         contract = contractData
         contractName = contract.getContractName()
       } else {
-        // contractData is an object defining the contract
-        contract = new EmptyContract(contractData)
-        contractName = contract.constructor.name
+        error('The parameter is not instance of a contract', contractData)
       }
 
-      if (!contractName) continue // skip
+      if (!contractName) continue
 
       const instance = wallet.createContractInstance(contract.abi, contract.address)
       contract.setInstance(instance)
@@ -155,7 +150,9 @@ export namespace eth {
     if (!contracts[name]) {
       const contractNames = Object.keys(contracts)
       throw new Error(
-        `The contract ${name} not found.\nDid you add it to the '.connect()' call?\nAvailable contracts are "${contractNames}"`
+        `The contract ${name} not found.\nDid you add it to the '.connect()' call?\nAvailable contracts are "${JSON.stringify(
+          contractNames
+        )}"`
       )
     }
 

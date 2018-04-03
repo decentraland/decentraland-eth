@@ -71,7 +71,7 @@ export class LedgerWallet extends Wallet {
    * @param  {string} [networkId="1"] - The id of the network we're connecting to. 1 means mainnet, check {@link eth#getNetworks}
    * @return {object} The web3 provider
    */
-  async getProvider(providerUrl = 'https://mainnet.infura.io/', networkId = '1') {
+  async getProvider(providerUrl = 'https://mainnet.infura.io/', networkId = '1'): Promise<any> {
     let ledgerWalletSubProvider = await LedgerWalletSubprovider(() => networkId, this.derivationPath)
 
     this.engine.addProvider(ledgerWalletSubProvider)

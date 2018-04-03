@@ -1,20 +1,15 @@
 import { eth, Contract } from '../ethereum'
-import { env } from '../env'
 
 const { abi } = require('./artifacts/MANAToken.json')
 
 /** MANAToken contract class */
 export class MANAToken extends Contract {
+  constructor(address: string) {
+    super(address, abi)
+  }
+
   getContractName() {
     return 'MANAToken'
-  }
-
-  getDefaultAddress() {
-    return env.universalGet('MANA_TOKEN_CONTRACT_ADDRESS')
-  }
-
-  getDefaultAbi() {
-    return abi
   }
 
   async approve(spender, mana) {

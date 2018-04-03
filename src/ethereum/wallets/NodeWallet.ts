@@ -37,9 +37,11 @@ export class NodeWallet extends Wallet {
    * @return {object} The web3 provider
    */
   getProvider(providerUrl = 'http://localhost:8545') {
-    return typeof window === 'undefined'
-      ? new Web3.providers.HttpProvider(providerUrl)
-      : window.web3 && window.web3.currentProvider
+    if (typeof window !== 'undefined' && window.web3 && window.web3.currentProvider) {
+      return window.web3.currentProvider
+    } else {
+      return new Web3.providers.HttpProvider(providerUrl)
+    }
   }
 
   async getAccounts(): Promise<any[]> {
