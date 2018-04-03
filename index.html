@@ -66,7 +66,88 @@
 			<div class="tsd-panel tsd-typography">
 				<p><img src="https://raw.githubusercontent.com/decentraland/web/gh-pages/img/decentraland.ico" alt=""></p>
 				<h1 id="ethereum-commons-semantic-release">Ethereum Commons <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a></h1>
-				<p>Set of common functionality accross Decentraland projects.</p>
+				<h1 id="ethereum">Ethereum</h1>
+				<p>Set of utility functions to work with the Ethereum blockchain.</p>
+				<p>Calling <code>eth.connect()</code> should be enough to get you going. If you want to customize this this behaviour, you can check the breakdown below.</p>
+				<p>Implementations for all important Decentraland contracts live on the <code>/contracts</code> folder. An example of its use can be found below.</p>
+				<h3 id="index-js">index.js</h3>
+				<p>Main API to interface with web3. Acts as a global singleton and must be connected before calling any other method</p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { eth } <span class="hljs-keyword">from</span> <span class="hljs-string">'ethereum'</span>
+<span class="hljs-keyword">import</span> { Contract } <span class="hljs-keyword">from</span> <span class="hljs-string">'Contract'</span>
+
+<span class="hljs-keyword">const</span> abi = [
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'method'</span>,
+    <span class="hljs-attr">type</span>: <span class="hljs-string">'function'</span>
+  }
+]
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperTokenContract</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Contract</span> </span>{
+  <span class="hljs-keyword">constructor</span>(address: string) {
+    <span class="hljs-keyword">super</span>(address, abi)
+  }
+}
+
+<span class="hljs-keyword">const</span> superTokenContract = <span class="hljs-keyword">new</span> SuperTokenContract(<span class="hljs-string">'0xdeadbeeffaceb00c'</span>)
+
+eth.connect({
+  <span class="hljs-attr">contracts</span>: [superTokenContract]
+})
+
+eth.fetchTxStatus(<span class="hljs-string">'TX_HASH'</span>)
+</code></pre>
+				<h3 id="contract">Contract</h3>
+				<p>An interface to work with Ethereum contracts, takes care of decoding contract data and of calls/transactions.</p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { Contract } <span class="hljs-keyword">from</span> <span class="hljs-string">'Contract'</span>
+<span class="hljs-keyword">import</span> { abi } <span class="hljs-keyword">from</span> <span class="hljs-string">'./abis/MANAToken.json'</span>
+
+<span class="hljs-keyword">const</span> contract = <span class="hljs-keyword">new</span> Contract(<span class="hljs-string">'0xdeadbeef'</span>, abi)
+
+<span class="hljs-keyword">await</span> contract.call(<span class="hljs-string">'allowance'</span>, sender, receiver)
+<span class="hljs-keyword">await</span> contract.transaction(<span class="hljs-string">'lockMana'</span>, manaValue)
+</code></pre>
+				<h3 id="txutils-js">txUtils.js</h3>
+				<p>A set of common utility functions to work with transactions</p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { txUtils } <span class="hljs-keyword">from</span> <span class="hljs-string">'decentraland-eth'</span>
+
+<span class="hljs-keyword">const</span> status = eth.fetchTxStatus(<span class="hljs-string">'TX_HASH'</span>)
+
+<span class="hljs-keyword">if</span> (txUtils.isPending(status)) {
+  <span class="hljs-comment">// something</span>
+}
+</code></pre>
+				<h2 id="putting-it-all-together">Putting it all together</h2>
+				<p>The idea is to define your own <code>Contract</code>s and work with them using <code>eth</code>. A typical case is described below:</p>
+				<p><em>MANAToken.js</em></p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { eth } <span class="hljs-keyword">from</span> <span class="hljs-string">'decentraland-eth'</span>
+<span class="hljs-keyword">import</span> { abi } <span class="hljs-keyword">from</span> <span class="hljs-string">'./artifacts/MANAToken.json'</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MANAToken</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">eth</span>.<span class="hljs-title">Contract</span> </span>{
+  <span class="hljs-keyword">constructor</span>(address: string) {
+    <span class="hljs-keyword">super</span>(address, abi)
+  }
+
+  <span class="hljs-keyword">async</span> lockMana(sender, mana) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.transaction(<span class="hljs-string">'lockMana'</span>, sender, mana, { <span class="hljs-attr">gas</span>: <span class="hljs-number">120000</span> })
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> MANAToken
+</code></pre>
+				<p><em>On the start of your app, maybe server.js</em></p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { eth, contracts } <span class="hljs-keyword">from</span> <span class="hljs-string">'decentraland-eth'</span>
+
+<span class="hljs-keyword">const</span> manaToken = <span class="hljs-keyword">new</span> contracts.MANAToken(<span class="hljs-string">'0xdeadbeef'</span> <span class="hljs-comment">/*address*/</span>)
+
+eth.connect({
+  <span class="hljs-attr">contracts</span>: [
+    manaToken
+    <span class="hljs-comment">// ...etc</span>
+  ]
+})
+
+manaToken.lockMana()
+</code></pre>
 				<h3 id="scripts">Scripts</h3>
 				<p><strong>build</strong></p>
 				<p>Build the lib for use</p>
@@ -137,9 +218,6 @@
 						<a href="modules/_contracts_index_.html">"contracts/index"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="modules/_env_.html">"env"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/_ethereum_contract_.html">"ethereum/<wbr>Contract"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
@@ -180,9 +258,6 @@
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/_ethereum_wallets_index_.html">"ethereum/wallets/index"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="modules/_log_.html">"log"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/_utils_index_.html">"utils/index"</a>

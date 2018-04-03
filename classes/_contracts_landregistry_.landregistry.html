@@ -62,7 +62,7 @@
 					<a href="_contracts_landregistry_.landregistry.html">LANDRegistry</a>
 				</li>
 			</ul>
-			<h1>Class LANDRegistry</h1>
+			<h1>Class LANDRegistry&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -75,6 +75,14 @@
 						<p>LANDToken contract class</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T</h4>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
@@ -93,10 +101,10 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-external">
@@ -115,8 +123,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#assignnewparcel" class="tsd-kind-icon">assign<wbr>New<wbr>Parcel</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#call" class="tsd-kind-icon">call</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#getcontractname" class="tsd-kind-icon">get<wbr>Contract<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#getdefaultabi" class="tsd-kind-icon">get<wbr>Default<wbr>Abi</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#getdefaultaddress" class="tsd-kind-icon">get<wbr>Default<wbr>Address</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#getevent" class="tsd-kind-icon">get<wbr>Event</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#getevents" class="tsd-kind-icon">get<wbr>Events</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_contracts_landregistry_.landregistry.html#setabi" class="tsd-kind-icon">set<wbr>Abi</a></li>
@@ -134,35 +140,29 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-external">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">new LANDRegistry<span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, abi<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_contracts_landregistry_.landregistry.html" class="tsd-signature-type">LANDRegistry</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">new LANDRegistry<span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_contracts_landregistry_.landregistry.html" class="tsd-signature-type">LANDRegistry</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#constructor">constructor</a></p>
+								<p>Overrides <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L9">ethereum/Contract.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/contracts/LANDRegistry.ts#L17">contracts/LANDRegistry.ts:17</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>address: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> abi: <span class="tsd-signature-type">any</span></h5>
+									<h5>address: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_contracts_landregistry_.landregistry.html" class="tsd-signature-type">LANDRegistry</a></h4>
-							<p>instance</p>
 						</li>
 					</ul>
 				</section>
@@ -176,7 +176,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#abi">abi</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L8">ethereum/Contract.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L8">ethereum/Contract.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -187,18 +187,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#address">address</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L9">ethereum/Contract.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L9">ethereum/Contract.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a name="instance" class="tsd-anchor"></a>
 					<h3>instance</h3>
-					<div class="tsd-signature tsd-kind-icon">instance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">instance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#instance">instance</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L7">ethereum/Contract.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L7">ethereum/Contract.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -208,7 +208,7 @@
 					<div class="tsd-signature tsd-kind-icon">Data<wbr>Error<span class="tsd-signature-symbol">:</span> <a href="_contracts_landregistry_.dataerror.html" class="tsd-signature-type">DataError</a><span class="tsd-signature-symbol"> =&nbsp;DataError</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L19">contracts/LANDRegistry.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/contracts/LANDRegistry.ts#L17">contracts/LANDRegistry.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -225,7 +225,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L86">contracts/LANDRegistry.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/contracts/LANDRegistry.ts#L80">contracts/LANDRegistry.ts:80</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -259,7 +259,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L81">contracts/LANDRegistry.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/contracts/LANDRegistry.ts#L75">contracts/LANDRegistry.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -294,7 +294,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#call">call</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L117">ethereum/Contract.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L106">ethereum/Contract.ts:106</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -335,46 +335,10 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#getcontractname">getContractName</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L63">contracts/LANDRegistry.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/contracts/LANDRegistry.ts#L65">contracts/LANDRegistry.ts:65</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
-					<a name="getdefaultabi" class="tsd-anchor"></a>
-					<h3>get<wbr>Default<wbr>Abi</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Default<wbr>Abi<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#getdefaultabi">getDefaultAbi</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L71">contracts/LANDRegistry.ts:71</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
-					<a name="getdefaultaddress" class="tsd-anchor"></a>
-					<h3>get<wbr>Default<wbr>Address</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Default<wbr>Address<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#getdefaultaddress">getDefaultAddress</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L67">contracts/LANDRegistry.ts:67</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -382,14 +346,14 @@
 					<a name="getevent" class="tsd-anchor"></a>
 					<h3>get<wbr>Event</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Event<span class="tsd-signature-symbol">(</span>eventName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_ethereum_event_.event.html" class="tsd-signature-type">Event</a></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Event<span class="tsd-signature-symbol">(</span>eventName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#getevent">getEvent</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L121">ethereum/Contract.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L110">ethereum/Contract.ts:110</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -398,7 +362,7 @@
 									<h5>eventName: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_ethereum_event_.event.html" class="tsd-signature-type">Event</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -413,7 +377,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#getevents">getEvents</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L69">ethereum/Contract.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L58">ethereum/Contract.ts:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -439,7 +403,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#setabi">setAbi</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L89">ethereum/Contract.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L78">ethereum/Contract.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -471,7 +435,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#setaddress">setAddress</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L77">ethereum/Contract.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L66">ethereum/Contract.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -503,7 +467,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#setinstance">setInstance</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L97">ethereum/Contract.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L86">ethereum/Contract.ts:86</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -520,14 +484,14 @@
 					<a name="transaction" class="tsd-anchor"></a>
 					<h3>transaction</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">transaction<span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">transaction<span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#transaction">transaction</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L107">ethereum/Contract.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L96">ethereum/Contract.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -538,7 +502,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>method: <span class="tsd-signature-type">any</span></h5>
+									<h5>method: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Method name</p>
 									</div>
@@ -567,7 +531,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L75">contracts/LANDRegistry.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/contracts/LANDRegistry.ts#L69">contracts/LANDRegistry.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -599,7 +563,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#call-1">call</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L43">ethereum/Contract.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L44">ethereum/Contract.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -630,7 +594,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L21">contracts/LANDRegistry.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/contracts/LANDRegistry.ts#L23">contracts/LANDRegistry.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -667,7 +631,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/contracts/LANDRegistry.ts#L43">contracts/LANDRegistry.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/contracts/LANDRegistry.ts#L45">contracts/LANDRegistry.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -691,7 +655,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#isemptyaddress">isEmptyAddress</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L29">ethereum/Contract.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L30">ethereum/Contract.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -713,14 +677,14 @@
 					<a name="transaction-1" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> transaction</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">transaction<span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">transaction<span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_contract_.contract.html">Contract</a>.<a href="_ethereum_contract_.contract.html#transaction-1">transaction</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/920af02/src/ethereum/Contract.ts#L36">ethereum/Contract.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/Contract.ts#L37">ethereum/Contract.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -731,7 +695,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>method: <span class="tsd-signature-type">any</span></h5>
+									<h5>method: <span class="tsd-signature-type">Function</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
@@ -761,10 +725,10 @@
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-external">
 						<a href="_contracts_landregistry_.landregistry.html" class="tsd-kind-icon">LANDRegistry</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="_contracts_landregistry_.landregistry.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
@@ -790,12 +754,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="_contracts_landregistry_.landregistry.html#getcontractname" class="tsd-kind-icon">get<wbr>Contract<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
-								<a href="_contracts_landregistry_.landregistry.html#getdefaultabi" class="tsd-kind-icon">get<wbr>Default<wbr>Abi</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
-								<a href="_contracts_landregistry_.landregistry.html#getdefaultaddress" class="tsd-kind-icon">get<wbr>Default<wbr>Address</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="_contracts_landregistry_.landregistry.html#getevent" class="tsd-kind-icon">get<wbr>Event</a>
