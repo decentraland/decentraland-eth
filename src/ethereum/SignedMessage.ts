@@ -1,10 +1,11 @@
 import { eth } from './eth'
+import ethereumJsUtil = require('ethereumjs-util')
 
 /**
  * Work with signatures made with Ethereum wallets
  */
 export class SignedMessage {
-  constructor(public message, public signature) {
+  constructor(public message: string, public signature: string) {
     if (!message || !signature) {
       throw new Error('You need to supply a message and a signature')
     }
@@ -18,7 +19,7 @@ export class SignedMessage {
     const decodedMessage = this.decodeMessage()
     const { v, r, s } = this.decodeSignature()
 
-    const pubkey = eth.utils.ecrecover(eth.utils.hashPersonalMessage(decodedMessage), v, r, s)
+    const pubkey = ethereumJsUtil.ecrecover(ethereumJsUtil.hashPersonalMessage(decodedMessage), v, r, s)
 
     return '0x' + eth.utils.pubToAddressHex(pubkey)
   }
@@ -35,7 +36,7 @@ export class SignedMessage {
    * Decodes the signature of a message
    */
   decodeSignature() {
-    return eth.utils.fromRpcSig(new Buffer(this.signature.substr(2), 'hex'))
+    return ethereumJsUtil.fromRpcSig(new Buffer(this.signature.substr(2), 'hex'))
   }
 
   /**
