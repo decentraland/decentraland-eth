@@ -1,5 +1,5 @@
 import Web3 = require('web3')
-import ethereumJsUtil from 'ethereumjs-util'
+import ethereumJsUtil = require('ethereumjs-util')
 
 const web3utils = new Web3()
 
@@ -9,11 +9,6 @@ const web3utils = new Web3()
  * @namespace
  */
 export const ethUtils = {
-  /**
-   * Extend the [ethereumjs-util lib]{@link https://github.com/ethereumjs/ethereumjs-util} methods
-   */
-  ...ethereumJsUtil,
-
   /**
    * Converts a given number into a BigNumber instance. Check {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3tobignumber} for more info.
    */
