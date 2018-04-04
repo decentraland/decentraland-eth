@@ -112,7 +112,7 @@
 					<div class="tsd-signature tsd-kind-icon">contracts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L24">ethereum/eth.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L24">ethereum/eth.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -129,16 +129,270 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-external">
 					<a name="utils" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> utils</h3>
-					<div class="tsd-signature tsd-kind-icon">utils<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;ethUtils</span></div>
+					<div class="tsd-signature tsd-kind-icon">utils<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;ethUtils</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L30">ethereum/eth.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L30">ethereum/eth.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Reference to the utilities object <a href="_ethereum_ethutils_.html#ethutils">ethUtils</a></p>
 						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>to<wbr>Big<wbr>Number<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>Converts a given number into a BigNumber instance. Check <a href="https://github.com/ethereum/wiki/wiki/JavaScript-API#web3tobignumber" class="external">https://github.com/ethereum/wiki/wiki/JavaScript-API#web3tobignumber</a> for more info.</p>
+									</div>
+								</div>
+							</li>
+							<li class="tsd-parameter">
+								<h5>from<wbr>Hex<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-external tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon">from<wbr>Hex<span class="tsd-signature-symbol">(</span>hex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/ethUtils.ts#L43">ethereum/ethUtils.ts:43</a></li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>hex: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>from<wbr>Wei<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-external tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon">from<wbr>Wei<span class="tsd-signature-symbol">(</span>amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, unit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/ethUtils.ts#L23">ethereum/ethUtils.ts:23</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Converts a number of wei into the desired unit</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>amount: <span class="tsd-signature-type">any</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Amount to parse</p>
+												</div>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagDefault value">Default value</span> unit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;ether&quot;</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+										<ul>
+											<li>Parsed result</li>
+										</ul>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>local<wbr>Recover<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-external tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon">local<wbr>Recover<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, signature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/ethUtils.ts#L68">ethereum/ethUtils.ts:68</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>ECDSA public key recovery from signature</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>data: <span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Signed data. If it&#39;s a string, it&#39;ll be converted to a Buffer using sha3</p>
+												</div>
+											</li>
+											<li>
+												<h5>signature: <span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The result of calling <code>localSign</code>. Concatenated string of vrs sign</p>
+												</div>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+										<p>public key hex value</p>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>local<wbr>Sign<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-external tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon">local<wbr>Sign<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, privKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/ethUtils.ts#L53">ethereum/ethUtils.ts:53</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>ECDSA sign some data</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>data: <span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Data to sign. If it&#39;s a string, it&#39;ll be converted to a Buffer using sha3</p>
+												</div>
+											</li>
+											<li>
+												<h5>privKey: <span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>private key to sign with. If it&#39;s a string, it&#39;ll converted to an hex Buffer</p>
+												</div>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+										<p>vrs sign result concatenated as a string</p>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>private<wbr>ToPublic<wbr>Hex<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-external tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon">private<wbr>ToPublic<wbr>Hex<span class="tsd-signature-symbol">(</span>privKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/ethUtils.ts#L88">ethereum/ethUtils.ts:88</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Returns the ethereum public key of a given private key</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>privKey: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>private key from where to derive the public key</p>
+												</div>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+										<p>Hex public key</p>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>pub<wbr>ToAddress<wbr>Hex<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-external tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon">pub<wbr>ToAddress<wbr>Hex<span class="tsd-signature-symbol">(</span>pubkey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/ethUtils.ts#L98">ethereum/ethUtils.ts:98</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Returns the ethereum address for a given public key</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>pubkey: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+										<p>Hex address</p>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>to<wbr>Hex<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-external tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon">to<wbr>Hex<span class="tsd-signature-symbol">(</span>utf8<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/ethUtils.ts#L39">ethereum/ethUtils.ts:39</a></li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>utf8: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>to<wbr>Wei<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-external tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon">to<wbr>Wei<span class="tsd-signature-symbol">(</span>amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, unit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/ethUtils.ts#L34">ethereum/ethUtils.ts:34</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Converts an ethereum unit into wei</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>amount: <span class="tsd-signature-type">number</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Amount to convert</p>
+												</div>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagDefault value">Default value</span> unit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;ether&quot;</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+										<ul>
+											<li>Parsed result</li>
+										</ul>
+									</li>
+							</ul>        </li>
+						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-external">
@@ -147,7 +401,7 @@
 					<div class="tsd-signature tsd-kind-icon">wallet<span class="tsd-signature-symbol">:</span> <a href="../classes/_ethereum_wallets_wallet_.wallet.html" class="tsd-signature-type">Wallet</a><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L25">ethereum/eth.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L25">ethereum/eth.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -164,7 +418,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L42">ethereum/eth.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L42">ethereum/eth.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -195,7 +449,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L65">ethereum/eth.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L65">ethereum/eth.ts:65</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -224,7 +478,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L93">ethereum/eth.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L93">ethereum/eth.ts:93</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -241,7 +495,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L182">ethereum/eth.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L182">ethereum/eth.ts:182</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -275,7 +529,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L173">ethereum/eth.ts:173</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L173">ethereum/eth.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -309,7 +563,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L105">ethereum/eth.ts:105</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L105">ethereum/eth.ts:105</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -326,7 +580,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L101">ethereum/eth.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L101">ethereum/eth.ts:101</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -343,7 +597,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L155">ethereum/eth.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L155">ethereum/eth.ts:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -376,7 +630,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L240">ethereum/eth.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L240">ethereum/eth.ts:240</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -401,7 +655,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L206">ethereum/eth.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L206">ethereum/eth.ts:206</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -426,7 +680,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L109">ethereum/eth.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L109">ethereum/eth.ts:109</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
@@ -454,7 +708,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L89">ethereum/eth.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L89">ethereum/eth.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -471,7 +725,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L198">ethereum/eth.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L198">ethereum/eth.ts:198</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -497,7 +751,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L123">ethereum/eth.ts:123</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L123">ethereum/eth.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -527,7 +781,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/5c2b515/src/ethereum/eth.ts#L192">ethereum/eth.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/65d2dfd/src/ethereum/eth.ts#L192">ethereum/eth.ts:192</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
