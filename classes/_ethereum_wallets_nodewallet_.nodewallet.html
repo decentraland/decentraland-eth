@@ -95,7 +95,8 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#account" class="tsd-kind-icon">account</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#account" class="tsd-kind-icon">account</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#derivationpath" class="tsd-kind-icon">derivation<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#type" class="tsd-kind-icon">type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#web3" class="tsd-kind-icon">web3</a></li>
 							</ul>
@@ -106,9 +107,14 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#connect" class="tsd-kind-icon">connect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#createcontractinstance" class="tsd-kind-icon">create<wbr>Contract<wbr>Instance</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#disconnect" class="tsd-kind-icon">disconnect</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#estimategas" class="tsd-kind-icon">estimate<wbr>Gas</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#getaccount" class="tsd-kind-icon">get<wbr>Account</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#getaccounts" class="tsd-kind-icon">get<wbr>Accounts</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#getbalance" class="tsd-kind-icon">get<wbr>Balance</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#getcoinbase" class="tsd-kind-icon">get<wbr>Coinbase</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#getcontract" class="tsd-kind-icon">get<wbr>Contract</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#getprovider" class="tsd-kind-icon">get<wbr>Provider</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#gettransactionreceipt" class="tsd-kind-icon">get<wbr>Transaction<wbr>Receipt</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#gettype" class="tsd-kind-icon">get<wbr>Type</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#getweb3" class="tsd-kind-icon">get<wbr>Web3</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="_ethereum_wallets_nodewallet_.nodewallet.html#isconnected" class="tsd-kind-icon">is<wbr>Connected</a></li>
@@ -127,20 +133,20 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Node<wbr>Wallet<span class="tsd-signature-symbol">(</span>account<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_ethereum_wallets_nodewallet_.nodewallet.html" class="tsd-signature-type">NodeWallet</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Node<wbr>Wallet<span class="tsd-signature-symbol">(</span>account<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_ethereum_wallets_nodewallet_.nodewallet.html" class="tsd-signature-type">NodeWallet</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L5">ethereum/wallets/Wallet.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L20">ethereum/wallets/Wallet.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>account: <span class="tsd-signature-type">any</span></h5>
+									<h5>account: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_ethereum_wallets_nodewallet_.nodewallet.html" class="tsd-signature-type">NodeWallet</a></h4>
@@ -150,14 +156,25 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
 					<a name="account" class="tsd-anchor"></a>
 					<h3>account</h3>
-					<div class="tsd-signature tsd-kind-icon">account<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">account<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Overrides <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#account">account</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/NodeWallet.ts#L10">ethereum/wallets/NodeWallet.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/NodeWallet.ts#L10">ethereum/wallets/NodeWallet.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L22">ethereum/wallets/Wallet.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="derivationpath" class="tsd-anchor"></a>
+					<h3>derivation<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">derivation<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#derivationpath">derivationPath</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L20">ethereum/wallets/Wallet.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -168,7 +185,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L3">ethereum/wallets/Wallet.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L18">ethereum/wallets/Wallet.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -179,7 +196,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#web3">web3</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/NodeWallet.ts#L9">ethereum/wallets/NodeWallet.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/NodeWallet.ts#L9">ethereum/wallets/NodeWallet.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -190,20 +207,20 @@
 					<a name="connect" class="tsd-anchor"></a>
 					<h3>connect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">connect<span class="tsd-signature-symbol">(</span>providerUrl<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">connect<span class="tsd-signature-symbol">(</span>provider<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#connect">connect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/NodeWallet.ts#L16">ethereum/wallets/NodeWallet.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/NodeWallet.ts#L16">ethereum/wallets/NodeWallet.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> providerUrl: <span class="tsd-signature-type">string</span></h5>
+									<h5>provider: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -214,14 +231,14 @@
 					<a name="createcontractinstance" class="tsd-anchor"></a>
 					<h3>create<wbr>Contract<wbr>Instance</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Contract<wbr>Instance<span class="tsd-signature-symbol">(</span>abi<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Contract<wbr>Instance<span class="tsd-signature-symbol">(</span>abi<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span>, address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#createcontractinstance">createContractInstance</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L66">ethereum/wallets/Wallet.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L108">ethereum/wallets/Wallet.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -232,7 +249,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>abi: <span class="tsd-signature-type">any</span></h5>
+									<h5>abi: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Application Binary Interface.</p>
 									</div>
@@ -244,7 +261,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>instance</p>
 						</li>
 					</ul>
@@ -260,7 +277,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#disconnect">disconnect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L37">ethereum/wallets/Wallet.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L55">ethereum/wallets/Wallet.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -268,20 +285,52 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="estimategas" class="tsd-anchor"></a>
+					<h3>estimate<wbr>Gas</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">estimate<wbr>Gas<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#estimategas">estimateGas</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L90">ethereum/wallets/Wallet.ts:90</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>options: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> to<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a name="getaccount" class="tsd-anchor"></a>
 					<h3>get<wbr>Account</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Account<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Account<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#getaccount">getAccount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L22">ethereum/wallets/Wallet.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L36">ethereum/wallets/Wallet.ts:36</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -296,10 +345,82 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#getaccounts">getAccounts</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/NodeWallet.ts#L47">ethereum/wallets/NodeWallet.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/NodeWallet.ts#L48">ethereum/wallets/NodeWallet.ts:48</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="getbalance" class="tsd-anchor"></a>
+					<h3>get<wbr>Balance</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Balance<span class="tsd-signature-symbol">(</span>coinbase<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#getbalance">getBalance</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L82">ethereum/wallets/Wallet.ts:82</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the balance of the account</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>coinbase: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>accounts</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="getcoinbase" class="tsd-anchor"></a>
+					<h3>get<wbr>Coinbase</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Coinbase<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#getcoinbase">getCoinbase</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L86">ethereum/wallets/Wallet.ts:86</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="getcontract" class="tsd-anchor"></a>
+					<h3>get<wbr>Contract</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Contract<span class="tsd-signature-symbol">(</span>abi<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#getcontract">getContract</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L94">ethereum/wallets/Wallet.ts:94</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>abi: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -314,7 +435,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#getprovider">getProvider</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/NodeWallet.ts#L39">ethereum/wallets/NodeWallet.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/NodeWallet.ts#L40">ethereum/wallets/NodeWallet.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -333,6 +454,30 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="gettransactionreceipt" class="tsd-anchor"></a>
+					<h3>get<wbr>Transaction<wbr>Receipt</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Transaction<wbr>Receipt<span class="tsd-signature-symbol">(</span>txId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_ethereum_wallets_wallet_.txrecipt.html" class="tsd-signature-type">TxRecipt</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#gettransactionreceipt">getTransactionReceipt</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L98">ethereum/wallets/Wallet.ts:98</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>txId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_ethereum_wallets_wallet_.txrecipt.html" class="tsd-signature-type">TxRecipt</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 					<a name="gettype" class="tsd-anchor"></a>
 					<h3>get<wbr>Type</h3>
@@ -344,7 +489,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#gettype">getType</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/NodeWallet.ts#L12">ethereum/wallets/NodeWallet.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/NodeWallet.ts#L12">ethereum/wallets/NodeWallet.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -362,7 +507,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#getweb3">getWeb3</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L18">ethereum/wallets/Wallet.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L32">ethereum/wallets/Wallet.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -380,7 +525,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#isconnected">isConnected</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L14">ethereum/wallets/Wallet.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L28">ethereum/wallets/Wallet.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -398,7 +543,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#recover">recover</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/NodeWallet.ts#L56">ethereum/wallets/NodeWallet.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/NodeWallet.ts#L57">ethereum/wallets/NodeWallet.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -418,20 +563,20 @@
 					<a name="setaccount" class="tsd-anchor"></a>
 					<h3>set<wbr>Account</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Account<span class="tsd-signature-symbol">(</span>account<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Account<span class="tsd-signature-symbol">(</span>account<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#setaccount">setAccount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L26">ethereum/wallets/Wallet.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L40">ethereum/wallets/Wallet.ts:40</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>account: <span class="tsd-signature-type">any</span></h5>
+									<h5>account: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -449,7 +594,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#sign">sign</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/NodeWallet.ts#L51">ethereum/wallets/NodeWallet.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/NodeWallet.ts#L52">ethereum/wallets/NodeWallet.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -466,14 +611,14 @@
 					<a name="unlockaccount" class="tsd-anchor"></a>
 					<h3>unlock<wbr>Account</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">unlock<wbr>Account<span class="tsd-signature-symbol">(</span>password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">unlock<wbr>Account<span class="tsd-signature-symbol">(</span>password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_ethereum_wallets_wallet_.wallet.html">Wallet</a>.<a href="_ethereum_wallets_wallet_.wallet.html#unlockaccount">unlockAccount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/254c3df/src/ethereum/wallets/Wallet.ts#L75">ethereum/wallets/Wallet.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/decentraland/decentraland-eth/blob/cc48aa1/src/ethereum/wallets/Wallet.ts#L118">ethereum/wallets/Wallet.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -490,7 +635,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>Whether the operation was successfull or not</p>
 						</li>
 					</ul>
@@ -518,8 +663,11 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#account" class="tsd-kind-icon">account</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#derivationpath" class="tsd-kind-icon">derivation<wbr>Path</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#type" class="tsd-kind-icon">type</a>
@@ -537,13 +685,28 @@
 								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#disconnect" class="tsd-kind-icon">disconnect</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#estimategas" class="tsd-kind-icon">estimate<wbr>Gas</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#getaccount" class="tsd-kind-icon">get<wbr>Account</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#getaccounts" class="tsd-kind-icon">get<wbr>Accounts</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#getbalance" class="tsd-kind-icon">get<wbr>Balance</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#getcoinbase" class="tsd-kind-icon">get<wbr>Coinbase</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#getcontract" class="tsd-kind-icon">get<wbr>Contract</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#getprovider" class="tsd-kind-icon">get<wbr>Provider</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#gettransactionreceipt" class="tsd-kind-icon">get<wbr>Transaction<wbr>Receipt</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="_ethereum_wallets_nodewallet_.nodewallet.html#gettype" class="tsd-kind-icon">get<wbr>Type</a>
