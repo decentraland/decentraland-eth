@@ -15,7 +15,7 @@ export class LedgerWallet extends Wallet {
   engine = null
   derivationPath = "44'/60'/0'/0"
 
-  constructor(account, derivationPath) {
+  constructor(account: string, derivationPath: string) {
     super(account)
 
     this.derivationPath = derivationPath || "44'/60'/0'/0"
@@ -30,7 +30,11 @@ export class LedgerWallet extends Wallet {
     return 'ledger'
   }
 
-  async connect(providerUrl?: string, networkId?: string) {
+  async connect(providerUrl: string | object, networkId?: string) {
+    if (typeof providerUrl === 'object') {
+      throw new Error('Ledger wallet only allows string providers')
+    }
+
     if (!providerUrl || !networkId) {
       throw new Error('You must provide both providerUrl and networkId')
     }

@@ -13,13 +13,14 @@ export class NodeWallet extends Wallet {
     return 'node'
   }
 
-  async connect(providerUrl?: string) {
-    const provider = await this.getProvider(providerUrl)
-    if (!provider) {
+  async connect(provider: string | object) {
+    const theProvider = typeof provider === 'object' ? provider : await this.getProvider(provider)
+
+    if (!theProvider) {
       throw new Error('Could not get a valid provider for web3')
     }
-
-    this.web3 = new Web3(provider)
+    console.log('connecting with provider', theProvider)
+    this.web3 = new Web3(theProvider)
 
     if (!this.account) {
       const accounts = await this.getAccounts()

@@ -94,6 +94,12 @@ export abstract class Contract<T = any> {
    * @return {Promise} - promise that resolves when the transaction does
    */
   transaction(method: string, ...args) {
+    if (!this.instance[method]) {
+      throw new Error(`${this.getContractName()}#transaction: Unknown method ${method}`)
+    }
+    if (typeof this.instance[method] !== 'function') {
+      throw new Error(`${this.getContractName()}#transaction: method ${method} is not a function`)
+    }
     return Contract.transaction(this.instance[method], ...args)
   }
 
@@ -104,6 +110,12 @@ export abstract class Contract<T = any> {
    * @return {Promise} - promise that resolves when the call does
    */
   call(prop: string, ...args) {
+    if (!this.instance[prop]) {
+      throw new Error(`${this.getContractName()}#call: Unknown method ${prop}`)
+    }
+    if (!this.instance[prop].call) {
+      throw new Error(`${this.getContractName()}#call: property ${prop} has no call signature`)
+    }
     return Contract.call(this.instance[prop], ...args)
   }
 

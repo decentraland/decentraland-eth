@@ -1,12 +1,26 @@
+import { promisify } from '../../utils'
+
+export interface TxRecipt {
+  transactionHash: string
+  transactionIndex: number
+  blockHash: string
+  blockNumber: number
+  gasUsed: number
+  cumulativeGasUsed: number
+  contractAddress: string
+  logs: any[]
+  status: string
+  logsBloom: string
+}
+
 // Interface
 export abstract class Wallet {
   type = this.getType()
   web3 = null
-  account: any
+  derivationPath = null
 
-  constructor(account) {
-    this.web3 = null
-    this.account = null
+  constructor(public account: string) {
+    // stub
   }
 
   abstract getType(): string
@@ -23,14 +37,18 @@ export abstract class Wallet {
     return this.account
   }
 
-  setAccount(account) {
-    if (this.isConnected()) {
+  setAccount(account: string) {
+    if (this.web3 && this.web3.eth) {
       this.web3.eth.defaultAccount = account
     }
     this.account = account
   }
 
-  async connect() {
+  /**
+   * Connects the wallet
+   * @param provider Receives the provider URL or the provider object from i.e. metamask
+   */
+  async connect(provider: string | object, networkId?: string) {
     throw new Error('Not implemented. Check wallet support')
   }
 
@@ -58,13 +76,38 @@ export abstract class Wallet {
   }
 
   /**
+   * Returns the balance of the account
+   * @return {Promise<any>} accounts
+   */
+  async getBalance(coinbase: string): Promise<any> {
+    return promisify(this.getWeb3().eth.getBalance)(coinbase)
+  }
+
+  async getCoinbase(): Promise<string> {
+    return promisify(this.getWeb3().eth.getCoinbase)()
+  }
+
+  async estimateGas(options: { data: string; to?: string }) {
+    return promisify(this.getWeb3().eth.estimateGas)(options)
+  }
+
+  async getContract(abi: any[]) {
+    return this.getWeb3().eth.contract(abi)
+  }
+
+  async getTransactionReceipt(txId: string): Promise<TxRecipt> {
+    return promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
+  }
+
+  /**
    * Creates a new contract instance with all its methods and events defined in its json interface object (abi).
    * @param  {object} abi     - Application Binary Interface.
    * @param  {string} address - Contract address
    * @return {object} instance
    */
-  createContractInstance(abi, address: string) {
-    return this.web3.eth.contract(abi).at(address)
+  async createContractInstance(abi: any[], address: string) {
+    const contract = await this.getContract(abi)
+    return contract.at(address)
   }
 
   /**
@@ -72,8 +115,8 @@ export abstract class Wallet {
    * @param  {string} password - Account password
    * @return {boolean} Whether the operation was successfull or not
    */
-  unlockAccount(password: string) {
-    return this.web3.personal.unlockAccount(this.account, password)
+  async unlockAccount(password: string) {
+    return promisify(this.web3.personal.unlockAccount)(this.getAccount(), password)
   }
 
   /**

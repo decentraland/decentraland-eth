@@ -4,8 +4,7 @@ import { ethUtils } from './ethUtils'
 import { promisify } from '../utils/index'
 import { Contract } from './Contract'
 import { error } from 'util'
-
-let web3 = null
+import { Wallet } from './wallets/Wallet'
 
 export type ConnectOptions = {
   /** An array of objects defining contracts or Contract subclasses to use. Check {@link eth#setContracts} */
@@ -14,6 +13,7 @@ export type ConnectOptions = {
   defaultAccount?: any
   /** URL for a provider forwarded to {@link Wallet#getWeb3Provider} */
   providerUrl?: string
+  provider?: object
   derivationPath?: string
 }
 
@@ -22,7 +22,7 @@ export namespace eth {
    * Filled on .connect()
    */
   export let contracts = {}
-  export let wallet = null
+  export let wallet: Wallet = null
 
   /**
    * Reference to the utilities object {@link ethUtils}
@@ -35,6 +35,7 @@ export namespace eth {
    * @param  {array<Contract>} [options.contracts=[]] - An array of objects defining contracts or Contract subclasses to use. Check {@link eth#setContracts}
    * @param  {string} [options.defaultAccount=web3.eth.accounts[0]] - Override the default account address
    * @param  {string} [options.providerUrl] - URL for a provider forwarded to {@link Wallet#getWeb3Provider}
+   * @param  {string} [options.provider] - A provider given by other library/plugin
    * @param  {string} [options.derivationPath] - Path to derive the hardware wallet in. Defaults to each wallets most common value
    * @return {boolean} - True if the connection was successful
    */
@@ -43,17 +44,16 @@ export namespace eth {
       disconnect()
     }
 
-    const { defaultAccount, providerUrl, derivationPath } = options
+    const { defaultAccount, provider, providerUrl, derivationPath } = options
 
     try {
-      wallet = await connectWallet(defaultAccount, providerUrl, derivationPath)
-      web3 = wallet.getWeb3()
+      wallet = await connectWallet(defaultAccount, provider || providerUrl, derivationPath)
 
       // connect old contracts
-      setContracts(Object.values(contracts))
+      await setContracts(Object.values(contracts))
 
       // connect new contracts
-      setContracts(options.contracts || [])
+      await setContracts(options.contracts || [])
 
       return true
     } catch (error) {
@@ -62,25 +62,32 @@ export namespace eth {
     }
   }
 
-  export async function connectWallet(defaultAccount, providerUrl = '', derivationPath = null): Promise<any> {
-    let wallet
+  export async function connectWallet(
+    defaultAccount: string,
+    provider: object | string = '',
+    derivationPath = null
+  ): Promise<any> {
+    let wallet: Wallet
     const networks = getNetworks()
 
     try {
-      const network = networks.find(network => providerUrl.includes(network.name)) || networks[0]
+      const network =
+        typeof provider === 'string'
+          ? networks.find(network => provider.includes(network.name)) || networks[0]
+          : networks[0]
 
       wallet = new LedgerWallet(defaultAccount, derivationPath)
-      await wallet.connect(providerUrl, network.id)
+      await wallet.connect(provider, network.id)
     } catch (error) {
       wallet = new NodeWallet(defaultAccount)
-      await wallet.connect(providerUrl)
+      await wallet.connect(provider)
     }
 
     return wallet
   }
 
   export function isConnected() {
-    return (wallet && wallet.isConnected()) || !!web3
+    return wallet && wallet.isConnected()
   }
 
   export function disconnect() {
@@ -89,7 +96,6 @@ export namespace eth {
     }
     wallet = null
     contracts = {}
-    web3 = null
   }
 
   export function getAddress() {
@@ -114,7 +120,7 @@ export namespace eth {
    * usable later via `.getContract`. Check {@link https://github.com/decentraland/decentraland-eth/tree/master/src/ethereum} for more info
    * @param  {array<Contract|object>} contracts - An array comprised of a wide variety of options: objects defining contracts, Contract subclasses or Contract instances.
    */
-  export function setContracts(_contracts: Contract[]) {
+  export async function setContracts(_contracts: Contract[]) {
     if (!isConnected()) {
       throw new Error('Tried to set eth contracts without connecting successfully first')
     }
@@ -133,7 +139,7 @@ export namespace eth {
 
       if (!contractName) continue
 
-      const instance = wallet.createContractInstance(contract.abi, contract.address)
+      const instance = await wallet.createContractInstance(contract.abi, contract.address)
       contract.setInstance(instance)
 
       contracts[contractName] = contract
@@ -165,7 +171,7 @@ export namespace eth {
    * @return {object}      - An object describing the transaction (if it exists)
    */
   export async function fetchTxStatus(txId) {
-    return promisify(web3.eth.getTransaction)(txId)
+    return promisify(wallet.getWeb3().eth.getTransaction)(txId)
   }
 
   /**
@@ -174,7 +180,7 @@ export namespace eth {
    * @return {object} - An object describing the transaction receipt (if it exists) with it's logs
    */
   export async function fetchTxReceipt(txId) {
-    const receipt = await promisify(web3.eth.getTransactionReceipt)(txId)
+    const receipt = await promisify(wallet.getWeb3().eth.getTransactionReceipt)(txId)
 
     if (receipt && receipt['logs']) {
       receipt['logs'] = Abi.decodeLogs(receipt['logs'])
@@ -184,7 +190,7 @@ export namespace eth {
   }
 
   export async function sign(payload) {
-    const message = utils.toHex(payload)
+    const message = ethUtils.toHex(payload)
     const signature = await wallet.sign(message)
     return { message, signature }
   }
@@ -232,11 +238,11 @@ export namespace eth {
    * @return {object} - An object describing the current network: { id, name, label }
    */
   export async function getNetwork() {
-    const id = await promisify(web3.version.getNetwork)()
+    const id = await promisify(wallet.getWeb3().version.getNetwork)()
     const networks = getNetworks()
     const network = networks.find(network => network.id === id)
     if (!network) {
-      throw new Error('Unknown Network')
+      throw new Error(`Unknown Network id: ${id}`)
     }
     return network
   }

@@ -3,9 +3,9 @@
  * @param  {Function} fn - Node style callback, accepting (error, result)
  * @return {Promise}
  */
-export function promisify(fn) {
+export function promisify<T = any>(fn) {
   return (...args) =>
-    new Promise((resolve, reject) => {
+    new Promise<T>((resolve, reject) => {
       fn(...args, (error, result) => {
         if (error) {
           reject(error)

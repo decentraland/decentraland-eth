@@ -1,7 +1,9 @@
 import { eth, Contract } from '../ethereum'
+import { CompleteContractMethods } from './verification'
 const { abi } = require('./artifacts/TerraformReserve.json')
 
 /** TerraformReserve contract class */
+@CompleteContractMethods(abi)
 export class TerraformReserve extends Contract {
   constructor(address: string) {
     super(address, abi)
