@@ -24,11 +24,9 @@ export class NodeWallet extends Wallet {
 
     if (!this.account) {
       const accounts = await this.getAccounts()
-      if (accounts.length === 0) {
-        throw new Error('Could not connect to web3')
+      if (accounts.length !== 0) {
+        this.setAccount(accounts[0])
       }
-
-      this.setAccount(accounts[0])
     }
   }
 
