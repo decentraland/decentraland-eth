@@ -19,7 +19,7 @@ export class NodeWallet extends Wallet {
     if (!theProvider) {
       throw new Error('Could not get a valid provider for web3')
     }
-    console.log('connecting with provider', theProvider)
+
     this.web3 = new Web3(theProvider)
 
     if (!this.account) {
