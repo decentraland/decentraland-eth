@@ -1,6 +1,6 @@
 import { promisify } from '../../utils'
 
-export interface TxRecipt {
+export interface TxReceipt {
   transactionHash: string
   transactionIndex: number
   blockHash: string
@@ -95,7 +95,7 @@ export abstract class Wallet {
     return this.getWeb3().eth.contract(abi)
   }
 
-  async getTransactionReceipt(txId: string): Promise<TxRecipt> {
+  async getTransactionReceipt(txId: string): Promise<TxReceipt> {
     return promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
   }
 
