@@ -1,5 +1,4 @@
 import { NodeWallet, LedgerWallet } from './wallets'
-import { Abi } from './abi'
 import { ethUtils } from './ethUtils'
 import { promisify } from '../utils/index'
 import { Contract } from './Contract'
@@ -163,30 +162,6 @@ export namespace eth {
     }
 
     return contracts[name]
-  }
-
-  /**
-   * Interface for the web3 `getTransaction` method
-   * @param  {string} txId - Transaction id/hash
-   * @return {object}      - An object describing the transaction (if it exists)
-   */
-  export async function fetchTxStatus(txId) {
-    return promisify(wallet.getWeb3().eth.getTransaction)(txId)
-  }
-
-  /**
-   * Interface for the web3 `getTransactionReceipt` method. It adds the decoded logs to the result (if any)
-   * @param  {string} txId - Transaction id/hash
-   * @return {object} - An object describing the transaction receipt (if it exists) with it's logs
-   */
-  export async function fetchTxReceipt(txId) {
-    const receipt = await promisify(wallet.getWeb3().eth.getTransactionReceipt)(txId)
-
-    if (receipt && receipt['logs']) {
-      receipt['logs'] = Abi.decodeLogs(receipt['logs'])
-    }
-
-    return receipt
   }
 
   export async function sign(payload) {

@@ -1,4 +1,5 @@
 import { promisify } from '../../utils'
+import { Abi } from '../abi/Abi'
 
 export interface TxReceipt {
   transactionHash: string
@@ -95,8 +96,23 @@ export abstract class Wallet {
     return this.getWeb3().eth.contract(abi)
   }
 
+  /**
+   * Interface for the web3 `getTransaction` method
+   * @param  {string} txId - Transaction id/hash
+   * @return {object}      - An object describing the transaction (if it exists)
+   */
+  async getTransactionStatus(txId: string) {
+    return promisify(this.getWeb3().eth.getTransaction)(txId)
+  }
+
   async getTransactionReceipt(txId: string): Promise<TxReceipt> {
-    return promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
+    const receipt = await promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
+
+    if (receipt && receipt['logs']) {
+      receipt['logs'] = Abi.decodeLogs(receipt['logs'])
+    }
+
+    return receipt
   }
 
   /**

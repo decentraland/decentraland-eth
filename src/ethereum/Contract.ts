@@ -18,8 +18,6 @@ export abstract class Contract<T = any> {
     this.setAbi(abi)
 
     this.instance = null
-
-    this.abi.extend(this)
   }
 
   /**

@@ -20,7 +20,7 @@ export const ethUtils = {
    * @param  {string} [unit=ether]     - Which unit to use. {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3fromwei} for more info
    * @return {string} - Parsed result
    */
-  fromWei(amount, unit = 'ether') {
+  fromWei(amount, unit = 'ether'): number {
     amount = web3utils.toBigNumber(amount)
     return web3utils.fromWei(amount, unit).toNumber(10)
   },
@@ -31,7 +31,7 @@ export const ethUtils = {
    * @param  {string} [unit=ether]     - Which unit to use. {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3towei} for more info
    * @return {string} - Parsed result
    */
-  toWei(amount: number, unit = 'ether'): string {
+  toWei(amount: number, unit = 'ether'): number {
     amount = web3utils.toBigNumber(amount)
     return web3utils.toWei(amount, unit).toNumber(10)
   },

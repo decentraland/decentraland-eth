@@ -1,6 +1,6 @@
 import * as CSV from 'comma-separated-values'
 import { Contract } from '../ethereum'
-import { CompleteContractMethods } from './verification'
+import { fulfillContractMethods } from './verification'
 const { abi } = require('./artifacts/LANDRegistry.json')
 
 const MAX_NAME_LENGTH = 50
@@ -14,12 +14,12 @@ export class DataError extends Error {
 }
 
 /** LANDToken contract class */
-@CompleteContractMethods(abi)
 export class LANDRegistry extends Contract {
   static DataError = DataError
 
   constructor(address: string) {
     super(address, abi)
+    fulfillContractMethods(this, abi)
   }
 
   static decodeLandData(data = '') {
@@ -68,10 +68,10 @@ export class LANDRegistry extends Contract {
     return 'LANDRegistry'
   }
 
-  async updateManyLandData(coordinates, data, opts = {}) {
+  async updateManyLandData(coordinates: { x: number; y: number }[], data: string) {
     const x = coordinates.map(coor => coor.x)
     const y = coordinates.map(coor => coor.y)
-    return this.transaction('updateManyLandData', x, y, data, opts)
+    return this.transaction('updateManyLandData', x, y, data)
   }
 
   async assignNewParcel(x, y, address, opts = {}) {
@@ -79,7 +79,7 @@ export class LANDRegistry extends Contract {
     return this.transaction('assignNewParcel', x, y, address, opts)
   }
 
-  async assignMultipleParcels(x, y, address, opts = {}) {
+  async assignMultipleParcels(x: number, y: number, address: string, opts = {}) {
     opts = Object.assign({ gas: 1000000, gasPrice: 28 * 1e9 }, opts)
     return this.transaction('assignMultipleParcels', x, y, address, opts)
   }

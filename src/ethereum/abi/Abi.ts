@@ -1,30 +1,6 @@
 import { abiDecoder } from './abi-decoder'
 
 const abi = {
-  extend(contract) {
-    const call = (name, ...args) => contract.call(name, ...args)
-    const transaction = (name, ...args) => contract.transaction(name, ...args)
-
-    for (const method of this) {
-      const { name, stateMutability, type } = method
-
-      if (typeof contract[name] !== 'undefined') continue
-
-      switch (type) {
-        case 'function': {
-          if (stateMutability === 'view') {
-            contract[name] = call.bind(null, name)
-          } else if (stateMutability === 'nonpayable') {
-            contract[name] = transaction.bind(null, name)
-          }
-          break
-        }
-        default:
-          break
-      }
-    }
-  },
-
   /**
    * Get the contract events
    * @return {Array<string>} - events

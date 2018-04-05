@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { eth } from '../dist'
+import { eth, txUtils } from '../dist'
 import { MANAToken } from '../dist/contracts'
 const ganache = require('ganache-cli')
 
@@ -107,6 +107,10 @@ function doTest() {
     const txRecipt = await eth.wallet.getTransactionReceipt(contract.transactionHash)
     expect(typeof txRecipt.contractAddress).to.eq('string')
     expect(txRecipt.contractAddress.length).to.be.greaterThan(0)
+    const x = await txUtils.getTransaction(contract.transactionHash)
+    expect(typeof x).eq('object')
+    expect(x.hash).eq(contract.transactionHash)
+    expect(typeof x.recepeit).eq('object')
     manaAddress = txRecipt.contractAddress
   })
 
@@ -125,6 +129,7 @@ function doTest() {
       const account = await eth.wallet.getAccount()
       const balance = await MANAFacade.balanceOf(account)
       expect(balance.toString()).eq('0')
+      expect(typeof balance).eq('number')
     }
     {
       const balance = await MANAFacade.balanceOf('0x0')

@@ -1,5 +1,5 @@
 import { eth, Contract } from '../ethereum'
-import { CompleteContractMethods } from './verification'
+import { fulfillContractMethods } from './verification'
 
 const { abi } = require('./artifacts/MANAToken.json')
 
@@ -22,10 +22,10 @@ export interface MANAToken {
 }
 
 /** MANAToken contract class */
-@CompleteContractMethods(abi)
 export class MANAToken extends Contract {
   constructor(address: string) {
     super(address, abi)
+    fulfillContractMethods(this, abi)
   }
 
   getContractName() {
@@ -41,7 +41,7 @@ export class MANAToken extends Contract {
     return eth.utils.fromWei(assigned)
   }
 
-  async balanceOf(owner: string) {
+  async balanceOf(owner: string): Promise<number> {
     const manaBalance = await this.call('balanceOf', owner)
     return eth.utils.fromWei(manaBalance)
   }

@@ -8,7 +8,7 @@ import { eth } from './eth'
 export namespace txUtils {
   export let DUMMY_TX_ID = '0xdeadbeef'
 
-  export let TRANSACTION_FETCH_DELAY = 10 * 1000
+  export let TRANSACTION_FETCH_DELAY = 2 * 1000
 
   export let TRANSACTION_STATUS = Object.freeze({
     pending: 'pending',
@@ -23,14 +23,14 @@ export namespace txUtils {
    * @param  {Array<string>|string} events - Events to watch. See {@link txUtils#getLogEvents}
    * @return {object} data - Current transaction data. See {@link txUtils#getTransaction}
    */
-  export async function getConfirmedTransaction(txId, events) {
+  export async function getConfirmedTransaction(txId: string, events: string[]) {
     const tx = await waitForCompletion(txId)
 
-    if (this.isFailure(tx)) {
+    if (isFailure(tx)) {
       throw new Error(`Transaction "${txId}" failed`)
     }
 
-    if (!this.hasLogEvents(tx, events)) {
+    if (!hasLogEvents(tx, events)) {
       throw new Error(`Missing events for transaction "${txId}": ${events}`)
     }
 
@@ -42,15 +42,16 @@ export namespace txUtils {
    * @param  {string} txId - Transaction id to watch
    * @return {object} data - Current transaction data. See {@link txUtils#getTransaction}
    */
-  export async function waitForCompletion(txId): Promise<any> {
-    const tx = await this.getTransaction(txId)
+  export async function waitForCompletion(txId: string): Promise<any> {
+    while (true) {
+      const tx = await getTransaction(txId)
 
-    if (this.isPending(tx) || !tx.recepeit) {
-      await sleep(this.TRANSACTION_FETCH_DELAY)
-      return this.waitForCompletion(txId)
+      if (isPending(tx) || !tx.recepeit) {
+        await sleep(TRANSACTION_FETCH_DELAY)
+      } else {
+        return tx
+      }
     }
-
-    return tx
   }
 
   /**
@@ -59,8 +60,11 @@ export namespace txUtils {
    * @return {object} data - Current transaction data. See {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethgettransaction}
    * @return {object.recepeit} transaction - Transaction recepeit
    */
-  export async function getTransaction(txId) {
-    const [tx, recepeit] = await Promise.all([eth.fetchTxStatus(txId), eth.fetchTxReceipt(txId)])
+  export async function getTransaction(txId: string) {
+    const [tx, recepeit] = await Promise.all([
+      eth.wallet.getTransactionStatus(txId),
+      eth.wallet.getTransactionReceipt(txId)
+    ])
 
     return { ...tx, recepeit }
   }
@@ -71,8 +75,8 @@ export namespace txUtils {
    * @param {object} tx - The transaction object
    * @return boolean
    */
-  export async function isPending(tx) {
-    return tx && (tx.blockNumber === null || tx.status === this.TRANSACTION_STATUS.pending)
+  export function isPending(tx) {
+    return tx && (tx.blockNumber === null || tx.status === TRANSACTION_STATUS.pending)
   }
 
   /**
@@ -81,8 +85,8 @@ export namespace txUtils {
    * @param {object} tx - The transaction object
    * @return boolean
    */
-  export async function isFailure(tx) {
-    return tx && (!tx.recepeit || tx.recepeit.status === '0x0' || tx.status === this.TRANSACTION_STATUS.failed)
+  export function isFailure(tx) {
+    return tx && (!tx.recepeit || tx.recepeit.status === '0x0' || tx.status === TRANSACTION_STATUS.failed)
   }
 
   /**
@@ -91,7 +95,7 @@ export namespace txUtils {
    * @param {Array<string>|string} eventNames - A string or array of strings with event names you want to search for
    * @return boolean
    */
-  export async function hasLogEvents(tx, eventNames) {
+  export function hasLogEvents(tx, eventNames: string[]) {
     if (!eventNames || eventNames.length === 0) return true
     if (!tx.recepit) return false
 
