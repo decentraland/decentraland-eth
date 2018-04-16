@@ -8,3 +8,5 @@
 **/*.js
 **/*.js.map
 **/*.d.ts
+.DS_Store
+**/.DS_Store
