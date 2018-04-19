@@ -30,7 +30,7 @@ export class LedgerWallet extends Wallet {
     return 'ledger'
   }
 
-  async connect(providerUrl: string | object, networkId?: string) {
+  async connect(providerUrl: object | string, networkId?: string) {
     if (typeof providerUrl === 'object') {
       throw new Error('Ledger wallet only allows string providers')
     }

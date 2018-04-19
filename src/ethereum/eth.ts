@@ -10,9 +10,8 @@ export type ConnectOptions = {
   contracts?: any[]
   /** An array of Wallet classes. Check {@link wallets} */
   wallets?: Wallet[]
-  /** URL for a provider forwarded to {@link Wallet#getWeb3Provider} */
-  providerUrl?: string
-  provider?: object
+  /** A provider given by other library/plugin or an URL for a provider forwarded to {@link Wallet#getWeb3Provider} */
+  provider?: object | string
 }
 
 export namespace eth {
@@ -32,8 +31,7 @@ export namespace eth {
    * @param  {object} [options] - Options for the ETH connection
    * @param  {array<Contract>} [options.contracts=[NodeWallet]] - An array of objects defining contracts Defaults to a NodeWallet instance. Check {@link eth#setContracts}
    * @param  {array<Wallet>} [options.wallets=[]] - An array of Wallet instances. It'll use the first successful connection. Check {@link wallets}
-   * @param  {string} [options.providerUrl] - URL for a provider forwarded to {@link Wallet#getWeb3Provider}
-   * @param  {string} [options.provider] - A provider given by other library/plugin
+   * @param  {string} [options.provider = ''] - A provider given by other library/plugin or an URL for a provider forwarded to {@link Wallet#getWeb3Provider}
    * @return {boolean} - True if the connection was successful
    */
   export async function connect(options: ConnectOptions = {}) {
@@ -41,10 +39,10 @@ export namespace eth {
       disconnect()
     }
 
-    const { wallets = [new NodeWallet()], provider, providerUrl } = options
+    const { wallets = [new NodeWallet()], provider = '' } = options
 
     try {
-      wallet = await connectWallet(wallets, provider || providerUrl)
+      wallet = await connectWallet(wallets, provider)
 
       // connect old contracts
       await setContracts(Object.values(contracts))
@@ -61,12 +59,10 @@ export namespace eth {
 
   export async function connectWallet(wallets: Wallet[], provider: object | string): Promise<Wallet> {
     const networks = getNetworks()
-    const network =
-      typeof provider === 'string'
-        ? networks.find(network => provider.includes(network.name)) || networks[0]
-        : networks[0]
+    const network = networks.find(network => provider.toString().includes(network.name)) || networks[0]
 
     const errors = []
+
     for (const wallet of wallets) {
       try {
         await wallet.connect(provider, network.id)

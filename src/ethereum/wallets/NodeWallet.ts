@@ -13,7 +13,7 @@ export class NodeWallet extends Wallet {
     return 'node'
   }
 
-  async connect(provider: string | object) {
+  async connect(provider: object | string) {
     const theProvider = typeof provider === 'object' ? provider : await this.getProvider(provider)
 
     if (!theProvider) {
