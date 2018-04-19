@@ -1,4 +1,4 @@
-import { NodeWallet, LedgerWallet } from './wallets'
+import { NodeWallet } from './wallets'
 import { ethUtils } from './ethUtils'
 import { promisify } from '../utils/index'
 import { Contract } from './Contract'
@@ -8,12 +8,11 @@ import { Wallet } from './wallets/Wallet'
 export type ConnectOptions = {
   /** An array of objects defining contracts or Contract subclasses to use. Check {@link eth#setContracts} */
   contracts?: any[]
-  /** Override the default account address */
-  defaultAccount?: any
+  /** An array of Wallet classes. Check {@link wallets} */
+  wallets?: Wallet[]
   /** URL for a provider forwarded to {@link Wallet#getWeb3Provider} */
   providerUrl?: string
   provider?: object
-  derivationPath?: string
 }
 
 export namespace eth {
@@ -31,11 +30,10 @@ export namespace eth {
   /**
    * Connect to web3
    * @param  {object} [options] - Options for the ETH connection
-   * @param  {array<Contract>} [options.contracts=[]] - An array of objects defining contracts or Contract subclasses to use. Check {@link eth#setContracts}
-   * @param  {string} [options.defaultAccount=web3.eth.accounts[0]] - Override the default account address
+   * @param  {array<Contract>} [options.contracts=[NodeWallet]] - An array of objects defining contracts Defaults to a NodeWallet instance. Check {@link eth#setContracts}
+   * @param  {array<Wallet>} [options.wallets=[]] - An array of Wallet instances. It'll use the first successful connection. Check {@link wallets}
    * @param  {string} [options.providerUrl] - URL for a provider forwarded to {@link Wallet#getWeb3Provider}
    * @param  {string} [options.provider] - A provider given by other library/plugin
-   * @param  {string} [options.derivationPath] - Path to derive the hardware wallet in. Defaults to each wallets most common value
    * @return {boolean} - True if the connection was successful
    */
   export async function connect(options: ConnectOptions = {}) {
@@ -43,10 +41,10 @@ export namespace eth {
       disconnect()
     }
 
-    const { defaultAccount, provider, providerUrl, derivationPath } = options
+    const { wallets = [new NodeWallet()], provider, providerUrl } = options
 
     try {
-      wallet = await connectWallet(defaultAccount, provider || providerUrl, derivationPath)
+      wallet = await connectWallet(wallets, provider || providerUrl)
 
       // connect old contracts
       await setContracts(Object.values(contracts))
@@ -61,28 +59,24 @@ export namespace eth {
     }
   }
 
-  export async function connectWallet(
-    defaultAccount: string,
-    provider: object | string = '',
-    derivationPath = null
-  ): Promise<any> {
-    let wallet: Wallet
+  export async function connectWallet(wallets: Wallet[], provider: object | string): Promise<Wallet> {
     const networks = getNetworks()
+    const network =
+      typeof provider === 'string'
+        ? networks.find(network => provider.includes(network.name)) || networks[0]
+        : networks[0]
 
-    try {
-      const network =
-        typeof provider === 'string'
-          ? networks.find(network => provider.includes(network.name)) || networks[0]
-          : networks[0]
-
-      wallet = new LedgerWallet(defaultAccount, derivationPath)
-      await wallet.connect(provider, network.id)
-    } catch (error) {
-      wallet = new NodeWallet(defaultAccount)
-      await wallet.connect(provider)
+    const errors = []
+    for (const wallet of wallets) {
+      try {
+        await wallet.connect(provider, network.id)
+        return wallet
+      } catch (error) {
+        errors.push(error.message)
+      }
     }
 
-    return wallet
+    throw new Error(errors.join('\n'))
   }
 
   export function isConnected() {
