@@ -57,7 +57,7 @@ describe('ETH tests', () => {
     })
 
     it('should call .connect({}) and it works', async () => {
-      const r = await eth.connect({ providerUrl: 'http://localhost:7654' })
+      const r = await eth.connect({ provider: 'http://localhost:7654' })
       expect(r).to.eq(true)
     })
 

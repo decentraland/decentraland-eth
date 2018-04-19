@@ -20,7 +20,7 @@ export abstract class Wallet {
   web3 = null
   derivationPath = null
 
-  constructor(public account: string) {
+  constructor(public account?: string) {
     // stub
   }
 
