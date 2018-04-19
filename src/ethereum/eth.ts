@@ -95,14 +95,6 @@ export namespace eth {
     return wallet.getAccount()
   }
 
-  export function getWalletAttributes() {
-    return {
-      account: wallet.account,
-      type: wallet.type,
-      derivationPath: wallet.derivationPath
-    }
-  }
-
   /**
    * Set the Ethereum contracts to use on the `contracts` property. It builds a map of
    *   { [Contract Name]: Contract instance }
