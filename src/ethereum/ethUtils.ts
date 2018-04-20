@@ -45,6 +45,25 @@ export const ethUtils = {
   },
 
   /**
+   * Checks if the address is a valid. Accepts checksummed addresses too
+   * @param  {string}  address
+   * @return {boolean}
+   */
+  isValidAddress(address: string): boolean {
+    return ethereumJsUtil.isValidAddress(address)
+  },
+
+  /**
+   * Creates SHA-3 (Keccak) hash of the input
+   * @param  {Buffer | string} data - The input data
+   * @param  {Number} [bits] - Number the SHA-3 width. Defaults to 256
+   * @return {string}      [description]
+   */
+  sha3(data: Buffer | string, bits: Number): string {
+    return ethereumJsUtil.sha3(data)
+  },
+
+  /**
    * ECDSA sign some data
    * @param  {Buffer|string} data    - Data to sign. If it's a string, it'll be converted to a Buffer using sha3
    * @param  {Buffer|string} privKey - private key to sign with. If it's a string, it'll converted to an hex Buffer
