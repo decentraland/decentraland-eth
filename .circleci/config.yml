@@ -41,8 +41,6 @@ jobs:
 
       - run: npm run build
 
-      # - run: ./docs.sh
-
       - save_cache:
           paths:
             - "."
@@ -63,6 +61,9 @@ jobs:
       # since node 7.10 comes with npm 4 and npx is only available on npm >= 5 it has to be installed first, and run from the local node_modules
       # TODO: we should replace the following line with just "npm run semantic-release" once there's a node:8 image available at circle-ci
       - run: npm install npx && node_modules/npx/index.js -p node@8 -c "npx semantic-release"
+
+      # Build the docs only on deployments
+      - run: ./docs.sh
 
 workflows:
   version: 2
