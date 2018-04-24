@@ -4,18 +4,22 @@
   "description": "Common functionality between the different Decentraland projects",
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",
+  "browser": {
+    "./dist/index.js": "./dist-es5/index.js"
+  },
   "scripts": {
     "docs": "npx typedoc --out out src/index.ts",
     "lint:fix": "tslint --project tsconfig.json --fix",
     "lint": "tslint --project tsconfig.json",
     "init": "mkdir -p dist",
     "trim-artifacts": "node ./scripts/contracts/index.js trim-artifacts --write",
-    "copy-contracts": "mkdir -p dist/contracts/artifacts && cp -r src/contracts/artifacts dist/contracts",
+    "copy-contracts":
+      "mkdir -p dist/contracts/artifacts && cp -r src/contracts/artifacts dist/contracts && mkdir -p dist-es5/contracts/artifacts && cp -r src/contracts/artifacts dist-es5/contracts",
     "contracts-manifest": "node ./scripts/contracts/index.js generate-manifest --write",
     "contracts": "npm run trim-artifacts && npm run copy-contracts",
-    "clean": "(rm -r dist || true)",
+    "clean": "(rm -r dist || true) && (rm -r dist-es5 || true)",
     "prebuild": "npm run clean && npm run lint && tsc -p scripts/tsconfig.json && npm run contracts",
-    "build": "tsc -p src/tsconfig.json",
+    "build": "tsc -p src/tsconfig.json && tsc -p src/tsconfig.es5.json",
     "fastbuild": "npm run clean && tsc -p tsconfig.json",
     "test": "npm run build && tsc -p specs/tsconfig.json && mocha specs/**/*.spec.js",
     "semantic-release": "semantic-release",
@@ -25,14 +29,8 @@
     "type": "git",
     "url": "https://github.com/decentraland/decentraland-eth.git"
   },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "common",
-    "modules",
-    "decentraland"
-  ],
+  "files": ["dist", "dist-es5"],
+  "keywords": ["common", "modules", "decentraland"],
   "author": "Decentraland",
   "license": "ISC",
   "dependencies": {
