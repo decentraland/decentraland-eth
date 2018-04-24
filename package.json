@@ -4,6 +4,9 @@
   "description": "Common functionality between the different Decentraland projects",
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",
+  "browser": {
+    "./dist/index.js": "./dist-es5/index.js"
+  },
   "scripts": {
     "docs": "npx typedoc --out out src/index.ts",
     "lint:fix": "tslint --project tsconfig.json --fix",
@@ -15,7 +18,7 @@
     "contracts": "npm run trim-artifacts && npm run copy-contracts",
     "clean": "(rm -r dist || true)",
     "prebuild": "npm run clean && npm run lint && tsc -p scripts/tsconfig.json && npm run contracts",
-    "build": "tsc -p src/tsconfig.json",
+    "build": "tsc -p src/tsconfig.json && tsc -p src/tsconfig.es5.json",
     "fastbuild": "npm run clean && tsc -p tsconfig.json",
     "test": "npm run build && tsc -p specs/tsconfig.json && mocha specs/**/*.spec.js",
     "semantic-release": "semantic-release",
@@ -25,14 +28,8 @@
     "type": "git",
     "url": "https://github.com/decentraland/decentraland-eth.git"
   },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "common",
-    "modules",
-    "decentraland"
-  ],
+  "files": ["dist", "dist-es5"],
+  "keywords": ["common", "modules", "decentraland"],
   "author": "Decentraland",
   "license": "ISC",
   "dependencies": {
