@@ -4,6 +4,7 @@ import { promisify } from '../utils/index'
 import { Contract } from './Contract'
 import { error } from 'util'
 import { Wallet } from './wallets/Wallet'
+import { Abi } from './abi'
 
 export type ConnectOptions = {
   /** An array of objects defining contracts or Contract subclasses to use. Check {@link eth#setContracts} */
@@ -12,6 +13,12 @@ export type ConnectOptions = {
   wallets?: Wallet[]
   /** A provider given by other library/plugin or an URL for a provider forwarded to {@link Wallet#getWeb3Provider} */
   provider?: object | string
+}
+
+export type Network = {
+  id: string
+  name: string
+  label: string
 }
 
 export namespace eth {
@@ -146,6 +153,30 @@ export namespace eth {
     return contracts[name]
   }
 
+  /**
+   * Interface for the web3 `getTransaction` method
+   * @param  {string} txId - Transaction id/hash
+   * @return {object}      - An object describing the transaction (if it exists)
+   */
+  export function fetchTxStatus(txId: string): Promise<object> {
+    return promisify(wallet.getWeb3().eth.getTransaction)(txId)
+  }
+
+  /**
+   * Interface for the web3 `getTransactionReceipt` method. It adds the decoded logs to the result (if any)
+   * @param  {string} txId - Transaction id/hash
+   * @return {object} - An object describing the transaction receipt (if it exists) with it's logs
+   */
+  export async function fetchTxReceipt(txId: string): Promise<object> {
+    const receipt = await promisify(wallet.getWeb3().eth.getTransactionReceipt)(txId)
+
+    if (receipt) {
+      receipt.logs = Abi.decodeLogs(receipt.logs)
+    }
+
+    return receipt
+  }
+
   export async function sign(payload) {
     const message = ethUtils.toHex(payload)
     const signature = await wallet.sign(message)
@@ -160,7 +191,7 @@ export namespace eth {
    * Get a list of known networks
    * @return {array} - An array of objects describing each network: { id, name, label }
    */
-  export function getNetworks() {
+  export function getNetworks(): Array<Network> {
     return [
       {
         id: '1',
@@ -194,7 +225,7 @@ export namespace eth {
    * Interface for the web3 `getNetwork` method (it adds the network name and label).
    * @return {object} - An object describing the current network: { id, name, label }
    */
-  export async function getNetwork() {
+  export async function getNetwork(): Promise<Network> {
     const id = await promisify(wallet.getWeb3().version.getNetwork)()
     const networks = getNetworks()
     const network = networks.find(network => network.id === id)
