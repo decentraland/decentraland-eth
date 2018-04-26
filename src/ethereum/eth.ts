@@ -2,7 +2,6 @@ import { NodeWallet } from './wallets'
 import { ethUtils } from './ethUtils'
 import { promisify } from '../utils/index'
 import { Contract } from './Contract'
-import { error } from 'util'
 import { Wallet } from './wallets/Wallet'
 
 export type ConnectOptions = {
@@ -115,10 +114,9 @@ export namespace eth {
         contract = contractData
         contractName = contract.getContractName()
       } else {
-        error('The parameter is not instance of a contract', contractData)
+        console.error('The parameter is not instance of a contract', contractData)
+        continue
       }
-
-      if (!contractName) continue
 
       const instance = await wallet.createContractInstance(contract.abi, contract.address)
       contract.setInstance(instance)
