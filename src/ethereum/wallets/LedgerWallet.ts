@@ -3,8 +3,8 @@ import Web3 = require('web3')
 import TransportU2F from '@ledgerhq/hw-transport-u2f'
 import Eth from '@ledgerhq/hw-app-eth'
 
-import ProviderEngine from 'web3-provider-engine'
-import RpcSubprovider from 'web3-provider-engine/subproviders/rpc'
+import * as ProviderEngine from 'web3-provider-engine'
+import * as RpcSubprovider from 'web3-provider-engine/subproviders/rpc'
 import LedgerWalletSubprovider from 'ledger-wallet-provider'
 
 import { Wallet } from './Wallet'
