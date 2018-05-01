@@ -103,7 +103,7 @@ eth.fetchTxStatus(<span class="hljs-string">'TX_HASH'</span>)
 
 <span class="hljs-keyword">const</span> contract = <span class="hljs-keyword">new</span> Contract(<span class="hljs-string">'0xdeadbeef'</span>, abi)
 
-<span class="hljs-keyword">await</span> contract.call(<span class="hljs-string">'allowance'</span>, sender, receiver)
+<span class="hljs-keyword">await</span> contract.sendCall(<span class="hljs-string">'allowance'</span>, sender, receiver)
 <span class="hljs-keyword">await</span> contract.transaction(<span class="hljs-string">'lockMana'</span>, manaValue)
 </code></pre>
 				<h3 id="txutils-js">txUtils.js</h3>
