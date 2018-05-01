@@ -19,32 +19,32 @@ export class DecentralandVesting extends Contract {
   }
 
   async duration() {
-    const bigNumber: BigNumber = await this.call('duration')
+    const bigNumber: BigNumber = await this.sendCall('duration')
     return bigNumber.toNumber()
   }
 
   async cliff() {
-    const bigNumber: BigNumber = await this.call('cliff')
+    const bigNumber: BigNumber = await this.sendCall('cliff')
     return bigNumber.toNumber()
   }
 
   async vestedAmount() {
-    const bigNumber: BigNumber = await this.call('vestedAmount')
+    const bigNumber: BigNumber = await this.sendCall('vestedAmount')
     return eth.utils.fromWei(bigNumber.toNumber())
   }
 
   async releasableAmount() {
-    const bigNumber: BigNumber = await this.call('releasableAmount')
+    const bigNumber: BigNumber = await this.sendCall('releasableAmount')
     return eth.utils.fromWei(bigNumber.toNumber())
   }
 
   async released() {
-    const bigNumber: BigNumber = await this.call('released')
+    const bigNumber: BigNumber = await this.sendCall('released')
     return eth.utils.fromWei(bigNumber.toNumber())
   }
 
   async start() {
-    const bigNumber: BigNumber = await this.call('start')
+    const bigNumber: BigNumber = await this.sendCall('start')
     return bigNumber.toNumber()
   }
 }

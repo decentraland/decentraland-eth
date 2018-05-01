@@ -138,7 +138,7 @@ function doTest() {
   })
 
   it('should fail by invoking an unexistent method', async () => {
-    expect(() => MANAFacade.call('asdasd')).to.throw()
+    expect(() => MANAFacade.sendCall('asdasd')).to.throw()
   })
 
   it('should fail by pointing to a contract to wrong address', function(done) {

@@ -71,16 +71,6 @@ export class LANDRegistry extends Contract {
   async updateManyLandData(coordinates: { x: number; y: number }[], data: string) {
     const x = coordinates.map(coor => coor.x)
     const y = coordinates.map(coor => coor.y)
-    return this.transaction('updateManyLandData', x, y, data)
-  }
-
-  async assignNewParcel(x, y, address, opts = {}) {
-    opts = Object.assign({ gas: 4000000, gasPrice: 28 * 1e9 }, opts)
-    return this.transaction('assignNewParcel', x, y, address, opts)
-  }
-
-  async assignMultipleParcels(x: number, y: number, address: string, opts = {}) {
-    opts = Object.assign({ gas: 1000000, gasPrice: 28 * 1e9 }, opts)
-    return this.transaction('assignMultipleParcels', x, y, address, opts)
+    return this.sendTransaction('updateManyLandData', x, y, data)
   }
 }

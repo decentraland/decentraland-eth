@@ -39,11 +39,11 @@ export class ContractFile {
 
           if (stateMutability === 'view') {
             extensions[name] = `function(${args}) {
-            return this.call('${name}', ${args})
+            return this.sendCall('${name}', ${args})
           }`
           } else if (stateMutability === 'nonpayable') {
             extensions[name] = `function(${args}) {
-            return this.transaction('${name}', ${args})
+            return this.sendTransaction('${name}', ${args})
           }`
           }
           break

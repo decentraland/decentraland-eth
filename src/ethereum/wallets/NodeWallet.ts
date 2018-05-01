@@ -45,12 +45,12 @@ export class NodeWallet extends Wallet {
   }
 
   async getAccounts(): Promise<any[]> {
-    return Contract.transaction(this.web3.eth.getAccounts)
+    return Contract.sendTransaction(this.web3.eth.getAccounts)
   }
 
   async sign(message: string) {
     const sign = this.web3.personal.sign.bind(this.web3.personal)
-    return Contract.transaction(sign, message, this.account)
+    return Contract.sendTransaction(sign, message, this.account)
   }
 
   async recover(message: string, signature: string) {
