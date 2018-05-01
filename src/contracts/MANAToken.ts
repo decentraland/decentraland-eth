@@ -33,16 +33,16 @@ export class MANAToken extends Contract {
   }
 
   async approve(spender: string, mana: number) {
-    return this.transaction('approve', spender, eth.utils.toWei(mana))
+    return this.sendTransaction('approve', spender, eth.utils.toWei(mana))
   }
 
   async allowance(owner: string, spender: string) {
-    const assigned = await this.call('allowance', owner, spender)
+    const assigned = await this.sendCall('allowance', owner, spender)
     return eth.utils.fromWei(assigned)
   }
 
   async balanceOf(owner: string): Promise<number> {
-    const manaBalance = await this.call('balanceOf', owner)
+    const manaBalance = await this.sendCall('balanceOf', owner)
     return eth.utils.fromWei(manaBalance)
   }
 }

@@ -30,16 +30,16 @@ export abstract class Contract<T = any> {
   }
 
   /**
-   * See {@link Contract#transaction}
+   * See {@link Contract#sendTransaction}
    */
-  static async transaction(method: Function, ...args): Promise<any> {
+  static async sendTransaction(method: Function, ...args): Promise<any> {
     return promisify(method)(...args)
   }
 
   /**
-   * See {@link Contract#call}
+   * See {@link Contract#sendCall}
    */
-  static async call(prop, ...args): Promise<any> {
+  static async sendCall(prop, ...args): Promise<any> {
     return promisify(prop.call)(...args)
   }
 
@@ -91,14 +91,14 @@ export abstract class Contract<T = any> {
    * @param  {...object} args   - Every argument after the name will be fordwarded to the transaction method, in order
    * @return {Promise} - promise that resolves when the transaction does
    */
-  transaction(method: string, ...args) {
+  sendTransaction(method: string, ...args) {
     if (!this.instance[method]) {
-      throw new Error(`${this.getContractName()}#transaction: Unknown method ${method}`)
+      throw new Error(`${this.getContractName()}#sendTransaction: Unknown method ${method}`)
     }
     if (typeof this.instance[method] !== 'function') {
-      throw new Error(`${this.getContractName()}#transaction: method ${method} is not a function`)
+      throw new Error(`${this.getContractName()}#sendTransaction: method ${method} is not a function`)
     }
-    return Contract.transaction(this.instance[method], ...args)
+    return Contract.sendTransaction(this.instance[method], ...args)
   }
 
   /**
@@ -107,14 +107,14 @@ export abstract class Contract<T = any> {
    * @param  {...object} args   - Every argument after the name will be fordwarded to the call function, in order
    * @return {Promise} - promise that resolves when the call does
    */
-  call(prop: string, ...args) {
+  sendCall(prop: string, ...args) {
     if (!this.instance[prop]) {
-      throw new Error(`${this.getContractName()}#call: Unknown method ${prop}`)
+      throw new Error(`${this.getContractName()}#sendCall: Unknown method ${prop}`)
     }
     if (!this.instance[prop].call) {
-      throw new Error(`${this.getContractName()}#call: property ${prop} has no call signature`)
+      throw new Error(`${this.getContractName()}#sendCall: property ${prop} has no call signature`)
     }
-    return Contract.call(this.instance[prop], ...args)
+    return Contract.sendCall(this.instance[prop], ...args)
   }
 
   getEvent(eventName) {

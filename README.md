@@ -50,7 +50,7 @@ import { abi } from './abis/MANAToken.json'
 
 const contract = new Contract('0xdeadbeef', abi)
 
-await contract.call('allowance', sender, receiver)
+await contract.sendCall('allowance', sender, receiver)
 await contract.transaction('lockMana', manaValue)
 ```
 
