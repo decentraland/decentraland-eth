@@ -40,7 +40,9 @@
     "@ledgerhq/hw-transport-u2f": "^2.2.0",
     "comma-separated-values": "^3.6.4",
     "ledger-wallet-provider": "^2.0.0-beta.2",
-    "web3": "^0.20.6"
+    "web3-provider-engine": "^13.8.0",
+    "web3": "^0.20.6",
+    "ethereumjs-util": "^5.1.5"
   },
   "prettier": {
     "printWidth": 120,
@@ -55,7 +57,6 @@
     "chai": "^4.1.2",
     "commander": "^2.15.1",
     "dcl-tslint-config-standard": "^1.0.1",
-    "ethereumjs-util": "^5.1.5",
     "ganache-cli": "^6.1.0",
     "husky": "^0.14.3",
     "mocha": "^4.0.1",
@@ -65,7 +66,6 @@
     "tslint": "^5.9.1",
     "tslint-language-service": "^0.9.9",
     "typescript": "^2.8.1",
-    "validate-commit-msg": "^2.14.0",
-    "web3-provider-engine": "^13.8.0"
+    "validate-commit-msg": "^2.14.0"
   }
 }
