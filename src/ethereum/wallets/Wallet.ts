@@ -92,6 +92,10 @@ export abstract class Wallet {
     return promisify(this.getWeb3().eth.estimateGas)(options)
   }
 
+  async sendTransaction(transactionObject: any) {
+    return promisify(this.getWeb3().eth.sendTransaction)(transactionObject)
+  }
+
   async getContract(abi: any[]) {
     return this.getWeb3().eth.contract(abi)
   }
@@ -105,11 +109,16 @@ export abstract class Wallet {
     return promisify(this.getWeb3().eth.getTransaction)(txId)
   }
 
+  /**
+   * Interface for the web3 `getTransactionReceipt` method. It adds the decoded logs to the result (if any)
+   * @param  {string} txId - Transaction id/hash
+   * @return {object} - An object describing the transaction receipt (if it exists) with it's logs
+   */
   async getTransactionReceipt(txId: string): Promise<TxReceipt> {
     const receipt = await promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
 
-    if (receipt && receipt['logs']) {
-      receipt['logs'] = Abi.decodeLogs(receipt['logs'])
+    if (receipt && receipt.logs) {
+      receipt.logs = Abi.decodeLogs(receipt.logs)
     }
 
     return receipt
