@@ -14,13 +14,26 @@ export interface TxReceipt {
   logsBloom: string
 }
 
+export type TxStatus = {
+  hash: string
+  nonce: number
+  blockHash: string
+  transactionIndex: number
+  from: string
+  to: string
+  value: any // BigNumber
+  gas: number
+  gasPrice: any // BigNumber
+  input: string
+}
+
 // Interface
 export abstract class Wallet {
   type = this.getType()
   web3 = null
   derivationPath = null
 
-  constructor(public account?: string) {
+  constructor(private account?: string) {
     // stub
   }
 
@@ -35,6 +48,9 @@ export abstract class Wallet {
   }
 
   getAccount() {
+    if (!this.account) {
+      throw new Error("The current wallet/provider doesn't have any linked account")
+    }
     return this.account
   }
 
@@ -105,7 +121,7 @@ export abstract class Wallet {
    * @param  {string} txId - Transaction id/hash
    * @return {object}      - An object describing the transaction (if it exists)
    */
-  async getTransactionStatus(txId: string) {
+  async getTransactionStatus(txId: string): Promise<TxStatus> {
     return promisify(this.getWeb3().eth.getTransaction)(txId)
   }
 
