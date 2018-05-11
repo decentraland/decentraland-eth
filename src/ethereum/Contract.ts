@@ -11,7 +11,6 @@ export abstract class Contract<T = any> {
   /**
    * @param  {string} [address] - Address of the contract. If it's undefined, it'll use the result of calling {@link Contract#getDefaultAddress}
    * @param  {object} [abi]     - Object describing the contract (compile result). If it's undefined, it'll use the result of calling {@link Contract#getDefaultAbi}
-   * @return {Contract} instance
    */
   constructor(address: string, abi: object) {
     this.setAddress(address)
@@ -25,7 +24,7 @@ export abstract class Contract<T = any> {
    * @param  {string} address
    * @return {boolean}
    */
-  static isEmptyAddress(address) {
+  static isEmptyAddress(address: string): boolean {
     return !address || address === '0x0000000000000000000000000000000000000000' || address === '0x'
   }
 
@@ -53,7 +52,7 @@ export abstract class Contract<T = any> {
    * Get the contract events from the abi
    * @return {Array<string>} - events
    */
-  getEvents() {
+  getEvents(): Array<string> {
     return Abi.new(this.abi).getEvents()
   }
 
@@ -92,6 +91,9 @@ export abstract class Contract<T = any> {
    * @return {Promise} - promise that resolves when the transaction does
    */
   sendTransaction(method: string, ...args) {
+    if (!this.instance) {
+      throw new Error(`The contract "${this.getContractName()}" was not initialized with a provider`)
+    }
     if (!this.instance[method]) {
       throw new Error(`${this.getContractName()}#sendTransaction: Unknown method ${method}`)
     }
@@ -108,6 +110,9 @@ export abstract class Contract<T = any> {
    * @return {Promise} - promise that resolves when the call does
    */
   sendCall(prop: string, ...args) {
+    if (!this.instance) {
+      throw new Error(`The contract "${this.getContractName()}" was not initialized with a provider`)
+    }
     if (!this.instance[prop]) {
       throw new Error(`${this.getContractName()}#sendCall: Unknown method ${prop}`)
     }

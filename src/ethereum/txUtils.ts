@@ -1,5 +1,6 @@
 import { sleep } from '../utils'
 import { eth } from './eth'
+import { TxReceipt, TxStatus } from './wallets/Wallet'
 
 /**
  * Some utility functions to work with Ethereum transactions.
@@ -87,7 +88,8 @@ export namespace txUtils {
    * @return {object} data - Current transaction data. See {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethgettransaction}
    * @return {object.recepeit} transaction - Transaction recepeit
    */
-  export async function getTransaction(txId: string) {
+  // prettier-ignore
+  export async function getTransaction(txId: string): Promise<{ recepeit: TxReceipt } & TxStatus> {
     const [tx, recepeit] = await Promise.all([
       eth.wallet.getTransactionStatus(txId),
       eth.wallet.getTransactionReceipt(txId)

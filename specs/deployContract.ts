@@ -1,9 +1,11 @@
+import { Wallet } from '../dist/ethereum/wallets/Wallet'
+
 export type Artifact = {
-  abi: object
+  abi: any[]
   bytecode: string
 }
 
-export async function deployContract(wallet, name: string, contract: Artifact) {
+export async function deployContract(wallet: Wallet, name: string, contract: Artifact) {
   const account = await wallet.getAccount()
 
   const newContract = await wallet.getContract(contract.abi)
