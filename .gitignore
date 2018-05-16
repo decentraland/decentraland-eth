@@ -10,3 +10,4 @@
 **/*.d.ts
 .DS_Store
 **/.DS_Store
+.idea
