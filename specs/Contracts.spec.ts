@@ -1,29 +1,18 @@
 import { expect } from 'chai'
+import { NodeConnectionFactory } from './NodeConnectionFactory'
+import { deployContract } from './deployContract'
 import { eth, txUtils } from '../dist'
 import { MANAToken } from '../dist/contracts'
-const ganache = require('ganache-cli')
 
 describe('ETH tests', () => {
+  const nodeConnectionFactory = new NodeConnectionFactory()
+
   it('should return no instantiated contracts', () => {
     expect(() => eth.getContract('')).to.throw()
   })
 
   describe('ETH using provider', function() {
-    const provider: object = ganache.provider({
-      accounts: [
-        {
-          balance: 100012300001 /* gas */,
-          secretKey: '0x8485898485bbe08a0a9b97fdf695aec8e9f1d196c589d4b6ff50a0232518b682'
-        }
-      ],
-      network_id: 3,
-      logger: {
-        log(...args) {
-          console.log(...args)
-        }
-      },
-      vmErrorsOnRPCResponse: true
-    })
+    const provider = nodeConnectionFactory.createProvider()
 
     it('should call .connect({}) and it works', async () => {
       const r = await eth.connect({ provider })
@@ -34,21 +23,7 @@ describe('ETH tests', () => {
   })
 
   describe('ETH using http RPC', function() {
-    const provider = ganache.server({
-      accounts: [
-        {
-          balance: 100012300001 /* gas */,
-          secretKey: '0x8485898485bbe08a0a9b97fdf695aec8e9f1d196c589d4b6ff50a0232518b682'
-        }
-      ],
-      network_id: 3,
-      logger: {
-        log(...args) {
-          console.log(...args)
-        }
-      },
-      vmErrorsOnRPCResponse: true
-    })
+    const provider = nodeConnectionFactory.createServer()
 
     it('should start the server', done => {
       provider.listen(7654, function(err) {
@@ -104,13 +79,16 @@ function doTest() {
     this.timeout(100000)
     const contract = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
     console.log(`> Tx: ${contract.transactionHash}`)
+
     const txRecipt = await eth.wallet.getTransactionReceipt(contract.transactionHash)
     expect(typeof txRecipt.contractAddress).to.eq('string')
     expect(txRecipt.contractAddress.length).to.be.greaterThan(0)
+
     const x = await txUtils.getTransaction(contract.transactionHash)
     expect(typeof x).eq('object')
     expect(x.hash).eq(contract.transactionHash)
     expect(typeof x.recepeit).eq('object')
+
     manaAddress = txRecipt.contractAddress
   })
 
@@ -178,33 +156,4 @@ function doTest() {
       expect(totalSupply.toNumber()).eq(10)
     }
   })
-}
-
-async function deployContract(wallet, name: string, contract: any) {
-  const account = await wallet.getAccount()
-
-  const newContract = await wallet.getContract(contract.abi)
-  const gasEstimate = await wallet.estimateGas({ data: contract.bytecode })
-
-  console.log(`> Will deploy contract ${name} with gas: ${gasEstimate}`)
-
-  const options = { from: account, data: contract.bytecode, gas: gasEstimate }
-
-  let resolver = null
-  let rejecter = null
-
-  const prom = new Promise<any>((x, y) => {
-    resolver = x
-    rejecter = y
-  })
-
-  newContract.new(options, function(err, myContract) {
-    if (err) {
-      rejecter(err)
-    } else {
-      resolver(myContract)
-    }
-  })
-
-  return prom
 }

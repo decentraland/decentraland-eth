@@ -14,13 +14,26 @@ export interface TxReceipt {
   logsBloom: string
 }
 
+export type TxStatus = {
+  hash: string
+  nonce: number
+  blockHash: string
+  transactionIndex: number
+  from: string
+  to: string
+  value: any // BigNumber
+  gas: number
+  gasPrice: any // BigNumber
+  input: string
+}
+
 // Interface
 export abstract class Wallet {
   type = this.getType()
   web3 = null
   derivationPath = null
 
-  constructor(public account?: string) {
+  constructor(private account?: string) {
     // stub
   }
 
@@ -35,6 +48,9 @@ export abstract class Wallet {
   }
 
   getAccount() {
+    if (!this.account) {
+      throw new Error("The current wallet/provider doesn't have any linked account")
+    }
     return this.account
   }
 
@@ -92,6 +108,10 @@ export abstract class Wallet {
     return promisify(this.getWeb3().eth.estimateGas)(options)
   }
 
+  async sendTransaction(transactionObject: any) {
+    return promisify(this.getWeb3().eth.sendTransaction)(transactionObject)
+  }
+
   async getContract(abi: any[]) {
     return this.getWeb3().eth.contract(abi)
   }
@@ -101,15 +121,20 @@ export abstract class Wallet {
    * @param  {string} txId - Transaction id/hash
    * @return {object}      - An object describing the transaction (if it exists)
    */
-  async getTransactionStatus(txId: string) {
+  async getTransactionStatus(txId: string): Promise<TxStatus> {
     return promisify(this.getWeb3().eth.getTransaction)(txId)
   }
 
+  /**
+   * Interface for the web3 `getTransactionReceipt` method. It adds the decoded logs to the result (if any)
+   * @param  {string} txId - Transaction id/hash
+   * @return {object} - An object describing the transaction receipt (if it exists) with it's logs
+   */
   async getTransactionReceipt(txId: string): Promise<TxReceipt> {
     const receipt = await promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
 
-    if (receipt && receipt['logs']) {
-      receipt['logs'] = Abi.decodeLogs(receipt['logs'])
+    if (receipt && receipt.logs) {
+      receipt.logs = Abi.decodeLogs(receipt.logs)
     }
 
     return receipt

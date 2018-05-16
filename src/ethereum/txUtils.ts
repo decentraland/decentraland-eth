@@ -1,14 +1,15 @@
 import { sleep } from '../utils'
 import { eth } from './eth'
+import { TxReceipt, TxStatus } from './wallets/Wallet'
 
 /**
  * Some utility functions to work with Ethereum transactions.
  * @namespace
  */
 export namespace txUtils {
-  export let DUMMY_TX_ID = '0xdeadbeef'
+  export let DUMMY_TX_ID: string = '0xdeadbeef'
 
-  export let TRANSACTION_FETCH_DELAY = 2 * 1000
+  export let TRANSACTION_FETCH_DELAY: number = 2 * 1000
 
   export let TRANSACTION_STATUS = Object.freeze({
     pending: 'pending',
@@ -40,18 +41,45 @@ export namespace txUtils {
   /**
    * Wait until a transaction finishes by either being mined or failing
    * @param  {string} txId - Transaction id to watch
-   * @return {object} data - Current transaction data. See {@link txUtils#getTransaction}
+   * @param  {number} [retriesOnEmpty] - Number of retries when a transaction status returns empty
+   * @return {Promise<object>} data - Current transaction data. See {@link txUtils#getTransaction}
    */
-  export async function waitForCompletion(txId: string): Promise<any> {
+  export async function waitForCompletion(txId: string, retriesOnEmpty?: number): Promise<any> {
+    const isDropped = await isTxDropped(txId, retriesOnEmpty)
+    if (isDropped) {
+      return { hash: txId, status: TRANSACTION_STATUS.failed }
+    }
+
     while (true) {
       const tx = await getTransaction(txId)
 
-      if (isPending(tx) || !tx.recepeit) {
-        await sleep(TRANSACTION_FETCH_DELAY)
-      } else {
+      if (!isPending(tx) && tx.recepeit) {
         return tx
       }
+
+      await sleep(TRANSACTION_FETCH_DELAY)
     }
+  }
+
+  /*
+   * Wait retryAttemps*TRANSACTION_FETCH_DELAY for a transaction status to be in the mempool
+   * @param  {string} txId - Transaction id to watch
+   * @param  {number} [retryAttemps=15] - Number of retries when a transaction status returns empty
+   * @return {Promise<boolean>}
+   */
+  export async function isTxDropped(txId: string, retryAttemps: number = 15): Promise<boolean> {
+    while (retryAttemps > 0) {
+      const tx = await getTransaction(txId)
+
+      if (tx !== null) {
+        return false
+      }
+
+      retryAttemps -= 1
+      await sleep(TRANSACTION_FETCH_DELAY)
+    }
+
+    return true
   }
 
   /**
@@ -60,13 +88,14 @@ export namespace txUtils {
    * @return {object} data - Current transaction data. See {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethgettransaction}
    * @return {object.recepeit} transaction - Transaction recepeit
    */
-  export async function getTransaction(txId: string) {
+  // prettier-ignore
+  export async function getTransaction(txId: string): Promise<{ recepeit: TxReceipt } & TxStatus> {
     const [tx, recepeit] = await Promise.all([
       eth.wallet.getTransactionStatus(txId),
       eth.wallet.getTransactionReceipt(txId)
     ])
 
-    return { ...tx, recepeit }
+    return tx ? { ...tx, recepeit } : null
   }
 
   /**

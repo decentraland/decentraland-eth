@@ -40,23 +40,26 @@ export class LedgerWallet extends Wallet {
     }
 
     const transport = await TransportU2F.open(null, 2)
-    const ledger = new Eth(transport)
 
-    this.ledger = ledger
-
-    // FireFox hangs on indefinetly on `getAccounts`, so the second promise acts as a timeout
-    const accounts = await Promise.race([
-      this.getAccounts(),
-      sleep(2000).then(() => Promise.reject({ message: 'Timed out trying to connect to ledger' }))
-    ])
+    this.ledger = new Eth(transport)
 
     this.engine = new ProviderEngine()
 
     const provider = await this.getProvider(providerUrl, networkId)
     this.web3 = new Web3(provider)
 
-    if (!this.account) {
-      this.setAccount(accounts[0])
+    try {
+      // FireFox hangs on indefinetly on `getAccounts`, so the second promise acts as a timeout
+      const accounts = await Promise.race([
+        this.getAccounts(),
+        sleep(2000).then(() => Promise.reject({ message: 'Timed out trying to connect to ledger' }))
+      ])
+
+      if (accounts[0]) {
+        this.setAccount(accounts[0])
+      }
+    } catch {
+      // do nothing
     }
   }
 
