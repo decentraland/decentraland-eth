@@ -55,12 +55,22 @@ export const ethUtils = {
 
   /**
    * Creates SHA-3 (Keccak) hash of the input
-   * @param  {Buffer | string} data - The input data
+   * @param  {Buffer | string | number} data - The input data
    * @param  {Number} [bits] - Number the SHA-3 width. Defaults to 256
    * @return {string}      [description]
    */
-  sha3(data: Buffer | string, bits: Number): string {
-    return ethereumJsUtil.sha3(data)
+  sha3(data: Buffer | string | number, bits: Number = 256): Buffer {
+    return ethUtils.keccak(data, bits)
+  },
+
+  /**
+   * Creates Keccak-256 hash of the input
+   * @param  {Buffer | string | number} data - The input data
+   * @param  {Number} [bits] - Number the Keccak width. Defaults to 256
+   * @return {Buffer}      [description]
+   */
+  keccak(data: Buffer | string | number, bits: Number = 256): Buffer {
+    return ethereumJsUtil.keccak(data, bits)
   },
 
   /**
@@ -70,7 +80,7 @@ export const ethUtils = {
    * @return {string} vrs sign result concatenated as a string
    */
   localSign(data: Buffer | string, privKey: Buffer | string) {
-    if (typeof data === 'string') data = ethereumJsUtil.sha3(data)
+    if (typeof data === 'string') data = ethereumJsUtil.keccak(data)
     if (typeof privKey === 'string') privKey = new Buffer(privKey, 'hex')
 
     const vrs = ethereumJsUtil.ecsign(data, privKey)
