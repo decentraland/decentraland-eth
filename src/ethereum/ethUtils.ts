@@ -116,5 +116,24 @@ export const ethUtils = {
    */
   pubToAddressHex(pubkey: string) {
     return ethereumJsUtil.pubToAddress(pubkey).toString('hex')
+  },
+
+  /**
+   * Converts a HEX string to its number representation.
+   * @param  {string} hexString - An HEX string to be converted to a number.
+   * @return {number} The number representing the data hexString.
+   */
+  toDecimal(hexString: string) {
+    return web3utils.toDecimal(hexString)
+  },
+
+  /**
+   * Converts any ASCII string to a HEX string.
+   * @param  {string} val - An ASCII string to be converted to HEX.
+   * @param {number} (optional) padding - The number of bytes the returned HEX string should have.
+   * @return {string} The converted HEX string.
+   */
+  fromAscii(val: string, padding: Number) {
+    return web3utils.fromAscii(val, padding)
   }
 }
