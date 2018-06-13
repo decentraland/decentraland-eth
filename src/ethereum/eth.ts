@@ -150,13 +150,13 @@ export namespace eth {
     return contracts[name]
   }
 
-  export async function sign(payload) {
+  export async function sign(payload): Promise<{message: string; signature: string}> {
     const message = ethUtils.toHex(payload)
     const signature = await wallet.sign(message)
     return { message, signature }
   }
 
-  export async function recover(message, signature) {
+  export async function recover(message: string, signature: string): Promise<string> {
     return wallet.recover(message, signature)
   }
 

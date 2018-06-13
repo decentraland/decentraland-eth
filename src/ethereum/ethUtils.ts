@@ -36,7 +36,7 @@ export const ethUtils = {
     return web3utils.toWei(amount, unit).toNumber(10)
   },
 
-  toHex(utf8: string) {
+  toHex(utf8: string): string {
     return web3utils.toHex(utf8)
   },
 
