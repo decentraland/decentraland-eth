@@ -92,7 +92,8 @@ describe('txUtils tests', () => {
 
       expect(droppedTx).to.be.deep.equal({
         hash: '0x24615f57f5754f2479d6657f7ac9a56006d8d6f634c6955310a5af1c79f4969',
-        status: txUtils.TRANSACTION_STATUS.failed
+        status: txUtils.TRANSACTION_STATUS.failed,
+        isDropped: true
       })
     })
 
