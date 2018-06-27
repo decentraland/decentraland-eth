@@ -22,12 +22,16 @@ export namespace txUtils {
    * Throws if the transaction fails or if it lacks any of the supplied events
    * @param  {string} txId - Transaction id to watch
    * @param  {Array<string>|string} events - Events to watch. See {@link txUtils#getLogEvents}
+   * @param  {number} [retriesOnEmpty] - Number of retries when a transaction status returns empty
    * @return {object} data - Current transaction data. See {@link txUtils#getTransaction}
    */
-  export async function getConfirmedTransaction(txId: string, events: string[]) {
-    const tx = await waitForCompletion(txId)
+  export async function getConfirmedTransaction(txId: string, events: string[], retriesOnEmpty: number) {
+    const tx = await waitForCompletion(txId, retriesOnEmpty)
 
     if (isFailure(tx)) {
+      if (tx.isDropped) {
+        throw new Error(`Transaction "${txId}" dropped`)
+      }
       throw new Error(`Transaction "${txId}" failed`)
     }
 
@@ -47,7 +51,7 @@ export namespace txUtils {
   export async function waitForCompletion(txId: string, retriesOnEmpty?: number): Promise<any> {
     const isDropped = await isTxDropped(txId, retriesOnEmpty)
     if (isDropped) {
-      return { hash: txId, status: TRANSACTION_STATUS.failed }
+      return { hash: txId, status: TRANSACTION_STATUS.failed, isDropped: true }
     }
 
     while (true) {
