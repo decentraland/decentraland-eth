@@ -25,7 +25,7 @@ export namespace txUtils {
    * @param  {number} [retriesOnEmpty] - Number of retries when a transaction status returns empty
    * @return {object} data - Current transaction data. See {@link txUtils#getTransaction}
    */
-  export async function getConfirmedTransaction(txId: string, events: string[], retriesOnEmpty: number) {
+  export async function getConfirmedTransaction(txId: string, events: string[], retriesOnEmpty?: number) {
     const tx = await waitForCompletion(txId, retriesOnEmpty)
 
     if (isFailure(tx)) {
