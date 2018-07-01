@@ -57,7 +57,7 @@ export namespace txUtils {
     while (true) {
       const tx = await getTransaction(txId)
 
-      if (!isPending(tx) && tx.recepeit) {
+      if (tx && !isPending(tx) && tx.recepeit) {
         return tx
       }
 
