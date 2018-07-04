@@ -20,7 +20,7 @@ const abi = {
   },
 
   /**
-   * Gets a transaction recepeit `logs` and returns a parsed array with the details
+   * Gets a transaction receipt `logs` and returns a parsed array with the details
    * For this to work, `abiDecoder.addABI` needs to be called beforehand, which is done by the constructor
    * @param  {string} logs - Hex logs
    * @return {array<object>} - An array of logs triggered by the transaction

@@ -14,11 +14,11 @@ describe('txUtils tests', () => {
   })
 
   describe('.getTransaction', function() {
-    it('should return the transaction status and its recepeit', async function() {
+    it('should return the transaction status and its receipt', async function() {
       this.timeout(100000)
 
       const contract = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
-      const { recepeit, ...tx } = await txUtils.getTransaction(contract.transactionHash)
+      const { receipt, ...tx } = await txUtils.getTransaction(contract.transactionHash)
 
       expect(Object.keys(tx)).to.be.deep.equal([
         'hash',
@@ -35,8 +35,7 @@ describe('txUtils tests', () => {
       ])
       expect(tx.hash).to.be.equal('0x505d58d5b6a38304deaad305ff2d773354cc939afc456562ba6bddbbf201e27f')
 
-      expect(Object.keys(recepeit)).to.be.deep.equal([
-        'transactionHash',
+      expect(Object.keys(receipt)).to.be.deep.equal([ 'transactionHash',
         'transactionIndex',
         'blockHash',
         'blockNumber',
@@ -47,7 +46,7 @@ describe('txUtils tests', () => {
         'status',
         'logsBloom'
       ])
-      expect(recepeit.transactionHash).to.be.equal('0x505d58d5b6a38304deaad305ff2d773354cc939afc456562ba6bddbbf201e27f')
+      expect(receipt.transactionHash).to.be.equal('0x505d58d5b6a38304deaad305ff2d773354cc939afc456562ba6bddbbf201e27f')
     })
 
     it('should return null if the tx hash is invalid or dropped', async () => {
@@ -107,7 +106,7 @@ describe('txUtils tests', () => {
       const tx = await txUtils.waitForCompletion(txHash)
 
       expect(tx.hash).to.be.equal(txHash)
-      expect(tx.recepeit).not.to.be.equal(undefined)
+      expect(tx.receipt).not.to.be.equal(undefined)
     })
 
     afterEach(() => {
