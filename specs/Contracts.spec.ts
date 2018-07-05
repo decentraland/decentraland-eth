@@ -87,7 +87,7 @@ function doTest() {
     const x = await txUtils.getTransaction(contract.transactionHash)
     expect(typeof x).eq('object')
     expect(x.hash).eq(contract.transactionHash)
-    expect(typeof x.recepeit).eq('object')
+    expect(typeof x.receipt).eq('object')
 
     manaAddress = txRecipt.contractAddress
   })

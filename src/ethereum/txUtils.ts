@@ -57,7 +57,7 @@ export namespace txUtils {
     while (true) {
       const tx = await getTransaction(txId)
 
-      if (tx && !isPending(tx) && tx.recepeit) {
+      if (tx && !isPending(tx) && tx.receipt) {
         return tx
       }
 
@@ -87,19 +87,19 @@ export namespace txUtils {
   }
 
   /**
-   * Get the transaction status and recepeit
+   * Get the transaction status and receipt
    * @param  {string} txId - Transaction id
    * @return {object} data - Current transaction data. See {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethgettransaction}
-   * @return {object.recepeit} transaction - Transaction recepeit
+   * @return {object.receipt} transaction - Transaction receipt
    */
   // prettier-ignore
-  export async function getTransaction(txId: string): Promise<{ recepeit: TxReceipt } & TxStatus> {
-    const [tx, recepeit] = await Promise.all([
+  export async function getTransaction(txId: string): Promise<{ receipt: TxReceipt } & TxStatus> {
+    const [tx, receipt] = await Promise.all([
       eth.wallet.getTransactionStatus(txId),
       eth.wallet.getTransactionReceipt(txId)
     ])
 
-    return tx ? { ...tx, recepeit } : null
+    return tx ? { ...tx, receipt } : null
   }
 
   /**
@@ -113,18 +113,18 @@ export namespace txUtils {
   }
 
   /**
-   * Expects the result of getTransactionRecepeit's geth command and returns true if the transaction failed.
+   * Expects the result of getTransactionReceipt's geth command and returns true if the transaction failed.
    * It'll also check for a failed status prop against {@link txUtils#TRANSACTION_STATUS}
    * @param {object} tx - The transaction object
    * @return boolean
    */
   export function isFailure(tx) {
-    return tx && (!tx.recepeit || tx.recepeit.status === '0x0' || tx.status === TRANSACTION_STATUS.failed)
+    return tx && (!tx.receipt || tx.receipt.status === '0x0' || tx.status === TRANSACTION_STATUS.failed)
   }
 
   /**
    * Returns true if a transaction contains an event
-   * @param {Array<object>} tx - Transaction with a decoded recepeit
+   * @param {Array<object>} tx - Transaction with a decoded receipt
    * @param {Array<string>|string} eventNames - A string or array of strings with event names you want to search for
    * @return boolean
    */
@@ -134,6 +134,6 @@ export namespace txUtils {
 
     if (!Array.isArray(eventNames)) eventNames = [eventNames]
 
-    return tx.recepeit.filter(log => log && log.name).every(log => eventNames.includes(log.name))
+    return tx.receipt.filter(log => log && log.name).every(log => eventNames.includes(log.name))
   }
 }
