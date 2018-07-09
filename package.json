@@ -39,10 +39,10 @@
     "@ledgerhq/hw-app-eth": "^2.2.0",
     "@ledgerhq/hw-transport-u2f": "^2.2.0",
     "comma-separated-values": "^3.6.4",
+    "ethereumjs-util": "^5.1.5",
     "ledger-wallet-provider": "^2.0.0-beta.2",
-    "web3-provider-engine": "^13.8.0",
     "web3": "^0.20.6",
-    "ethereumjs-util": "^5.1.5"
+    "web3-provider-engine": "^13.8.0"
   },
   "prettier": {
     "printWidth": 120,
@@ -60,7 +60,6 @@
     "ganache-cli": "^6.1.0",
     "husky": "^0.14.3",
     "mocha": "^4.0.1",
-    "prettier": "^1.8.2",
     "rimraf": "^2.6.2",
     "semantic-release": "^12.2.5",
     "tslint": "^5.9.1",
