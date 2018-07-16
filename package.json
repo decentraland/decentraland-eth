@@ -39,10 +39,10 @@
     "@ledgerhq/hw-app-eth": "^2.2.0",
     "@ledgerhq/hw-transport-u2f": "^2.2.0",
     "comma-separated-values": "^3.6.4",
+    "ethereumjs-util": "^5.1.5",
     "ledger-wallet-provider": "^2.0.0-beta.2",
-    "web3-provider-engine": "^13.8.0",
     "web3": "^0.20.6",
-    "ethereumjs-util": "^5.1.5"
+    "web3-provider-engine": "^13.8.0"
   },
   "prettier": {
     "printWidth": 120,
