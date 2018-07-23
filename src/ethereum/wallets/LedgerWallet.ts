@@ -5,10 +5,24 @@ import Eth from '@ledgerhq/hw-app-eth'
 
 import * as ProviderEngine from 'web3-provider-engine'
 import * as RpcSubprovider from 'web3-provider-engine/subproviders/rpc'
-import LedgerWalletSubprovider from 'ledger-wallet-provider'
+import createLedgerSubprovider from '@ledgerhq/web3-subprovider'
 
 import { Wallet } from './Wallet'
 import { sleep } from '../../utils'
+
+// From https://github.com/LedgerHQ/ledgerjs/blob/master/packages/web3-subprovider/src/index.js#L32
+export interface LedgerProviderOptions {
+  // refer to https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
+  networkId: number
+  // derivation path
+  path?: string
+  // should use actively validate on the device
+  askConfirm?: boolean
+  // number of accounts to derivate
+  accountsLength?: number
+  // offset index to use to start derivating the accounts
+  accountsOffset?: number
+}
 
 export class LedgerWallet extends Wallet {
   ledger = null
@@ -45,7 +59,9 @@ export class LedgerWallet extends Wallet {
 
     this.engine = new ProviderEngine()
 
-    const provider = await this.getProvider(providerUrl, networkId)
+    const provider = await this.getProvider(providerUrl, {
+      networkId: parseInt(networkId, 10)
+    })
     this.web3 = new Web3(provider)
 
     try {
@@ -74,12 +90,13 @@ export class LedgerWallet extends Wallet {
 
   /**
    * It'll create a new provider using the providerUrl param for RPC calls
-   * @param  {string} [providerURL="https://mainnet.infura.io/"] - URL for an HTTP provider
-   * @param  {string} [networkId="1"] - The id of the network we're connecting to. 1 means mainnet, check {@link eth#getNetworks}
-   * @return {object} The web3 provider
+   * @param  [providerURL="https://mainnet.infura.io/"] - URL for an HTTP provider
+   * @param  [options] - List of provider options, from https://github.com/LedgerHQ/ledgerjs/blob/master/packages/web3-subprovider/src/index.js#L32
+   * @return The web3 provider
    */
-  async getProvider(providerUrl = 'https://mainnet.infura.io/', networkId = '1'): Promise<any> {
-    let ledgerWalletSubProvider = await LedgerWalletSubprovider(() => networkId, this.derivationPath)
+  async getProvider(providerUrl = 'https://mainnet.infura.io/', options?: LedgerProviderOptions): Promise<any> {
+    const subproviderOptions = Object.assign({ networkId: 1, path: this.derivationPath, askConfirm: true }, options)
+    const ledgerWalletSubProvider = await createLedgerSubprovider(() => TransportU2F.create(), subproviderOptions)
 
     this.engine.addProvider(ledgerWalletSubProvider)
     this.engine.addProvider(
