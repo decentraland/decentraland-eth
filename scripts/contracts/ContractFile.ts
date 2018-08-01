@@ -37,7 +37,7 @@ export class ContractFile {
         case 'function': {
           const args = [...inputs.map((input, index) => input.name || `input${index}`), '...args'].join(', ')
 
-          if (stateMutability === 'view') {
+          if (stateMutability === 'view' || stateMutability === 'pure') {
             extensions[name] = `function(${args}) {
             return this.sendCall('${name}', ${args})
           }`

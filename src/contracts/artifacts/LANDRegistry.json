@@ -49,6 +49,25 @@
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "assetId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getApproved",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -201,25 +220,6 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "b",
-          "type": "bytes"
-        }
-      ],
-      "name": "bytesToAddress",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
       "constant": false,
       "inputs": [
         {
@@ -281,17 +281,12 @@
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "assetId",
-          "type": "uint256"
-        }
-      ],
-      "name": "tokenMetadata",
+      "inputs": [],
+      "name": "GET_METADATA",
       "outputs": [
         {
           "name": "",
-          "type": "string"
+          "type": "bytes4"
         }
       ],
       "payable": false,
@@ -438,13 +433,27 @@
     },
     {
       "constant": true,
+      "inputs": [],
+      "name": "estateRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [
         {
-          "name": "operator",
+          "name": "assetHolder",
           "type": "address"
         },
         {
-          "name": "assetHolder",
+          "name": "operator",
           "type": "address"
         }
       ],
@@ -497,6 +506,18 @@
       "inputs": [
         {
           "indexed": true,
+          "name": "registry",
+          "type": "address"
+        }
+      ],
+      "name": "EstateRegistrySet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
           "name": "assetId",
           "type": "uint256"
         },
@@ -517,6 +538,23 @@
         }
       ],
       "name": "Update",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "assetId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "UpdateOperator",
       "type": "event"
     },
     {
@@ -745,24 +783,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "x",
-          "type": "int256[]"
-        },
-        {
-          "name": "y",
-          "type": "int256[]"
-        }
-      ],
-      "name": "clearLand",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [
         {
@@ -782,7 +802,7 @@
         }
       ],
       "payable": false,
-      "stateMutability": "view",
+      "stateMutability": "pure",
       "type": "function"
     },
     {
@@ -805,7 +825,7 @@
         }
       ],
       "payable": false,
-      "stateMutability": "view",
+      "stateMutability": "pure",
       "type": "function"
     },
     {
@@ -923,6 +943,25 @@
       "constant": true,
       "inputs": [
         {
+          "name": "assetId",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenMetadata",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
           "name": "x",
           "type": "int256"
         },
@@ -990,6 +1029,50 @@
       "constant": false,
       "inputs": [
         {
+          "name": "x",
+          "type": "int256"
+        },
+        {
+          "name": "y",
+          "type": "int256"
+        },
+        {
+          "name": "estateId",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferLandToEstate",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "x",
+          "type": "int256[]"
+        },
+        {
+          "name": "y",
+          "type": "int256[]"
+        },
+        {
+          "name": "estateId",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferManyLandToEstate",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
           "name": "assetId",
           "type": "uint256"
         },
@@ -1000,6 +1083,78 @@
       ],
       "name": "setUpdateOperator",
       "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "registry",
+          "type": "address"
+        }
+      ],
+      "name": "setEstateRegistry",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "x",
+          "type": "int256[]"
+        },
+        {
+          "name": "y",
+          "type": "int256[]"
+        },
+        {
+          "name": "beneficiary",
+          "type": "address"
+        }
+      ],
+      "name": "createEstate",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "x",
+          "type": "int256[]"
+        },
+        {
+          "name": "y",
+          "type": "int256[]"
+        },
+        {
+          "name": "beneficiary",
+          "type": "address"
+        },
+        {
+          "name": "metadata",
+          "type": "string"
+        }
+      ],
+      "name": "createEstateWithMetadata",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
