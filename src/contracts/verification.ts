@@ -11,7 +11,7 @@ export function fulfillContractMethods(instance: Contract, abi: any[]) {
     if (!(name in instance)) {
       switch (type) {
         case 'function': {
-          if (stateMutability === 'view') {
+          if (stateMutability === 'view' || stateMutability === 'pure') {
             instance[name] = new Function(`return this.sendCall('${name}', ...arguments)`)
           } else if (stateMutability === 'nonpayable') {
             instance[name] = new Function(`return this.sendTransaction('${name}', ...arguments)`)

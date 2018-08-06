@@ -35,7 +35,8 @@ describe('txUtils tests', () => {
       ])
       expect(tx.hash).to.be.equal('0x505d58d5b6a38304deaad305ff2d773354cc939afc456562ba6bddbbf201e27f')
 
-      expect(Object.keys(receipt)).to.be.deep.equal([ 'transactionHash',
+      expect(Object.keys(receipt)).to.be.deep.equal([
+        'transactionHash',
         'transactionIndex',
         'blockHash',
         'blockNumber',
