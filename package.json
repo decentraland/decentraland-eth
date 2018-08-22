@@ -17,7 +17,7 @@
     "prebuild": "npm run clean && npm run lint && tsc -p scripts/tsconfig.json && npm run contracts",
     "build": "tsc -p src/tsconfig.json",
     "fastbuild": "npm run clean && tsc -p tsconfig.json",
-    "test": "npm run build && tsc -p specs/tsconfig.json && mocha specs/**/*.spec.js",
+    "test": "npm run build && tsc -p specs/tsconfig.json && mocha specs/**/*.spec.js --exit",
     "semantic-release": "semantic-release",
     "commitmsg": "validate-commit-msg"
   },
@@ -63,6 +63,7 @@
     "prettier": "^1.8.2",
     "rimraf": "^2.6.2",
     "semantic-release": "^12.2.5",
+    "sinon": "^6.1.5",
     "tslint": "^5.9.1",
     "tslint-language-service": "^0.9.9",
     "typescript": "^2.8.1",
