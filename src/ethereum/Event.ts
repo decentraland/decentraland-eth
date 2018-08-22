@@ -70,7 +70,7 @@ export class Event {
   watchByType(callback: Function)
   watchByType(options: WatchOptions, callback?: Function)
   watchByType(options: WatchOptions | Function, callback?: Function) {
-    const { opts } = typeof options === 'function' ? ({} as WatchOptions) : options
+    const opts = typeof options === 'function' ? ({} as WatchOptions) : options
     const func = typeof options === 'function' ? options : callback
     for (let event in this.instance) {
       this.instance[event](opts).watch(func)
@@ -90,7 +90,7 @@ export class Event {
   getAllByType(callback?: Function)
   getAllByType(options: WatchOptions, callback?: Function)
   getAllByType(options: WatchOptions | Function, callback?: Function) {
-    const { opts } = typeof options === 'function' ? ({} as WatchOptions) : options
+    const opts = typeof options === 'function' ? ({} as WatchOptions) : options
     const func = typeof options === 'function' ? options : callback
     for (let event in this.instance) {
       this.instance[event](opts).get(func)
