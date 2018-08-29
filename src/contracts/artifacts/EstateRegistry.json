@@ -151,20 +151,6 @@
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "ERC165_SUPPORT",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
       "inputs": [
         {
           "name": "",
@@ -259,20 +245,6 @@
         {
           "name": "",
           "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "GET_METADATA",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes4"
         }
       ],
       "payable": false,
@@ -730,34 +702,19 @@
       "constant": false,
       "inputs": [
         {
-          "name": "to",
-          "type": "address"
-        }
-      ],
-      "name": "mint",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "",
+          "name": "_operator",
           "type": "address"
         },
         {
-          "name": "tokenId",
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
           "type": "uint256"
         },
         {
-          "name": "estateTokenIdBytes",
+          "name": "_data",
           "type": "bytes"
         }
       ],
@@ -965,24 +922,6 @@
         {
           "name": "_symbol",
           "type": "string"
-        },
-        {
-          "name": "_registry",
-          "type": "address"
-        }
-      ],
-      "name": "initialize",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_sender",
-          "type": "address"
         }
       ],
       "name": "initialize",
@@ -1001,6 +940,24 @@
         {
           "name": "_symbol",
           "type": "string"
+        },
+        {
+          "name": "_registry",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_sender",
+          "type": "address"
         }
       ],
       "name": "initialize",
@@ -1061,6 +1018,50 @@
         }
       ],
       "name": "safeTransferManyFrom",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "estateId",
+          "type": "uint256"
+        },
+        {
+          "name": "landId",
+          "type": "uint256"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "updateLandData",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "estateId",
+          "type": "uint256"
+        },
+        {
+          "name": "landIds",
+          "type": "uint256[]"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "updateManyLandData",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
