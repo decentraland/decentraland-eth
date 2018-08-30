@@ -14,8 +14,34 @@ export namespace txUtils {
   export let TRANSACTION_STATUS = Object.freeze({
     pending: 'pending',
     confirmed: 'confirmed',
-    failed: 'failed'
+    failed: 'failed',
+    dropped: 'dropped'
   })
+
+  export type MinedTransaction = { receipt: TxReceipt } & TxStatus
+  export type DroppedTransaction = { status: string; hash: string }
+
+  export class DroppedTransactionError extends Error {
+    public tx: DroppedTransaction
+    public dropped = true
+    public status = TRANSACTION_STATUS.dropped
+    constructor(tx: DroppedTransaction, message?: string) {
+      super(message) // 'Error' breaks prototype chain here
+      this.tx = tx
+      Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain
+    }
+  }
+
+  export class FailedTransactionError extends Error {
+    public tx: MinedTransaction
+    public failed: boolean = true
+    public status: string = TRANSACTION_STATUS.failed
+    constructor(tx: MinedTransaction, message?: string) {
+      super(message) // 'Error' breaks prototype chain here
+      this.tx = tx
+      Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain
+    }
+  }
 
   /**
    * Waits until the transaction finishes. Returns if it was successfull.
@@ -28,11 +54,16 @@ export namespace txUtils {
   export async function getConfirmedTransaction(txId: string, events: string[], retriesOnEmpty?: number) {
     const tx = await waitForCompletion(txId, retriesOnEmpty)
 
+    if (!tx) {
+      throw new Error(`Transaction "${txId}" falsy: ${tx}`)
+    }
+
+    if (isDropped(tx)) {
+      throw new DroppedTransactionError(tx as DroppedTransaction, `Transaction "${txId}" dropped`)
+    }
+
     if (isFailure(tx)) {
-      if (tx.isDropped) {
-        throw new Error(`Transaction "${txId}" dropped`)
-      }
-      throw new Error(`Transaction "${txId}" failed`)
+      throw new FailedTransactionError(tx as MinedTransaction, `Transaction "${txId}" failed`)
     }
 
     if (!hasLogEvents(tx, events)) {
@@ -45,20 +76,28 @@ export namespace txUtils {
   /**
    * Wait until a transaction finishes by either being mined or failing
    * @param  {string} txId - Transaction id to watch
-   * @param  {number} [retriesOnEmpty] - Number of retries when a transaction status returns empty
+   * @param  {number} [retriesOnEmpty] - Number of retries when a transaction status returns empty, if not provided it will retry indefinitely
    * @return {Promise<object>} data - Current transaction data. See {@link txUtils#getTransaction}
    */
-  export async function waitForCompletion(txId: string, retriesOnEmpty?: number): Promise<any> {
-    const isDropped = await isTxDropped(txId, retriesOnEmpty)
-    if (isDropped) {
-      return { hash: txId, status: TRANSACTION_STATUS.failed, isDropped: true }
-    }
-
+  export async function waitForCompletion(
+    txId: string,
+    retriesOnEmpty?: number
+  ): Promise<MinedTransaction | DroppedTransaction> {
+    let retries = 0
     while (true) {
       const tx = await getTransaction(txId)
 
       if (tx && !isPending(tx) && tx.receipt) {
-        return tx
+        if (isFailure(tx)) {
+          return { ...tx, status: TRANSACTION_STATUS.failed }
+        } else {
+          return { ...tx, status: TRANSACTION_STATUS.confirmed }
+        }
+      }
+
+      retries++
+      if (!isNaN(retriesOnEmpty) && retries > retriesOnEmpty) {
+        return { hash: txId, status: TRANSACTION_STATUS.dropped }
       }
 
       await sleep(TRANSACTION_FETCH_DELAY)
@@ -93,7 +132,7 @@ export namespace txUtils {
    * @return {object.receipt} transaction - Transaction receipt
    */
   // prettier-ignore
-  export async function getTransaction(txId: string): Promise<{ receipt: TxReceipt } & TxStatus> {
+  export async function getTransaction(txId: string): Promise<MinedTransaction> {
     const [tx, receipt] = await Promise.all([
       eth.wallet.getTransactionStatus(txId),
       eth.wallet.getTransactionReceipt(txId)
@@ -120,6 +159,15 @@ export namespace txUtils {
    */
   export function isFailure(tx) {
     return tx && (!tx.receipt || tx.receipt.status === '0x0' || tx.status === TRANSACTION_STATUS.failed)
+  }
+
+  /**
+   * Checks for a dropped status prop against {@link txUtils#TRANSACTION_STATUS}
+   * @param {object} tx - The transaction object
+   * @return boolean
+   */
+  export function isDropped(tx) {
+    return tx && tx.status === TRANSACTION_STATUS.dropped
   }
 
   /**

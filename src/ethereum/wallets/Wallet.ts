@@ -15,6 +15,7 @@ export interface TxReceipt {
 }
 
 export type TxStatus = {
+  status: string
   hash: string
   nonce: number
   blockHash: string
