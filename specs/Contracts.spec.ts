@@ -84,7 +84,8 @@ function doTest() {
     expect(typeof txRecipt.contractAddress).to.eq('string')
     expect(txRecipt.contractAddress.length).to.be.greaterThan(0)
 
-    const x = await txUtils.getTransaction(contract.transactionHash)
+    /* tslint:disable-next-line:no-unnecessary-type-assertion */
+    const x = (await txUtils.getTransaction(contract.transactionHash)) as txUtils.ConfirmedTransaction
     expect(typeof x).eq('object')
     expect(x.hash).eq(contract.transactionHash)
     expect(typeof x.receipt).eq('object')

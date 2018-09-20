@@ -25,14 +25,8 @@
     "type": "git",
     "url": "https://github.com/decentraland/decentraland-eth.git"
   },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "common",
-    "modules",
-    "decentraland"
-  ],
+  "files": ["dist"],
+  "keywords": ["common", "modules", "decentraland"],
   "author": "Decentraland",
   "license": "ISC",
   "dependencies": {
