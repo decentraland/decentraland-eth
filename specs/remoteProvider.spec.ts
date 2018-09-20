@@ -57,11 +57,12 @@ describe('ETH using url provider (mainnet)', function() {
     expect(invalidTx).to.be.equal(null)
   })
 
-  it('should work and identify failed transactions', async function() {
+  it('should work and identify reverted transactions', async function() {
     this.timeout(30000)
-    const failedTx = await txUtils.getTransaction(mainnetFailedTransaction)
+    /* tslint:disable-next-line:no-unnecessary-type-assertion */
+    const failedTx = (await txUtils.getTransaction(mainnetFailedTransaction)) as txUtils.RevertedTransaction
 
-    expect(txUtils.isFailure(failedTx)).to.be.equal(true)
+    expect(failedTx.type).to.be.equal('reverted')
   })
 
   it('should get the status of a transaction', async function() {

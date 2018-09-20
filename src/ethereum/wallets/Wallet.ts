@@ -1,7 +1,7 @@
 import { promisify } from '../../utils'
 import { Abi } from '../abi/Abi'
 
-export interface TxReceipt {
+export interface TransactionReceipt {
   transactionHash: string
   transactionIndex: number
   blockHash: string
@@ -14,11 +14,11 @@ export interface TxReceipt {
   logsBloom: string
 }
 
-export type TxStatus = {
-  status: string
+export type TransactionStatus = {
   hash: string
   nonce: number
   blockHash: string
+  blockNumber: number | null
   transactionIndex: number
   from: string
   to: string
@@ -117,12 +117,49 @@ export abstract class Wallet {
     return this.getWeb3().eth.contract(abi)
   }
 
+  async getBlockNumber(): Promise<number> {
+    return promisify(this.getWeb3().eth.getBlockNumber)()
+  }
+
+  async getBlock(blockHashOrBlockNumber: string | number, returnTransactionObjects: boolean = false) {
+    return promisify(this.getWeb3().eth.getBlock)(blockHashOrBlockNumber, returnTransactionObjects)
+  }
+
+  async getTransactionsByAccount(
+    address: string,
+    startBlockNumber: number = null,
+    endBlockNumber: number = null
+  ): Promise<TransactionStatus[]> {
+    if (endBlockNumber == null) {
+      endBlockNumber = await this.getBlockNumber()
+    }
+    if (startBlockNumber == null) {
+      startBlockNumber = endBlockNumber - 1000
+    }
+
+    startBlockNumber = startBlockNumber < 0 ? 0 : startBlockNumber
+    endBlockNumber = endBlockNumber < startBlockNumber ? startBlockNumber : endBlockNumber
+
+    const accountTransactions = []
+    for (let i = startBlockNumber; i <= endBlockNumber; i++) {
+      let block = await this.getBlock(i, true)
+      if (block != null && block.transactions != null) {
+        block.transactions.forEach(function(tx: TransactionStatus) {
+          if (address === '*' || address === tx.from || address === tx.to) {
+            accountTransactions.push(tx)
+          }
+        })
+      }
+    }
+    return accountTransactions
+  }
+
   /**
    * Interface for the web3 `getTransaction` method
    * @param  {string} txId - Transaction id/hash
    * @return {object}      - An object describing the transaction (if it exists)
    */
-  async getTransactionStatus(txId: string): Promise<TxStatus> {
+  async getTransactionStatus(txId: string): Promise<TransactionStatus> {
     return promisify(this.getWeb3().eth.getTransaction)(txId)
   }
 
@@ -131,7 +168,7 @@ export abstract class Wallet {
    * @param  {string} txId - Transaction id/hash
    * @return {object} - An object describing the transaction receipt (if it exists) with it's logs
    */
-  async getTransactionReceipt(txId: string): Promise<TxReceipt> {
+  async getTransactionReceipt(txId: string): Promise<TransactionReceipt> {
     const receipt = await promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
 
     if (receipt && receipt.logs) {

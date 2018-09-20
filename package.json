@@ -1,6 +1,6 @@
 {
   "name": "decentraland-eth",
-  "version": "0.0.0-development",
+  "version": "5.0.0-rc6",
   "description": "Common functionality between the different Decentraland projects",
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -25,14 +25,8 @@
     "type": "git",
     "url": "https://github.com/decentraland/decentraland-eth.git"
   },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "common",
-    "modules",
-    "decentraland"
-  ],
+  "files": ["dist"],
+  "keywords": ["common", "modules", "decentraland"],
   "author": "Decentraland",
   "license": "ISC",
   "dependencies": {

@@ -96,6 +96,11 @@ export namespace eth {
     return getAccount()
   }
 
+  export async function getCurrentNonce(): Promise<number> {
+    const address = getAddress()
+    return promisify(wallet.getWeb3().eth.getTransactionCount)(address)
+  }
+
   export function getAccount() {
     return wallet.getAccount()
   }
@@ -150,7 +155,7 @@ export namespace eth {
     return contracts[name]
   }
 
-  export async function sign(payload): Promise<{message: string; signature: string}> {
+  export async function sign(payload): Promise<{ message: string; signature: string }> {
     const message = ethUtils.toHex(payload)
     const signature = await wallet.sign(message)
     return { message, signature }
