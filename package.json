@@ -1,6 +1,6 @@
 {
   "name": "decentraland-eth",
-  "version": "5.0.0-rc6",
+  "version": "0.0.0-development",
   "description": "Common functionality between the different Decentraland projects",
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",
