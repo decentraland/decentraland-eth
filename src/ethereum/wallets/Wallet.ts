@@ -1,7 +1,7 @@
 import { promisify } from '../../utils'
 import { Abi } from '../abi/Abi'
 
-export interface TxReceipt {
+export interface TransactionReceipt {
   transactionHash: string
   transactionIndex: number
   blockHash: string
@@ -14,10 +14,11 @@ export interface TxReceipt {
   logsBloom: string
 }
 
-export type TxStatus = {
+export type TransactionStatus = {
   hash: string
   nonce: number
   blockHash: string
+  blockNumber: number | null
   transactionIndex: number
   from: string
   to: string
@@ -121,7 +122,7 @@ export abstract class Wallet {
    * @param  {string} txId - Transaction id/hash
    * @return {object}      - An object describing the transaction (if it exists)
    */
-  async getTransactionStatus(txId: string): Promise<TxStatus> {
+  async getTransactionStatus(txId: string): Promise<TransactionStatus> {
     return promisify(this.getWeb3().eth.getTransaction)(txId)
   }
 
@@ -130,7 +131,7 @@ export abstract class Wallet {
    * @param  {string} txId - Transaction id/hash
    * @return {object} - An object describing the transaction receipt (if it exists) with it's logs
    */
-  async getTransactionReceipt(txId: string): Promise<TxReceipt> {
+  async getTransactionReceipt(txId: string): Promise<TransactionReceipt> {
     const receipt = await promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
 
     if (receipt && receipt.logs) {

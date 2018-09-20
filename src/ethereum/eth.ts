@@ -2,7 +2,7 @@ import { NodeWallet } from './wallets'
 import { ethUtils } from './ethUtils'
 import { promisify } from '../utils/index'
 import { Contract } from './Contract'
-import { Wallet } from './wallets/Wallet'
+import { Wallet, TransactionStatus } from './wallets/Wallet'
 
 export type ConnectOptions = {
   /** An array of objects defining contracts or Contract subclasses to use. Check {@link eth#setContracts} */
@@ -96,6 +96,11 @@ export namespace eth {
     return getAccount()
   }
 
+  export async function getCurrentNonce(): Promise<number> {
+    const address = getAddress()
+    return promisify(wallet.getWeb3().eth.getTransactionCount)(address)
+  }
+
   export function getAccount() {
     return wallet.getAccount()
   }
@@ -150,7 +155,7 @@ export namespace eth {
     return contracts[name]
   }
 
-  export async function sign(payload): Promise<{message: string; signature: string}> {
+  export async function sign(payload): Promise<{ message: string; signature: string }> {
     const message = ethUtils.toHex(payload)
     const signature = await wallet.sign(message)
     return { message, signature }
@@ -206,5 +211,54 @@ export namespace eth {
       throw new Error(`Unknown Network id: ${id}`)
     }
     return network
+  }
+
+  /**
+   * Interface for the web3 `getBlockNumber` method.
+   * @return {number} - The number of the latest block
+   */
+  export async function getBlockNumber(): Promise<number> {
+    return promisify(wallet.getWeb3().eth.getBlockNumber)()
+  }
+
+  /**
+   * Interface for the web3 `getBlock` method.
+   * @return {object} - An ehtereum block
+   */
+  export async function getBlock(blockHashOrBlockNumber: string | number, returnTransactionObjects: boolean = false) {
+    return promisify(wallet.getWeb3().eth.getBlock)(blockHashOrBlockNumber, returnTransactionObjects)
+  }
+
+  /**
+   * A helper method to get all the transactions from/to a particular address or * (between start/end block numbers)
+   * @return {array} - An array of transactions
+   */
+  export async function getTransactionsByAccount(
+    address: string,
+    startBlockNumber: number = null,
+    endBlockNumber: number = null
+  ): Promise<TransactionStatus[]> {
+    if (endBlockNumber == null) {
+      endBlockNumber = await this.getBlockNumber()
+    }
+    if (startBlockNumber == null) {
+      startBlockNumber = endBlockNumber - 1000
+    }
+
+    startBlockNumber = startBlockNumber < 0 ? 0 : startBlockNumber
+    endBlockNumber = endBlockNumber < startBlockNumber ? startBlockNumber : endBlockNumber
+
+    const accountTransactions = []
+    for (let i = startBlockNumber; i <= endBlockNumber; i++) {
+      let block = await this.getBlock(i, true)
+      if (block != null && block.transactions != null) {
+        block.transactions.forEach(function(tx: TransactionStatus) {
+          if (address === '*' || address === tx.from || address === tx.to) {
+            accountTransactions.push(tx)
+          }
+        })
+      }
+    }
+    return accountTransactions
   }
 }
