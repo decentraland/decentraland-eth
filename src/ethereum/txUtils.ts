@@ -1,6 +1,6 @@
-import { sleep } from '../utils'
 import { eth } from './eth'
-import { TxReceipt, TxStatus } from './wallets/Wallet'
+import { TransactionReceipt, TransactionStatus } from './wallets/Wallet'
+import { sleep } from '../utils'
 
 /**
  * Some utility functions to work with Ethereum transactions.
@@ -11,129 +11,151 @@ export namespace txUtils {
 
   export let TRANSACTION_FETCH_DELAY: number = 2 * 1000
 
-  export let TRANSACTION_STATUS = Object.freeze({
-    pending: 'pending',
-    confirmed: 'confirmed',
-    failed: 'failed'
-  })
-
-  /**
-   * Waits until the transaction finishes. Returns if it was successfull.
-   * Throws if the transaction fails or if it lacks any of the supplied events
-   * @param  {string} txId - Transaction id to watch
-   * @param  {Array<string>|string} events - Events to watch. See {@link txUtils#getLogEvents}
-   * @param  {number} [retriesOnEmpty] - Number of retries when a transaction status returns empty
-   * @return {object} data - Current transaction data. See {@link txUtils#getTransaction}
-   */
-  export async function getConfirmedTransaction(txId: string, events: string[], retriesOnEmpty?: number) {
-    const tx = await waitForCompletion(txId, retriesOnEmpty)
-
-    if (isFailure(tx)) {
-      if (tx.isDropped) {
-        throw new Error(`Transaction "${txId}" dropped`)
-      }
-      throw new Error(`Transaction "${txId}" failed`)
-    }
-
-    if (!hasLogEvents(tx, events)) {
-      throw new Error(`Missing events for transaction "${txId}": ${events}`)
-    }
-
-    return tx
+  export type TransactionTypes = {
+    queued: 'queued'
+    dropped: 'dropped'
+    replaced: 'replaced'
+    pending: 'pending'
+    reverted: 'reverted'
+    confirmed: 'confirmed'
   }
 
-  /**
-   * Wait until a transaction finishes by either being mined or failing
-   * @param  {string} txId - Transaction id to watch
-   * @param  {number} [retriesOnEmpty] - Number of retries when a transaction status returns empty
-   * @return {Promise<object>} data - Current transaction data. See {@link txUtils#getTransaction}
-   */
-  export async function waitForCompletion(txId: string, retriesOnEmpty?: number): Promise<any> {
-    const isDropped = await isTxDropped(txId, retriesOnEmpty)
-    if (isDropped) {
-      return { hash: txId, status: TRANSACTION_STATUS.failed, isDropped: true }
+  export let TRANSACTION_TYPES: TransactionTypes = Object.freeze({
+    queued: 'queued' as 'queued',
+    dropped: 'dropped' as 'dropped',
+    replaced: 'replaced' as 'replaced',
+    pending: 'pending' as 'pending',
+    reverted: 'reverted' as 'reverted',
+    confirmed: 'confirmed' as 'confirmed'
+  })
+
+  export type DroppedTransaction = {
+    type: TransactionTypes['dropped']
+    hash: string
+    nonce: number
+  }
+
+  export type ReplacedTransaction = {
+    type: TransactionTypes['replaced']
+    hash: string
+    nonce: number
+  }
+
+  export type QueuedTransaction = {
+    type: TransactionTypes['queued']
+    hash: string
+    nonce: number
+  }
+
+  export type PendingTransaction = TransactionStatus & {
+    type: TransactionTypes['pending']
+  }
+
+  export type RevertedTransaction = TransactionStatus & {
+    type: TransactionTypes['reverted']
+  }
+
+  export type ConfirmedTransaction = TransactionStatus & {
+    type: TransactionTypes['confirmed']
+    receipt: TransactionReceipt
+  }
+
+  export type Transaction =
+    | DroppedTransaction
+    | ReplacedTransaction
+    | QueuedTransaction
+    | PendingTransaction
+    | ConfirmedTransaction
+    | RevertedTransaction
+
+  export async function getTransaction(hash: string): Promise<Transaction> {
+    const status = await eth.wallet.getTransactionStatus(hash)
+
+    // not found
+    if (status == null) {
+      return null
     }
 
-    while (true) {
-      const tx = await getTransaction(txId)
+    if (status.blockNumber == null) {
+      const currentNonce = await eth.getCurrentNonce()
 
-      if (tx && !isPending(tx) && tx.receipt) {
+      // replaced
+      if (status.nonce < currentNonce) {
+        const tx: ReplacedTransaction = {
+          hash,
+          type: 'replaced',
+          nonce: status.nonce
+        }
         return tx
       }
 
-      await sleep(TRANSACTION_FETCH_DELAY)
-    }
-  }
-
-  /*
-   * Wait retryAttemps*TRANSACTION_FETCH_DELAY for a transaction status to be in the mempool
-   * @param  {string} txId - Transaction id to watch
-   * @param  {number} [retryAttemps=15] - Number of retries when a transaction status returns empty
-   * @return {Promise<boolean>}
-   */
-  export async function isTxDropped(txId: string, retryAttemps: number = 15): Promise<boolean> {
-    while (retryAttemps > 0) {
-      const tx = await getTransaction(txId)
-
-      if (tx !== null) {
-        return false
+      // queued
+      if (status.nonce > currentNonce) {
+        const tx: QueuedTransaction = {
+          hash,
+          type: 'queued',
+          nonce: status.nonce
+        }
+        return tx
       }
 
-      retryAttemps -= 1
-      await sleep(TRANSACTION_FETCH_DELAY)
+      // pending
+      const tx: PendingTransaction = {
+        type: 'pending',
+        ...status
+      }
+      return tx
     }
 
-    return true
+    const receipt = await eth.wallet.getTransactionReceipt(hash)
+
+    // reverted
+    if (receipt == null || receipt.status === '0x0') {
+      const tx: RevertedTransaction = {
+        type: 'reverted',
+        ...status
+      }
+      return tx
+    }
+
+    // confirmed
+    const tx: ConfirmedTransaction = {
+      type: 'confirmed',
+      ...status,
+      receipt
+    }
+    return tx
   }
 
-  /**
-   * Get the transaction status and receipt
-   * @param  {string} txId - Transaction id
-   * @return {object} data - Current transaction data. See {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethgettransaction}
-   * @return {object.receipt} transaction - Transaction receipt
-   */
-  // prettier-ignore
-  export async function getTransaction(txId: string): Promise<{ receipt: TxReceipt } & TxStatus> {
-    const [tx, receipt] = await Promise.all([
-      eth.wallet.getTransactionStatus(txId),
-      eth.wallet.getTransactionReceipt(txId)
-    ])
-
-    return tx ? { ...tx, receipt } : null
+  export async function getConfirmedTransaction(hash: string, events: string[] = []): Promise<ConfirmedTransaction> {
+    while (true) {
+      const tx = await getTransaction(hash)
+      if (tx != null) {
+        switch (tx.type) {
+          case 'reverted':
+          case 'dropped':
+          case 'replaced':
+            throw new Error(`Error: transaction ${tx.type}`)
+          case 'confirmed': {
+            if (!hasLogEvents(tx, events)) {
+              throw new Error(`Missing events for transaction "${hash}": ${events}`)
+            }
+            return tx
+          }
+        }
+      }
+      await sleep(TRANSACTION_FETCH_DELAY)
+    }
   }
 
-  /**
-   * Expects the result of getTransaction's geth command and returns true if the transaction is still pending.
-   * It'll also check for a pending status prop against {@link txUtils#TRANSACTION_STATUS}
-   * @param {object} tx - The transaction object
-   * @return boolean
-   */
-  export function isPending(tx) {
-    return tx && (tx.blockNumber === null || tx.status === TRANSACTION_STATUS.pending)
-  }
-
-  /**
-   * Expects the result of getTransactionReceipt's geth command and returns true if the transaction failed.
-   * It'll also check for a failed status prop against {@link txUtils#TRANSACTION_STATUS}
-   * @param {object} tx - The transaction object
-   * @return boolean
-   */
-  export function isFailure(tx) {
-    return tx && (!tx.receipt || tx.receipt.status === '0x0' || tx.status === TRANSACTION_STATUS.failed)
-  }
-
-  /**
-   * Returns true if a transaction contains an event
-   * @param {Array<object>} tx - Transaction with a decoded receipt
-   * @param {Array<string>|string} eventNames - A string or array of strings with event names you want to search for
-   * @return boolean
-   */
-  export function hasLogEvents(tx, eventNames: string[]) {
+  export function hasLogEvents(tx, eventNames: string[] = []) {
+    if (!tx) return false
     if (!eventNames || eventNames.length === 0) return true
     if (!tx.recepit) return false
 
     if (!Array.isArray(eventNames)) eventNames = [eventNames]
 
-    return tx.receipt.filter(log => log && log.name).every(log => eventNames.includes(log.name))
+    const eventsFromLogs = tx.receipt.filter(log => log && log.name).map(log => log.name)
+    return eventNames.every(eventName => eventsFromLogs.includes(eventName))
   }
 }
