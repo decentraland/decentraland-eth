@@ -2,10 +2,10 @@ import Web3 = require('web3')
 
 import TransportU2F from '@ledgerhq/hw-transport-u2f'
 import Eth from '@ledgerhq/hw-app-eth'
+import createLedgerSubProvider from '@ledgerhq/web3-subprovider'
 
 import * as ProviderEngine from 'web3-provider-engine'
 import * as RpcSubprovider from 'web3-provider-engine/subproviders/rpc'
-import LedgerWalletSubprovider from 'ledger-wallet-provider'
 
 import { Wallet } from './Wallet'
 import { sleep } from '../../utils'
@@ -79,7 +79,13 @@ export class LedgerWallet extends Wallet {
    * @return {object} The web3 provider
    */
   async getProvider(providerUrl = 'https://mainnet.infura.io/', networkId = '1'): Promise<any> {
-    let ledgerWalletSubProvider = await LedgerWalletSubprovider(() => networkId, this.derivationPath)
+    let ledgerWalletSubProvider = createLedgerSubProvider(
+      () => TransportU2F.create(), {
+        networkId: parseInt(networkId, 10),
+        path: this.derivationPath,
+        askConfirm: true
+      }
+    )
 
     this.engine.addProvider(ledgerWalletSubProvider)
     this.engine.addProvider(
