@@ -69,6 +69,13 @@ export namespace txUtils {
     | RevertedTransaction
 
   export async function getTransaction(hash: string): Promise<Transaction> {
+    let currentNonce
+    try {
+      currentNonce = await eth.getCurrentNonce()
+    } catch (error) {
+      currentNonce = null
+    }
+
     const status = await eth.wallet.getTransactionStatus(hash)
 
     // not found
@@ -77,26 +84,26 @@ export namespace txUtils {
     }
 
     if (status.blockNumber == null) {
-      const currentNonce = await eth.getCurrentNonce()
-
-      // replaced
-      if (status.nonce < currentNonce) {
-        const tx: ReplacedTransaction = {
-          hash,
-          type: 'replaced',
-          nonce: status.nonce
+      if (currentNonce != null) {
+        // replaced
+        if (status.nonce < currentNonce) {
+          const tx: ReplacedTransaction = {
+            hash,
+            type: 'replaced',
+            nonce: status.nonce
+          }
+          return tx
         }
-        return tx
-      }
 
-      // queued
-      if (status.nonce > currentNonce) {
-        const tx: QueuedTransaction = {
-          hash,
-          type: 'queued',
-          nonce: status.nonce
+        // queued
+        if (status.nonce > currentNonce) {
+          const tx: QueuedTransaction = {
+            hash,
+            type: 'queued',
+            nonce: status.nonce
+          }
+          return tx
         }
-        return tx
       }
 
       // pending
