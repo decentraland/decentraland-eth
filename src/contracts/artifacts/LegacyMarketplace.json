@@ -1,14 +1,14 @@
 {
-  "contractName": "Marketplace",
+  "contractName": "LegacyMarketplace",
   "abi": [
     {
       "constant": true,
       "inputs": [],
-      "name": "InterfaceId_ValidateFingerprint",
+      "name": "nonFungibleRegistry",
       "outputs": [
         {
           "name": "",
-          "type": "bytes4"
+          "type": "address"
         }
       ],
       "payable": false,
@@ -69,6 +69,15 @@
     {
       "constant": false,
       "inputs": [],
+      "name": "destroy",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
       "name": "pause",
       "outputs": [],
       "payable": false,
@@ -107,38 +116,11 @@
       "constant": true,
       "inputs": [
         {
-          "name": "contractName",
-          "type": "string"
-        },
-        {
-          "name": "migrationId",
-          "type": "string"
-        }
-      ],
-      "name": "isMigrated",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        },
-        {
           "name": "",
           "type": "uint256"
         }
       ],
-      "name": "orderByAssetId",
+      "name": "auctionByAssetId",
       "outputs": [
         {
           "name": "id",
@@ -146,10 +128,6 @@
         },
         {
           "name": "seller",
-          "type": "address"
-        },
-        {
-          "name": "nftAddress",
           "type": "address"
         },
         {
@@ -180,6 +158,35 @@
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_recipient",
+          "type": "address"
+        }
+      ],
+      "name": "destroyAndSend",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_acceptedToken",
+          "type": "address"
+        },
+        {
+          "name": "_nonFungibleRegistry",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
       "anonymous": false,
       "inputs": [
         {
@@ -195,11 +202,6 @@
         {
           "indexed": true,
           "name": "seller",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "nftAddress",
           "type": "address"
         },
         {
@@ -213,7 +215,7 @@
           "type": "uint256"
         }
       ],
-      "name": "OrderCreated",
+      "name": "AuctionCreated",
       "type": "event"
     },
     {
@@ -232,11 +234,6 @@
         {
           "indexed": true,
           "name": "seller",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "nftAddress",
           "type": "address"
         },
         {
@@ -250,7 +247,7 @@
           "type": "address"
         }
       ],
-      "name": "OrderSuccessful",
+      "name": "AuctionSuccessful",
       "type": "event"
     },
     {
@@ -270,14 +267,9 @@
           "indexed": true,
           "name": "seller",
           "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "nftAddress",
-          "type": "address"
         }
       ],
-      "name": "OrderCancelled",
+      "name": "AuctionCancelled",
       "type": "event"
     },
     {
@@ -334,46 +326,6 @@
       "type": "event"
     },
     {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "contractName",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "name": "migrationId",
-          "type": "string"
-        }
-      ],
-      "name": "Migrated",
-      "type": "event"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "initialize",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_acceptedToken",
-          "type": "address"
-        }
-      ],
-      "name": "initialize",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": false,
       "inputs": [
         {
@@ -405,10 +357,6 @@
       "constant": false,
       "inputs": [
         {
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
           "name": "assetId",
           "type": "uint256"
         },
@@ -431,10 +379,6 @@
       "constant": false,
       "inputs": [
         {
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
           "name": "assetId",
           "type": "uint256"
         }
@@ -448,36 +392,6 @@
     {
       "constant": false,
       "inputs": [
-        {
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "name": "assetId",
-          "type": "uint256"
-        },
-        {
-          "name": "price",
-          "type": "uint256"
-        },
-        {
-          "name": "fingerprint",
-          "type": "bytes"
-        }
-      ],
-      "name": "safeExecuteOrder",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "nftAddress",
-          "type": "address"
-        },
         {
           "name": "assetId",
           "type": "uint256"

@@ -1,6 +1,7 @@
 export { DecentralandVesting } from './DecentralandVesting'
 export { LANDRegistry } from './LANDRegistry'
 export { MANAToken } from './MANAToken'
+export { LegacyMarketplace } from './LegacyMarketplace'
 export { Marketplace } from './Marketplace'
 export { ReturnMANA } from './ReturnMANA'
 export { TerraformReserve } from './TerraformReserve'
