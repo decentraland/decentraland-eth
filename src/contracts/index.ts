@@ -1,6 +1,7 @@
 export { DecentralandVesting } from './DecentralandVesting'
 export { LANDRegistry } from './LANDRegistry'
 export { MANAToken } from './MANAToken'
+export { LegacyMarketplace } from './LegacyMarketplace'
 export { Marketplace } from './Marketplace'
 export { ERC20Token } from './ERC20Token'
 export { ERC721Token } from './ERC721Token'
