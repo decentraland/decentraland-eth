@@ -23,7 +23,7 @@ export class Artifacts {
   }
 
   async getPaths(): Promise<string[]> {
-    const artifactsPattern = path.join(this.folderPath, 'MANAToken.json')
+    const artifactsPattern = path.join(this.folderPath, '*.json')
     return globPromise(artifactsPattern)
   }
 
