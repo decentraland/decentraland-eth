@@ -105,20 +105,6 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "InterfaceId_ERC165",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "constant": false,
       "inputs": [
         {
@@ -157,20 +143,6 @@
         {
           "name": "",
           "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "ERC165_SUPPORT",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes4"
         }
       ],
       "payable": false,
@@ -281,20 +253,6 @@
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "GET_METADATA",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
       "inputs": [
         {
           "name": "_owner",
@@ -310,15 +268,6 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "renounceOwnership",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -434,6 +383,29 @@
       "constant": true,
       "inputs": [
         {
+          "name": "contractName",
+          "type": "string"
+        },
+        {
+          "name": "migrationId",
+          "type": "string"
+        }
+      ],
+      "name": "isMigrated",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
           "name": "_tokenId",
           "type": "uint256"
         }
@@ -476,7 +448,7 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_newOwner",
+          "name": "newOwner",
           "type": "address"
         }
       ],
@@ -485,25 +457,6 @@
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "name": "_symbol",
-          "type": "string"
-        },
-        {
-          "name": "_registry",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
     },
     {
       "anonymous": false,
@@ -629,18 +582,6 @@
           "indexed": true,
           "name": "previousOwner",
           "type": "address"
-        }
-      ],
-      "name": "OwnershipRenounced",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "previousOwner",
-          "type": "address"
         },
         {
           "indexed": true,
@@ -718,6 +659,23 @@
       "type": "event"
     },
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "contractName",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "migrationId",
+          "type": "string"
+        }
+      ],
+      "name": "Migrated",
+      "type": "event"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -744,34 +702,19 @@
       "constant": false,
       "inputs": [
         {
-          "name": "to",
-          "type": "address"
-        }
-      ],
-      "name": "mint",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "",
+          "name": "_operator",
           "type": "address"
         },
         {
-          "name": "tokenId",
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
           "type": "uint256"
         },
         {
-          "name": "estateTokenIdBytes",
+          "name": "_data",
           "type": "bytes"
         }
       ],
@@ -973,19 +916,60 @@
       "constant": false,
       "inputs": [
         {
-          "name": "from",
-          "type": "address"
+          "name": "_name",
+          "type": "string"
         },
         {
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "name": "estateIds",
-          "type": "uint256[]"
+          "name": "_symbol",
+          "type": "string"
         }
       ],
-      "name": "safeTransferManyFrom",
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "_symbol",
+          "type": "string"
+        },
+        {
+          "name": "_registry",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_sender",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "initialize",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -1012,6 +996,72 @@
         }
       ],
       "name": "safeTransferManyFrom",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "name": "estateIds",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "safeTransferManyFrom",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "estateId",
+          "type": "uint256"
+        },
+        {
+          "name": "landId",
+          "type": "uint256"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "updateLandData",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "estateId",
+          "type": "uint256"
+        },
+        {
+          "name": "landIds",
+          "type": "uint256[]"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "updateManyLandData",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
