@@ -589,42 +589,6 @@
       "constant": false,
       "inputs": [
         {
-          "name": "assetId",
-          "type": "uint256"
-        },
-        {
-          "name": "priceInWei",
-          "type": "uint256"
-        },
-        {
-          "name": "expiresAt",
-          "type": "uint256"
-        }
-      ],
-      "name": "createOrder",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "assetId",
-          "type": "uint256"
-        }
-      ],
-      "name": "cancelOrder",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
           "name": "nftAddress",
           "type": "address"
         },
@@ -672,24 +636,6 @@
           "name": "nftAddress",
           "type": "address"
         },
-        {
-          "name": "assetId",
-          "type": "uint256"
-        },
-        {
-          "name": "price",
-          "type": "uint256"
-        }
-      ],
-      "name": "executeOrder",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
         {
           "name": "assetId",
           "type": "uint256"
