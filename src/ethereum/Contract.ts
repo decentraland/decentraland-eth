@@ -90,17 +90,28 @@ export abstract class Contract<T = any> {
    * @param  {...object} args   - Every argument after the name will be fordwarded to the transaction method, in order
    * @return {Promise} - promise that resolves when the transaction does
    */
+  sendTransactionByType(method: string, submethod: string, ...args) {
+    const fn = this.instance[method][submethod]
+    return this._sendTransaction(fn, method, args)
+  }
+
   sendTransaction(method: string, ...args) {
+    const fn = this.instance[method]
+    return this._sendTransaction(fn, method, args)
+  }
+
+  _sendTransaction(fn: any, method: string, args) {
     if (!this.instance) {
       throw new Error(`The contract "${this.getContractName()}" was not initialized with a provider`)
     }
-    if (!this.instance[method]) {
+
+    if (!fn) {
       throw new Error(`${this.getContractName()}#sendTransaction: Unknown method ${method}`)
     }
-    if (typeof this.instance[method] !== 'function') {
+    if (typeof fn !== 'function') {
       throw new Error(`${this.getContractName()}#sendTransaction: method ${method} is not a function`)
     }
-    return Contract.sendTransaction(this.instance[method], ...args)
+    return Contract.sendTransaction(fn, ...args)
   }
 
   /**

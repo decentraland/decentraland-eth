@@ -6,18 +6,27 @@ import { Contract } from '..'
  */
 export function fulfillContractMethods(instance: Contract, abi: any[]) {
   for (const method of abi) {
-    const { name, stateMutability, type } = method
+    const { name, stateMutability, type, inputs } = method
+    const args = inputs.map(input => input.type).join(',')
 
-    if (!(name in instance)) {
-      switch (type) {
-        case 'function': {
-          if (stateMutability === 'view' || stateMutability === 'pure') {
+    switch (type) {
+      case 'function': {
+        if (stateMutability === 'view' || stateMutability === 'pure') {
+          if (!(name in instance)) {
             instance[name] = new Function(`return this.sendCall('${name}', ...arguments)`)
-          } else if (stateMutability === 'nonpayable') {
+          }
+          instance[`${name}(${args})`] = new Function(
+            `return this.sendTransactionByType('${name}', '${args}', ...arguments)`
+          )
+        } else if (stateMutability === 'nonpayable') {
+          if (!(name in instance)) {
             instance[name] = new Function(`return this.sendTransaction('${name}', ...arguments)`)
           }
-          break
+          instance[`${name}(${args})`] = new Function(
+            `return this.sendTransactionByType('${name}', '${args}', ...arguments)`
+          )
         }
+        break
       }
     }
   }
