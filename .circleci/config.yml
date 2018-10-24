@@ -8,7 +8,20 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:8
-
+      - image: ethereum/client-go
+        command: |
+          --identity="TEST_NODE"
+          --networkid="53611"
+          --rpc
+          --rpcaddr 0.0.0.0
+          --rpcapi admin,debug,eth,miner,net,personal,shh,txpool,web3
+          --ws
+          --wsaddr 0.0.0.0
+          --wsapi admin,debug,eth,miner,net,personal,shh,txpool,web3
+          --wsorigins "*"
+          --mine
+          --minerthreads=1
+          --dev
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/

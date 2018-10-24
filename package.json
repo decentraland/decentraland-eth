@@ -40,6 +40,7 @@
     "@ledgerhq/hw-app-eth": "^4.24.0",
     "@ledgerhq/hw-transport-u2f": "^4.24.0",
     "@ledgerhq/web3-subprovider": "^4.24.0",
+    "@types/bignumber.js": "^5.0.0",
     "comma-separated-values": "^3.6.4",
     "ethereumjs-util": "^6.0.0",
     "web3": "^0.20.7",
@@ -55,11 +56,14 @@
     "@types/glob": "^5.0.35",
     "@types/mocha": "^5.0.0",
     "@types/node": "^8.10.1",
+    "@types/websocket": "0.0.40",
     "chai": "^4.2.0",
     "commander": "^2.19.0",
     "dcl-tslint-config-standard": "^1.1.0",
+    "eth-connect": "^0.3.2",
     "ganache-cli": "^6.1.8",
     "husky": "^0.14.3",
+    "isomorphic-fetch": "^2.2.1",
     "mocha": "^4.0.1",
     "prettier": "^1.8.2",
     "rimraf": "^2.6.2",
@@ -68,6 +72,7 @@
     "tslint": "^5.11.0",
     "tslint-language-service": "^0.9.9",
     "typescript": "^3.1.3",
-    "validate-commit-msg": "^2.14.0"
+    "validate-commit-msg": "^2.14.0",
+    "websocket": "^1.0.28"
   }
 }

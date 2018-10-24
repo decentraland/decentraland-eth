@@ -1,29 +1,56 @@
 import { expect } from 'chai'
-import { NodeConnectionFactory } from './NodeConnectionFactory'
 import { eth, txUtils } from '../dist'
+import { testGeth } from './helpers'
 
-describe('Eth tests', () => {
-  const nodeConnectionFactory = new NodeConnectionFactory()
-  let provider
+const data = `0x496e7465726e65742063656e736f72736869702069732074686520636f6e74726f6c206f72207375707072657373696f6e206f6620776861742063616e2062652061636365737365642c207075626c69736865642c206f7220766965776564206f6e2074686520496e7465726e657420656e616374656420627920726567756c61746f72732c206f72206f6e207468656972206f776e20696e69746961746976652e20496e646976696475616c7320616e64206f7267616e697a6174696f6e73206d617920656e6761676520696e2073656c662d63656e736f727368697020666f72206d6f72616c2c2072656c6967696f75732c206f7220627573696e65737320726561736f6e732c20746f20636f6e666f726d20746f20736f63696574616c206e6f726d732c2064756520746f20696e74696d69646174696f6e2c206f72206f7574206f662066656172206f66206c6567616c206f72206f7468657220636f6e73657175656e6365732eaa54686520657874656e74206f6620496e7465726e65742063656e736f727368697020766172696573206f6e206120636f756e7472792d746f2d636f756e7472792062617369732e205768696c65206d6f73742064656d6f63726174696320636f756e74726965732068617665206d6f64657261746520496e7465726e65742063656e736f72736869702c206f7468657220636f756e747269657320676f2061732066617220617320746f206c696d69742074686520616363657373206f6620696e666f726d6174696f6e2073756368206173206e65777320616e642073757070726573732064697363757373696f6e20616d6f6e6720636974697a656e732e5b315d20496e7465726e65742063656e736f727368697020616c736f206f636375727320696e20726573706f6e736520746f206f7220696e20616e74696369706174696f6e206f66206576656e7473207375636820617320656c656374696f6e732c2070726f74657374732c20616e642072696f74732e20416e206578616d706c652069732074686520696e637265617365642063656e736f72736869702064756520746f20746865206576656e7473206f6620746865204172616220537072696e672e204f74686572206172656173206f662063656e736f727368697020696e636c75646520636f70797269676874732c20646566616d6174696f6e2c206861726173736d656e742c20616e64206f627363656e65206d6174657269616c2eaa54686520457468657265756d20426c6f636b636861696e2070726576656e74732063656e736f7273686970`
 
-  before(() => {
-    provider = nodeConnectionFactory.createProvider()
-    return eth.connect({ provider })
+testGeth(provider => {
+  it('initializes eth provider', async () => {
+    await eth.connect({ provider })
   })
 
   describe('.getTransactionsByAccount', function() {
     it('should return the right amount of txs', async function() {
       const account = eth.getAccount()
 
-      const txId = await eth.wallet.sendTransaction({ from: account })
+      const txId = await eth.wallet.sendTransaction({
+        from: account,
+        data: data,
+        value: 0,
+        to: account
+      })
+
+      while (true) {
+        const tx = await txUtils.getTransaction(txId)
+        if (tx.type !== 'pending') {
+          expect(tx.type).to.eq('confirmed', 'process mint transaction')
+          break
+        }
+      }
+
       await txUtils.getConfirmedTransaction(txId)
       const txs = await eth.getTransactionsByAccount(account)
-      expect(txs.length).to.be.equal(1)
+      const originalValue = txs.length
+      expect(originalValue).to.be.gt(0)
 
-      const txId2 = await eth.wallet.sendTransaction({ from: account })
+      const txId2 = await eth.wallet.sendTransaction({
+        from: account,
+        data: data,
+        value: 0,
+        to: account
+      })
+
+      while (true) {
+        const tx = await txUtils.getTransaction(txId2)
+        if (tx.type !== 'pending') {
+          expect(tx.type).to.eq('confirmed', 'process mint transaction')
+          break
+        }
+      }
+
       await txUtils.getConfirmedTransaction(txId2)
       const txs2 = await eth.getTransactionsByAccount(account)
-      expect(txs2.length).to.be.equal(2)
+      expect(txs2.length).to.be.equal(originalValue + 1)
     })
   })
 })

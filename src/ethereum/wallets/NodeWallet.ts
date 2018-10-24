@@ -52,6 +52,7 @@ export class NodeWallet extends Wallet {
   }
 
   async recover(message: string, signature: string) {
-    return this.web3.personal.ecRecover(message, signature)
+    const recover = this.web3.personal.ecRecover.bind(this.web3.personal)
+    return Contract.sendTransaction(recover, message, signature)
   }
 }

@@ -15,11 +15,12 @@ function _getABIs() {
 }
 
 function _addABI(abiArray) {
+  const signerWeb3 = new Web3()
   if (Array.isArray(abiArray)) {
     // Iterate new abi to generate method id's
     abiArray.forEach(abi => {
       if (abi.name) {
-        const signature = new Web3().sha3(
+        const signature = signerWeb3.sha3(
           abi.name +
             '(' +
             abi.inputs

@@ -58,6 +58,7 @@ export const ethUtils = {
    * @param  {Buffer | string | number} data - The input data
    * @param  {Number} [bits] - Number the SHA-3 width. Defaults to 256
    * @return {string}      [description]
+   * @deprecated use keccak
    */
   sha3(data: Buffer | string | number, bits: Number = 256): Buffer {
     return ethUtils.keccak(data, bits)
@@ -96,7 +97,7 @@ export const ethUtils = {
    */
   localRecover(data: Buffer | string, signature: string) {
     if (typeof data === 'string') {
-      data = ethereumJsUtil.sha3(data)
+      data = this.keccak(data)
     }
     let [r, s, v] = signature.split('||')
 
