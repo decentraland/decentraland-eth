@@ -15,16 +15,12 @@ export function fulfillContractMethods(instance: Contract, abi: any[]) {
           if (!(name in instance)) {
             instance[name] = new Function(`return this.sendCall('${name}', ...arguments)`)
           }
-          instance[`${name}(${args})`] = new Function(
-            `return this.sendTransactionByType('${name}', '${args}', ...arguments)`
-          )
+          instance[name][args] = new Function(`return this.sendCallByType('${name}', '${args}', ...arguments)`)
         } else if (stateMutability === 'nonpayable') {
           if (!(name in instance)) {
             instance[name] = new Function(`return this.sendTransaction('${name}', ...arguments)`)
           }
-          instance[`${name}(${args})`] = new Function(
-            `return this.sendTransactionByType('${name}', '${args}', ...arguments)`
-          )
+          instance[name][args] = new Function(`return this.sendTransactionByType('${name}', '${args}', ...arguments)`)
         }
         break
       }

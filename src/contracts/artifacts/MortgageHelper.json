@@ -3,27 +3,57 @@
   "abi": [
     {
       "constant": false,
-      "inputs": [{ "name": "_engine", "type": "address" }],
+      "inputs": [
+        {
+          "name": "_engine",
+          "type": "address"
+        }
+      ],
       "name": "setEngine",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_requiredTotal", "type": "uint256" }],
+      "inputs": [
+        {
+          "name": "_requiredTotal",
+          "type": "uint256"
+        }
+      ],
       "name": "setRequiredTotal",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_to", "type": "address" }],
+      "inputs": [
+        {
+          "name": "_to",
+          "type": "address"
+        }
+      ],
       "name": "setOwner",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -32,7 +62,12 @@
       "constant": true,
       "inputs": [],
       "name": "rcn",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -41,7 +76,12 @@
       "constant": true,
       "inputs": [],
       "name": "marginSpend",
-      "outputs": [{ "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -50,16 +90,31 @@
       "constant": true,
       "inputs": [],
       "name": "maxSpend",
-      "outputs": [{ "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_manaOracle", "type": "address" }],
+      "inputs": [
+        {
+          "name": "_manaOracle",
+          "type": "address"
+        }
+      ],
       "name": "setManaOracle",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -67,21 +122,45 @@
     {
       "constant": false,
       "inputs": [
-        { "name": "engine", "type": "address" },
-        { "name": "loan", "type": "uint256" },
-        { "name": "amount", "type": "uint256" }
+        {
+          "name": "engine",
+          "type": "address"
+        },
+        {
+          "name": "loan",
+          "type": "uint256"
+        },
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
       ],
       "name": "pay",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_maxSpend", "type": "uint256" }],
+      "inputs": [
+        {
+          "name": "_maxSpend",
+          "type": "uint256"
+        }
+      ],
       "name": "setMaxSpend",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -90,16 +169,31 @@
       "constant": true,
       "inputs": [],
       "name": "landMarket",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_converterRamp", "type": "address" }],
+      "inputs": [
+        {
+          "name": "_converterRamp",
+          "type": "address"
+        }
+      ],
       "name": "setConverterRamp",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -108,7 +202,12 @@
       "constant": true,
       "inputs": [],
       "name": "owner",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -117,7 +216,12 @@
       "constant": true,
       "inputs": [],
       "name": "requiredTotal",
-      "outputs": [{ "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -126,7 +230,12 @@
       "constant": true,
       "inputs": [],
       "name": "mortgageManager",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -135,16 +244,31 @@
       "constant": true,
       "inputs": [],
       "name": "nanoLoanEngine",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_rebuyThreshold", "type": "uint256" }],
+      "inputs": [
+        {
+          "name": "_rebuyThreshold",
+          "type": "uint256"
+        }
+      ],
       "name": "setRebuyThreshold",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -153,7 +277,12 @@
       "constant": true,
       "inputs": [],
       "name": "manaOracle",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -162,7 +291,12 @@
       "constant": true,
       "inputs": [],
       "name": "rebuyThreshold",
-      "outputs": [{ "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -171,7 +305,12 @@
       "constant": true,
       "inputs": [],
       "name": "tokenConverter",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -179,15 +318,38 @@
     {
       "constant": false,
       "inputs": [
-        { "name": "loanParams", "type": "uint256[6]" },
-        { "name": "metadata", "type": "string" },
-        { "name": "landId", "type": "uint256" },
-        { "name": "v", "type": "uint8" },
-        { "name": "r", "type": "bytes32" },
-        { "name": "s", "type": "bytes32" }
+        {
+          "name": "loanParams",
+          "type": "uint256[6]"
+        },
+        {
+          "name": "metadata",
+          "type": "string"
+        },
+        {
+          "name": "landId",
+          "type": "uint256"
+        },
+        {
+          "name": "v",
+          "type": "uint8"
+        },
+        {
+          "name": "r",
+          "type": "bytes32"
+        },
+        {
+          "name": "s",
+          "type": "bytes32"
+        }
       ],
       "name": "requestMortgage",
-      "outputs": [{ "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -196,16 +358,31 @@
       "constant": true,
       "inputs": [],
       "name": "converterRamp",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_mortgageManager", "type": "address" }],
+      "inputs": [
+        {
+          "name": "_mortgageManager",
+          "type": "address"
+        }
+      ],
       "name": "setMortgageManager",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -214,7 +391,12 @@
       "constant": true,
       "inputs": [],
       "name": "mana",
-      "outputs": [{ "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
@@ -223,46 +405,99 @@
       "constant": true,
       "inputs": [],
       "name": "MANA_CURRENCY",
-      "outputs": [{ "name": "", "type": "bytes32" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_tokenConverter", "type": "address" }],
+      "inputs": [
+        {
+          "name": "_tokenConverter",
+          "type": "address"
+        }
+      ],
       "name": "setTokenConverter",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_landMarket", "type": "address" }],
+      "inputs": [
+        {
+          "name": "_landMarket",
+          "type": "address"
+        }
+      ],
       "name": "setLandMarket",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [{ "name": "_marginSpend", "type": "uint256" }],
+      "inputs": [
+        {
+          "name": "_marginSpend",
+          "type": "uint256"
+        }
+      ],
       "name": "setMarginSpend",
-      "outputs": [{ "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
-        { "name": "_mortgageManager", "type": "address" },
-        { "name": "_nanoLoanEngine", "type": "address" },
-        { "name": "_landMarket", "type": "address" },
-        { "name": "_manaOracle", "type": "address" },
-        { "name": "_tokenConverter", "type": "address" },
-        { "name": "_converterRamp", "type": "address" }
+        {
+          "name": "_mortgageManager",
+          "type": "address"
+        },
+        {
+          "name": "_nanoLoanEngine",
+          "type": "address"
+        },
+        {
+          "name": "_landMarket",
+          "type": "address"
+        },
+        {
+          "name": "_manaOracle",
+          "type": "address"
+        },
+        {
+          "name": "_tokenConverter",
+          "type": "address"
+        },
+        {
+          "name": "_converterRamp",
+          "type": "address"
+        }
       ],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -271,10 +506,26 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "name": "borrower", "type": "address" },
-        { "indexed": false, "name": "loanId", "type": "uint256" },
-        { "indexed": false, "name": "landId", "type": "uint256" },
-        { "indexed": false, "name": "mortgageId", "type": "uint256" }
+        {
+          "indexed": false,
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "landId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "mortgageId",
+          "type": "uint256"
+        }
       ],
       "name": "NewMortgage",
       "type": "event"
@@ -282,9 +533,21 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "name": "engine", "type": "address" },
-        { "indexed": false, "name": "loanId", "type": "uint256" },
-        { "indexed": false, "name": "amount", "type": "uint256" }
+        {
+          "indexed": false,
+          "name": "engine",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        }
       ],
       "name": "PaidLoan",
       "type": "event"
@@ -292,8 +555,16 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "name": "_prev", "type": "uint256" },
-        { "indexed": false, "name": "_new", "type": "uint256" }
+        {
+          "indexed": false,
+          "name": "_prev",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_new",
+          "type": "uint256"
+        }
       ],
       "name": "SetRebuyThreshold",
       "type": "event"
@@ -301,8 +572,16 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "name": "_prev", "type": "uint256" },
-        { "indexed": false, "name": "_new", "type": "uint256" }
+        {
+          "indexed": false,
+          "name": "_prev",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_new",
+          "type": "uint256"
+        }
       ],
       "name": "SetMarginSpend",
       "type": "event"
@@ -310,8 +589,16 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "name": "_prev", "type": "uint256" },
-        { "indexed": false, "name": "_new", "type": "uint256" }
+        {
+          "indexed": false,
+          "name": "_prev",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_new",
+          "type": "uint256"
+        }
       ],
       "name": "SetMaxSpend",
       "type": "event"
@@ -319,8 +606,16 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "name": "_prev", "type": "uint256" },
-        { "indexed": false, "name": "_new", "type": "uint256" }
+        {
+          "indexed": false,
+          "name": "_prev",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_new",
+          "type": "uint256"
+        }
       ],
       "name": "SetRequiredTotal",
       "type": "event"
@@ -328,8 +623,16 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "name": "_prev", "type": "address" },
-        { "indexed": false, "name": "_new", "type": "address" }
+        {
+          "indexed": false,
+          "name": "_prev",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_new",
+          "type": "address"
+        }
       ],
       "name": "SetTokenConverter",
       "type": "event"
@@ -337,39 +640,77 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "name": "_prev", "type": "address" },
-        { "indexed": false, "name": "_new", "type": "address" }
+        {
+          "indexed": false,
+          "name": "_prev",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_new",
+          "type": "address"
+        }
       ],
       "name": "SetConverterRamp",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [{ "indexed": false, "name": "_manaOracle", "type": "address" }],
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_manaOracle",
+          "type": "address"
+        }
+      ],
       "name": "SetManaOracle",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [{ "indexed": false, "name": "_engine", "type": "address" }],
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_engine",
+          "type": "address"
+        }
+      ],
       "name": "SetEngine",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [{ "indexed": false, "name": "_landMarket", "type": "address" }],
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_landMarket",
+          "type": "address"
+        }
+      ],
       "name": "SetLandMarket",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [{ "indexed": false, "name": "_mortgageManager", "type": "address" }],
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_mortgageManager",
+          "type": "address"
+        }
+      ],
       "name": "SetMortgageManager",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [{ "indexed": false, "name": "_owner", "type": "address" }],
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
       "name": "SetOwner",
       "type": "event"
     }

@@ -86,51 +86,90 @@ export abstract class Contract<T = any> {
 
   /**
    * Execute a write-operation, and broadcast it to be processed by miners and published on the blockchain.
-   * @param  {string}    method - Method name
-   * @param  {...object} args   - Every argument after the name will be fordwarded to the transaction method, in order
+   * @param  {string} method - Method name
+   * @param  {string} args - Args of the method type name. E.g: address,address,uint256
+   * @param  {...object} params   - Every argument after the name will be fordwarded to the call function, in order
    * @return {Promise} - promise that resolves when the transaction does
    */
-  sendTransactionByType(method: string, submethod: string, ...args) {
-    const fn = this.instance[method][submethod]
-    return this._sendTransaction(fn, method, args)
+  sendTransactionByType(method: string, args: string, ...params) {
+    const fn = this.instance[method][args]
+    return this._sendTransaction(fn, method, ...params)
   }
 
-  sendTransaction(method: string, ...args) {
+  /**
+   * Execute a write-operation, and broadcast it to be processed by miners and published on the blockchain.
+   * @param  {string} method - Method name
+   * @param  {...object} params   - Every argument after the name will be fordwarded to the call function, in order
+   * @return {Promise} - promise that resolves when the transaction does
+   */
+  sendTransaction(method: string, ...params) {
     const fn = this.instance[method]
-    return this._sendTransaction(fn, method, args)
+    return this._sendTransaction(fn, method, ...params)
   }
 
-  _sendTransaction(fn: any, method: string, args) {
+  /**
+   * Inoke a contract function that does not broadcast or publish anything on the blockchain.
+   * @param  {string} method - Method name
+   * @param  {string} args - Args of the method type name. E.g: address,address,uint256
+   * @param  {...object} params   - Every argument after the name will be fordwarded to the call function, in order
+   * @return {Promise} - promise that resolves when the call does
+   */
+  sendCallByType(method: string, args: string, ...params) {
+    const fn = this.instance[method][args]
+    return this._sendCall(fn, method, ...params)
+  }
+
+  /**
+   * Inoke a contract function that does not broadcast or publish anything on the blockchain.
+   * @param  {string} method - Method name
+   * @param  {...object} params   - Every argument after the name will be fordwarded to the call function, in order
+   * @return {Promise} - promise that resolves when the call does
+   */
+  sendCall(method: string, ...params) {
+    const fn = this.instance[method]
+    return this._sendCall(fn, method, ...params)
+  }
+
+  /**
+   * Inoke a contract function that does not broadcast or publish anything on the blockchain.
+   * @param  {function} fn - Method function
+   * @param  {string} method - Method name
+   * @param  {...object} params - Every argument after the name will be fordwarded to the call function, in order
+   * @return {Promise} - promise that resolves when the call does
+   */
+  _sendTransaction(fn: any, method: string, ...params) {
     if (!this.instance) {
       throw new Error(`The contract "${this.getContractName()}" was not initialized with a provider`)
     }
-
     if (!fn) {
       throw new Error(`${this.getContractName()}#sendTransaction: Unknown method ${method}`)
     }
     if (typeof fn !== 'function') {
       throw new Error(`${this.getContractName()}#sendTransaction: method ${method} is not a function`)
     }
-    return Contract.sendTransaction(fn, ...args)
+
+    return Contract.sendTransaction(fn, ...params)
   }
 
   /**
    * Inoke a contract function that does not broadcast or publish anything on the blockchain.
-   * @param  {string}    prop - Prop name
-   * @param  {...object} args   - Every argument after the name will be fordwarded to the call function, in order
+   * @param  {function} fn - Method function
+   * @param  {string} method - Method name
+   * @param  {...object} params   - Every argument after the name will be fordwarded to the call function, in order
    * @return {Promise} - promise that resolves when the call does
    */
-  sendCall(prop: string, ...args) {
+  _sendCall(fn: any, method: string, ...params) {
     if (!this.instance) {
       throw new Error(`The contract "${this.getContractName()}" was not initialized with a provider`)
     }
-    if (!this.instance[prop]) {
-      throw new Error(`${this.getContractName()}#sendCall: Unknown method ${prop}`)
+    if (!fn) {
+      throw new Error(`${this.getContractName()}#sendCall: Unknown method ${method}`)
     }
-    if (!this.instance[prop].call) {
-      throw new Error(`${this.getContractName()}#sendCall: property ${prop} has no call signature`)
+    if (!fn.call) {
+      throw new Error(`${this.getContractName()}#sendCall: property ${method} has no call signature`)
     }
-    return Contract.sendCall(this.instance[prop], ...args)
+
+    return Contract.sendCall(fn, ...params)
   }
 
   getEvent(eventName) {

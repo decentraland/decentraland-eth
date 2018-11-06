@@ -3,6 +3,7 @@ import { NodeConnectionFactory } from './NodeConnectionFactory'
 import { deployContract } from './deployContract'
 import { eth, txUtils } from '../dist'
 import { MANAToken } from '../dist/contracts'
+import { MANAToken as MANATokenOverloaded } from './MANAToken'
 
 describe('ETH tests', () => {
   const nodeConnectionFactory = new NodeConnectionFactory()
@@ -40,6 +41,83 @@ describe('ETH tests', () => {
 
     after(() => {
       provider.close()
+    })
+  })
+
+  describe('Transactions', function() {
+    let deployedMANAAddress = '0x0'
+    let MANAFacade: MANAToken
+    let account = '0x0'
+    let tenWei = eth.utils.toWei(10)
+
+    beforeEach(async () => {
+      const nodeConnectionFactory = new NodeConnectionFactory()
+      const provider = nodeConnectionFactory.createProvider()
+      await eth.connect({ provider })
+
+      const contract = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
+      const txRecipt = await eth.wallet.getTransactionReceipt(contract.transactionHash)
+      deployedMANAAddress = txRecipt.contractAddress
+
+      MANAFacade = new MANATokenOverloaded(deployedMANAAddress)
+      await eth.setContracts([MANAFacade])
+      account = await eth.wallet.getAccount()
+    })
+
+    describe('Send Call', function() {
+      it('should send call by method name', async function() {
+        await MANAFacade.mint(account, tenWei)
+        const balance = await MANAFacade.balanceOf(account)
+        expect(balance).equal(10)
+      })
+
+      it('should send call by sendCall', async function() {
+        await MANAFacade.mint(account, tenWei)
+        const balance = await MANAFacade.sendCall('balanceOf', account)
+        expect(balance.toString()).equal(tenWei.toString())
+      })
+
+      it('should send call by sendCallByType', async function() {
+        await MANAFacade.mint(account, tenWei)
+        const balance = await MANAFacade.sendCallByType('balanceOf', 'address', account)
+        expect(balance.toString()).equal(tenWei.toString())
+      })
+
+      it('should check if overloaded name for sendCallByType exist', async function() {
+        expect(typeof MANAFacade.instance['balanceOf']['address,address']).equal('function')
+      })
+
+      it('should return undefined if overloaded name not exist', async function() {
+        expect(typeof MANAFacade.instance['balanceOf']['address,uint256']).equal('undefined')
+      })
+    })
+
+    describe('Send Transaction', function() {
+      it('should send transaction by method name', async function() {
+        await MANAFacade.mint(account, tenWei)
+        const balance = await MANAFacade.balanceOf(account)
+        expect(balance).equal(10)
+      })
+
+      it('should send transaction by sendTransaction', async function() {
+        await MANAFacade.sendTransaction('mint', account, tenWei)
+        const balance = await MANAFacade.balanceOf(account)
+        expect(balance).equal(10)
+      })
+
+      it('should send transaction by sendTransactionByType', async function() {
+        await MANAFacade.sendTransactionByType('mint', 'address,uint256', account, tenWei)
+        const balance = await MANAFacade.balanceOf(account)
+        expect(balance).equal(10)
+      })
+
+      it('should check if overloaded name for sendTransactionByType exist', async function() {
+        expect(typeof MANAFacade.instance['mint']['address,uint256,address']).equal('function')
+      })
+
+      it('should return undefined if overloaded name not exist', async function() {
+        expect(typeof MANAFacade.instance['mint']['address,uint256,address,address']).equal('undefined')
+      })
     })
   })
 })
