@@ -44,7 +44,7 @@ describe('ETH tests', () => {
     })
   })
 
-  describe('Transactions', function() {
+  describe.only('Transactions', function() {
     let deployedMANAAddress = '0x0'
     let MANAFacade: MANAToken
     let account = '0x0'
@@ -78,17 +78,14 @@ describe('ETH tests', () => {
       })
 
       it('should send call by sendCallByType', async function() {
-        await MANAFacade.mint(account, tenWei)
-        const balance = await MANAFacade.sendCallByType('balanceOf', 'address', account)
-        expect(balance.toString()).equal(tenWei.toString())
+        expect(typeof MANAFacade.instance['fakeBalanceOf']['address,address']).equal('function')
+        expect(typeof MANAFacade.instance['fakeBalanceOf']['address']).equal('function')
       })
 
-      it('should check if overloaded name for sendCallByType exist', async function() {
-        expect(typeof MANAFacade.instance['balanceOf']['address,address']).equal('function')
-      })
-
-      it('should return undefined if overloaded name not exist', async function() {
-        expect(typeof MANAFacade.instance['balanceOf']['address,uint256']).equal('undefined')
+      it('throws when try to call overloaded method', async function() {
+        expect(() => MANAFacade['fakeBalanceOf'](account)).to.throw(
+          'Method: fakeBalanceOf is overloaded. Options available are: contract.fakeBalanceOf["address,address"](...), contract.fakeBalanceOf["address"](...)'
+        )
       })
     })
 
@@ -112,11 +109,14 @@ describe('ETH tests', () => {
       })
 
       it('should check if overloaded name for sendTransactionByType exist', async function() {
-        expect(typeof MANAFacade.instance['mint']['address,uint256,address']).equal('function')
+        expect(typeof MANAFacade.instance['fakeMint']['address,uint256']).equal('function')
+        expect(typeof MANAFacade.instance['fakeMint']['address,uint256,address']).equal('function')
       })
 
-      it('should return undefined if overloaded name not exist', async function() {
-        expect(typeof MANAFacade.instance['mint']['address,uint256,address,address']).equal('undefined')
+      it('throws when try to call overloaded method', async function() {
+        expect(() => MANAFacade['fakeMint'](account, tenWei)).to.throw(
+          'Method: fakeMint is overloaded. Options available are: contract.fakeMint["address,uint256,address"](...), contract.fakeMint["address,uint256"](...)'
+        )
       })
     })
   })

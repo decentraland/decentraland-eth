@@ -160,7 +160,30 @@
           "type": "address"
         }
       ],
-      "name": "mint",
+      "name": "fakeMint",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "fakeMint",
       "outputs": [
         {
           "name": "",
@@ -216,7 +239,26 @@
           "type": "address"
         }
       ],
-      "name": "balanceOf",
+      "name": "fakeBalanceOf",
+      "outputs": [
+        {
+          "name": "balance",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "fakeBalanceOf",
       "outputs": [
         {
           "name": "balance",
