@@ -2,6 +2,34 @@
   "contractName": "Marketplace",
   "abi": [
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_ownerCutPerMillion",
+          "type": "uint256"
+        }
+      ],
+      "name": "setOwnerCutPerMillion",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_legacyNFTAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setLegacyNFTAddress",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "ERC721_Interface",
@@ -53,6 +81,20 @@
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "assetId",
+          "type": "uint256"
+        }
+      ],
+      "name": "cancelOrder",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "paused",
@@ -67,17 +109,56 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "ownerCutPercentage",
-      "outputs": [
+      "constant": false,
+      "inputs": [
         {
-          "name": "",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "name": "assetId",
           "type": "uint256"
         }
       ],
+      "name": "cancelOrder",
+      "outputs": [],
       "payable": false,
-      "stateMutability": "view",
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "name": "assetId",
+          "type": "uint256"
+        },
+        {
+          "name": "priceInWei",
+          "type": "uint256"
+        },
+        {
+          "name": "expiresAt",
+          "type": "uint256"
+        }
+      ],
+      "name": "createOrder",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -104,6 +185,68 @@
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "name": "assetId",
+          "type": "uint256"
+        },
+        {
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "name": "fingerprint",
+          "type": "bytes"
+        }
+      ],
+      "name": "safeExecuteOrder",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "ownerCutPerMillion",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "assetId",
+          "type": "uint256"
+        },
+        {
+          "name": "priceInWei",
+          "type": "uint256"
+        },
+        {
+          "name": "expiresAt",
+          "type": "uint256"
+        }
+      ],
+      "name": "createOrder",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "publicationFeeInWei",
@@ -115,6 +258,42 @@
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "name": "assetId",
+          "type": "uint256"
+        },
+        {
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "executeOrder",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_publicationFee",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPublicationFee",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -141,6 +320,42 @@
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_acceptedToken",
+          "type": "address"
+        },
+        {
+          "name": "_legacyNFTAddress",
+          "type": "address"
+        },
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_sender",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "legacyNFTAddress",
@@ -148,6 +363,37 @@
         {
           "name": "",
           "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "assetId",
+          "type": "uint256"
+        }
+      ],
+      "name": "auctionByAssetId",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
         }
       ],
       "payable": false,
@@ -191,6 +437,24 @@
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "assetId",
+          "type": "uint256"
+        },
+        {
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "executeOrder",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -325,11 +589,11 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "ownerCutPercentage",
+          "name": "ownerCutPerMillion",
           "type": "uint256"
         }
       ],
-      "name": "ChangedOwnerCutPercentage",
+      "name": "ChangedOwnerCutPerMillion",
       "type": "event"
     },
     {
@@ -475,212 +739,6 @@
       ],
       "name": "Migrated",
       "type": "event"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "publicationFee",
-          "type": "uint256"
-        }
-      ],
-      "name": "setPublicationFee",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_ownerCutPercentage",
-          "type": "uint256"
-        }
-      ],
-      "name": "setOwnerCutPercentage",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_legacyNFTAddress",
-          "type": "address"
-        }
-      ],
-      "name": "setLegacyNFTAddress",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_acceptedToken",
-          "type": "address"
-        },
-        {
-          "name": "_legacyNFTAddress",
-          "type": "address"
-        }
-      ],
-      "name": "initialize",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "initialize",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_sender",
-          "type": "address"
-        }
-      ],
-      "name": "initialize",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "name": "assetId",
-          "type": "uint256"
-        },
-        {
-          "name": "priceInWei",
-          "type": "uint256"
-        },
-        {
-          "name": "expiresAt",
-          "type": "uint256"
-        }
-      ],
-      "name": "createOrder",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "name": "assetId",
-          "type": "uint256"
-        }
-      ],
-      "name": "cancelOrder",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "name": "assetId",
-          "type": "uint256"
-        },
-        {
-          "name": "price",
-          "type": "uint256"
-        },
-        {
-          "name": "fingerprint",
-          "type": "bytes"
-        }
-      ],
-      "name": "safeExecuteOrder",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "name": "assetId",
-          "type": "uint256"
-        },
-        {
-          "name": "price",
-          "type": "uint256"
-        }
-      ],
-      "name": "executeOrder",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "assetId",
-          "type": "uint256"
-        }
-      ],
-      "name": "auctionByAssetId",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32"
-        },
-        {
-          "name": "",
-          "type": "address"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
     }
   ]
 }

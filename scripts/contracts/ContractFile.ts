@@ -35,16 +35,20 @@ export class ContractFile {
 
       switch (type) {
         case 'function': {
-          const args = [...inputs.map((input, index) => input.name || `input${index}`), '...args'].join(', ')
+          const args = inputs.map(input => input.type).join(',')
 
           if (stateMutability === 'view' || stateMutability === 'pure') {
-            extensions[name] = `function(${args}) {
-            return this.sendCall('${name}', ${args})
-          }`
+            if (!(name in extensions)) {
+              extensions[name] = new Function(`return this.sendCall('${name}', ...arguments)`)
+            }
+            extensions[name][args] = new Function(`return this.sendCallByType('${name}', '${args}', ...arguments)`)
           } else if (stateMutability === 'nonpayable') {
-            extensions[name] = `function(${args}) {
-            return this.sendTransaction('${name}', ${args})
-          }`
+            if (!(name in extensions)) {
+              extensions[name] = new Function(`return this.sendTransaction('${name}', ...arguments)`)
+            }
+            extensions[name][args] = new Function(
+              `return this.sendTransactionByType('${name}', '${args}', ...arguments)`
+            )
           }
           break
         }
