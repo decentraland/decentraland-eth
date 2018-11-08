@@ -8,10 +8,11 @@ export type ABIMethod = any
  */
 export function fulfillContractMethods(instance: Contract, abi: ABIMethod[]) {
   const namesToSet = new Map<string, ABIMethod[]>()
-  console.log(instance)
 
   for (const method of abi) {
-    const { name } = method
+    const { name, type } = method
+
+    if (type !== 'function') continue
 
     const proto = Object.getPrototypeOf(instance)
 
@@ -20,6 +21,7 @@ export function fulfillContractMethods(instance: Contract, abi: ABIMethod[]) {
       // we should not override them
       continue
     }
+
     if (!namesToSet.has(name)) {
       namesToSet.set(name, [])
     }
@@ -31,44 +33,39 @@ export function fulfillContractMethods(instance: Contract, abi: ABIMethod[]) {
 
   namesToSet.forEach((methodList, name) => {
     if (methodList.length === 1) {
-      instance[name] = createMethod(instance, methodList[0])
+      const method = methodList[0]
+      const args = method.inputs.map(input => input.type).join(',')
+      instance[name] = createMethod(instance, method, args)
     } else {
       instance[name] = fullfilOverloadedMethod(name, methodList)
     }
-  })
 
-  console.log(instance)
+    methodList.forEach(method => {
+      const args = method.inputs.map(input => input.type).join(',')
+      instance[name][args] = createMethod(instance, method, args)
+    })
+  })
 }
 
-function createMethod(instance: Contract, method: ABIMethod, args?: string) {
+function createMethod(instance: Contract, method: ABIMethod, args: string) {
   const { name, stateMutability, type } = method
 
   switch (type) {
     case 'function': {
       if (stateMutability === 'view' || stateMutability === 'pure') {
-        if (args) {
-          return function() {
-            return instance.sendCallByType(name, args, ...arguments)
-          }
-        } else {
-          return function() {
-            return instance.sendCall(name, ...arguments)
-          }
+        return function() {
+          return instance.sendCallByType(name, args, ...arguments)
         }
       } else if (stateMutability === 'nonpayable') {
-        if (args) {
-          return function() {
-            return instance.sendTransactionByType(name, args, ...arguments)
-          }
-        } else {
-          return function() {
-            return instance.sendTransaction(name, ...arguments)
-          }
+        return function() {
+          return instance.sendTransactionByType(name, args, ...arguments)
         }
       }
       break
     }
   }
+
+  throw new Error(`Method: ${name} is not a function`)
 }
 
 function fullfilOverloadedMethod(name: string, methodList: ABIMethod[]) {

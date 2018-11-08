@@ -44,7 +44,7 @@ describe('ETH tests', () => {
     })
   })
 
-  describe.only('Transactions', function() {
+  describe('Transactions', function() {
     let deployedMANAAddress = '0x0'
     let MANAFacade: MANAToken
     let account = '0x0'
@@ -64,7 +64,7 @@ describe('ETH tests', () => {
       account = await eth.wallet.getAccount()
     })
 
-    describe('Send Call', function() {
+    describe('Call', function() {
       it('should send call by method name', async function() {
         await MANAFacade.mint(account, tenWei)
         const balance = await MANAFacade.balanceOf(account)
@@ -77,9 +77,17 @@ describe('ETH tests', () => {
         expect(balance.toString()).equal(tenWei.toString())
       })
 
-      it('should send call by sendCallByType', async function() {
-        expect(typeof MANAFacade.instance['fakeBalanceOf']['address,address']).equal('function')
-        expect(typeof MANAFacade.instance['fakeBalanceOf']['address']).equal('function')
+      it('should send call by sendCallByType', function() {
+        let fakeBalanceOf = MANAFacade.sendCallByType('fakeBalanceOf', 'address,address')
+        expect('then' in fakeBalanceOf).eq(true, 'The injected methods should be thenable')
+
+        fakeBalanceOf = MANAFacade.sendCallByType('fakeBalanceOf', 'address')
+        expect('then' in fakeBalanceOf).eq(true, 'The injected methods should be thenable')
+      })
+
+      it('should call overloaded method', function() {
+        expect(typeof MANAFacade['fakeBalanceOf']['address,address']).equal('function')
+        expect(typeof MANAFacade['fakeBalanceOf']['address']).equal('function')
       })
 
       it('throws when try to call overloaded method', async function() {
@@ -108,12 +116,20 @@ describe('ETH tests', () => {
         expect(balance).equal(10)
       })
 
-      it('should check if overloaded name for sendTransactionByType exist', async function() {
-        expect(typeof MANAFacade.instance['fakeMint']['address,uint256']).equal('function')
-        expect(typeof MANAFacade.instance['fakeMint']['address,uint256,address']).equal('function')
+      it('should send transaction by sendTransactionByType', function() {
+        let fakeMint = MANAFacade.sendTransactionByType('fakeMint', 'address,uint256')
+        expect('then' in fakeMint).eq(true, 'The injected methods should be thenable')
+
+        fakeMint = MANAFacade.sendTransactionByType('fakeMint', 'address,uint256,address')
+        expect('then' in fakeMint).eq(true, 'The injected methods should be thenable')
       })
 
-      it('throws when try to call overloaded method', async function() {
+      it('should call overloaded method', function() {
+        expect(typeof MANAFacade['fakeMint']['address,uint256']).equal('function')
+        expect(typeof MANAFacade['fakeMint']['address,uint256,address']).equal('function')
+      })
+
+      it('throws when try to call overloaded method', function() {
         expect(() => MANAFacade['fakeMint'](account, tenWei)).to.throw(
           'Method: fakeMint is overloaded. Options available are: contract.fakeMint["address,uint256,address"](...), contract.fakeMint["address,uint256"](...)'
         )
