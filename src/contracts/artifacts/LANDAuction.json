@@ -2,6 +2,38 @@
   "contractName": "LANDAuction",
   "abi": [
     {
+      "constant": false,
+      "inputs": [{ "name": "_landsLimitPerBid", "type": "uint256" }],
+      "name": "setLandsLimitPerBid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "MAX_DECIMALS",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [{ "name": "_gasPriceLimit", "type": "uint256" }],
+      "name": "setGasPriceLimit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "status",
@@ -13,6 +45,15 @@
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [{ "name": "_address", "type": "address" }],
+      "name": "disableToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -32,7 +73,38 @@
     {
       "constant": false,
       "inputs": [],
-      "name": "unpause",
+      "name": "finishAuction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [{ "name": "_dex", "type": "address" }],
+      "name": "setDex",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [{ "name": "_landsLimitPerBid", "type": "uint256" }, { "name": "_gasPriceLimit", "type": "uint256" }],
+      "name": "startAuction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        { "name": "_address", "type": "address[]" },
+        { "name": "_decimals", "type": "uint256[]" },
+        { "name": "_shouldKeepToken", "type": "bool[]" }
+      ],
+      "name": "allowManyTokens",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -40,31 +112,12 @@
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "isPauser",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
       "inputs": [],
-      "name": "paused",
+      "name": "dex",
       "outputs": [
         {
           "name": "",
-          "type": "bool"
+          "type": "address"
         }
       ],
       "payable": false,
@@ -73,8 +126,8 @@
     },
     {
       "constant": false,
-      "inputs": [],
-      "name": "renouncePauser",
+      "inputs": [{ "name": "_fee", "type": "uint256" }],
+      "name": "setConvertionFee",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -104,17 +157,31 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
+      "constant": true,
+      "inputs": [],
+      "name": "convertionFee",
+      "outputs": [
         {
-          "name": "account",
-          "type": "address"
+          "name": "",
+          "type": "uint256"
         }
       ],
-      "name": "addPauser",
-      "outputs": [],
       "payable": false,
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalBids",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -160,6 +227,34 @@
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        { "name": "_xs", "type": "int256[]" },
+        { "name": "_ys", "type": "int256[]" },
+        { "name": "_beneficiary", "type": "address" },
+        { "name": "_fromToken", "type": "address" }
+      ],
+      "name": "bid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "PERCENTAGE_OF_TOKEN_TO_KEEP",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "landRegistry",
@@ -175,12 +270,7 @@
     },
     {
       "constant": false,
-      "inputs": [
-        {
-          "name": "sender",
-          "type": "address"
-        }
-      ],
+      "inputs": [{ "name": "sender", "type": "address" }],
       "name": "initialize",
       "outputs": [],
       "payable": false,
@@ -189,270 +279,42 @@
     },
     {
       "constant": false,
-      "inputs": [
-        {
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferOwnership",
+      "inputs": [{ "name": "_token", "type": "address" }],
+      "name": "burnFunds",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "name": "_initialPrice",
-          "type": "uint256"
-        },
-        {
-          "name": "_endPrice",
-          "type": "uint256"
-        },
-        {
-          "name": "_duration",
-          "type": "uint256"
-        },
-        {
-          "name": "_manaToken",
-          "type": "address"
-        },
-        {
-          "name": "_landRegistry",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "_caller",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_initialPrice",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_endPrice",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_duration",
-          "type": "uint256"
-        }
-      ],
-      "name": "AuctionCreated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "_caller",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_time",
-          "type": "uint256"
-        }
-      ],
-      "name": "AuctionStarted",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "_beneficiary",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_price",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_totalPrice",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_xs",
-          "type": "int256[]"
-        },
-        {
-          "indexed": false,
-          "name": "_ys",
-          "type": "int256[]"
-        }
-      ],
-      "name": "BidSuccessful",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_caller",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_price",
-          "type": "uint256"
-        }
-      ],
-      "name": "AuctionEnd",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "_caller",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_total",
-          "type": "uint256"
-        }
-      ],
-      "name": "MANABurned",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_oldLandsLimitPerBid",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_landsLimitPerBid",
-          "type": "uint256"
-        }
-      ],
-      "name": "LandsLimitPerBidChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_oldGasPriceLimit",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_gasPriceLimit",
-          "type": "uint256"
-        }
-      ],
-      "name": "GasPriceLimitChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [],
-      "name": "Paused",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [],
-      "name": "Unpaused",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "PauserAdded",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "PauserRemoved",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "previousOwner",
-          "type": "address"
-        }
-      ],
-      "name": "OwnershipRenounced",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "OwnershipTransferred",
-      "type": "event"
-    },
-    {
       "constant": false,
       "inputs": [
-        {
-          "name": "_landsLimitPerBid",
-          "type": "uint256"
-        },
-        {
-          "name": "_gasPriceLimit",
-          "type": "uint256"
-        }
+        { "name": "_address", "type": "address" },
+        { "name": "_decimals", "type": "uint256" },
+        { "name": "_shouldKeepToken", "type": "bool" }
       ],
-      "name": "startAuction",
+      "name": "allowToken",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "_srcToken", "type": "address" },
+        { "name": "_destToken", "type": "address" },
+        { "name": "_srcAmount", "type": "uint256" }
+      ],
+      "name": "getRate",
+      "outputs": [
+        {
+          "name": "rate",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -470,81 +332,195 @@
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [{ "name": "", "type": "address" }],
+      "name": "tokensAllowed",
+      "outputs": [
+        {
+          "name": "decimals",
+          "type": "uint256"
+        },
+        {
+          "name": "shouldKeepToken",
+          "type": "bool"
+        },
+        {
+          "name": "isAllowed",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
+      "inputs": [{ "name": "newOwner", "type": "address" }],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "name": "_initialPrice", "type": "uint256" },
+        { "name": "_endPrice", "type": "uint256" },
+        { "name": "_duration", "type": "uint256" },
+        { "name": "_manaToken", "type": "address" },
+        { "name": "_landRegistry", "type": "address" },
+        { "name": "_dex", "type": "address" }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": false, "name": "_initialPrice", "type": "uint256" },
+        { "indexed": false, "name": "_endPrice", "type": "uint256" },
+        { "indexed": false, "name": "_duration", "type": "uint256" }
+      ],
+      "name": "AuctionCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": false, "name": "_time", "type": "uint256" }
+      ],
+      "name": "AuctionStarted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": false, "name": "_bidId", "type": "uint256" },
+        { "indexed": true, "name": "_token", "type": "address" },
+        { "indexed": false, "name": "_totalPriceInMana", "type": "uint256" },
+        { "indexed": false, "name": "_totalPriceInToken", "type": "uint256" },
+        { "indexed": false, "name": "_tokensKept", "type": "uint256" }
+      ],
+      "name": "BidConvertion",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": false, "name": "_bidId", "type": "uint256" },
+        { "indexed": true, "name": "_beneficiary", "type": "address" },
+        { "indexed": true, "name": "_token", "type": "address" },
+        { "indexed": false, "name": "_price", "type": "uint256" },
+        { "indexed": false, "name": "_totalPrice", "type": "uint256" },
+        { "indexed": false, "name": "_xs", "type": "int256[]" },
+        { "indexed": false, "name": "_ys", "type": "int256[]" }
+      ],
+      "name": "BidSuccessful",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": false, "name": "_time", "type": "uint256" },
+        { "indexed": false, "name": "_price", "type": "uint256" }
+      ],
+      "name": "AuctionEnded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": true, "name": "_token", "type": "address" },
+        { "indexed": false, "name": "_total", "type": "uint256" }
+      ],
+      "name": "TokenBurned",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": false, "name": "_oldLandsLimitPerBid", "type": "uint256" },
+        { "indexed": false, "name": "_landsLimitPerBid", "type": "uint256" }
+      ],
+      "name": "LandsLimitPerBidChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": false, "name": "_oldGasPriceLimit", "type": "uint256" },
+        { "indexed": false, "name": "_gasPriceLimit", "type": "uint256" }
+      ],
+      "name": "GasPriceLimitChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": true, "name": "_oldDex", "type": "address" },
+        { "indexed": true, "name": "_dex", "type": "address" }
+      ],
+      "name": "DexChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": true, "name": "_address", "type": "address" },
+        { "indexed": false, "name": "_decimals", "type": "uint256" },
+        { "indexed": false, "name": "_shouldKeepToken", "type": "bool" }
+      ],
+      "name": "TokenAllowed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": true, "name": "_address", "type": "address" }
+      ],
+      "name": "TokenDisabled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_caller", "type": "address" },
+        { "indexed": false, "name": "_oldConvertionFee", "type": "uint256" },
+        { "indexed": false, "name": "_convertionFee", "type": "uint256" }
+      ],
+      "name": "ConvertionFeeChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
       "inputs": [
         {
-          "name": "_xs",
-          "type": "int256[]"
-        },
-        {
-          "name": "_ys",
-          "type": "int256[]"
-        },
-        {
-          "name": "_beneficiary",
+          "indexed": true,
+          "name": "previousOwner",
           "type": "address"
         }
       ],
-      "name": "bid",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
+      "name": "OwnershipRenounced",
+      "type": "event"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "burnFunds",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "pause",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "finishAuction",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
+      "anonymous": false,
       "inputs": [
-        {
-          "name": "_landsLimitPerBid",
-          "type": "uint256"
-        }
+        { "indexed": true, "name": "previousOwner", "type": "address" },
+        { "indexed": true, "name": "newOwner", "type": "address" }
       ],
-      "name": "setLandsLimitPerBid",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_gasPriceLimit",
-          "type": "uint256"
-        }
-      ],
-      "name": "setGasPriceLimit",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
+      "name": "OwnershipTransferred",
+      "type": "event"
     }
   ]
 }
