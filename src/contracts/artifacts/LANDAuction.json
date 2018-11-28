@@ -2,20 +2,6 @@
   "contractName": "LANDAuction",
   "abi": [
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_landsLimitPerBid",
-          "type": "uint256"
-        }
-      ],
-      "name": "setLandsLimitPerBid",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "MAX_DECIMALS",
@@ -27,20 +13,6 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_gasPriceLimit",
-          "type": "uint256"
-        }
-      ],
-      "name": "setGasPriceLimit",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -72,50 +44,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_address",
-          "type": "address"
-        }
-      ],
-      "name": "disableToken",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_address",
-          "type": "address"
-        },
-        {
-          "name": "_decimals",
-          "type": "uint256"
-        },
-        {
-          "name": "_shouldBurnTokens",
-          "type": "bool"
-        },
-        {
-          "name": "_shouldForwardTokens",
-          "type": "bool"
-        },
-        {
-          "name": "_forwardTarget",
-          "type": "address"
-        }
-      ],
-      "name": "allowToken",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "endTime",
@@ -141,29 +69,6 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "finishAuction",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_dex",
-          "type": "address"
-        }
-      ],
-      "name": "setDex",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -302,32 +207,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_xs",
-          "type": "int256[]"
-        },
-        {
-          "name": "_ys",
-          "type": "int256[]"
-        },
-        {
-          "name": "_beneficiary",
-          "type": "address"
-        },
-        {
-          "name": "_fromToken",
-          "type": "address"
-        }
-      ],
-      "name": "bid",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "PERCENTAGE_OF_TOKEN_TO_KEEP",
@@ -367,61 +246,6 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_fee",
-          "type": "uint256"
-        }
-      ],
-      "name": "setConversionFee",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_srcToken",
-          "type": "address"
-        },
-        {
-          "name": "_destToken",
-          "type": "address"
-        },
-        {
-          "name": "_srcAmount",
-          "type": "uint256"
-        }
-      ],
-      "name": "getRate",
-      "outputs": [
-        {
-          "name": "rate",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getCurrentPrice",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -559,17 +383,17 @@
         },
         {
           "indexed": false,
-          "name": "_totalPriceInMana",
+          "name": "_requiredManaAmountToBurn",
           "type": "uint256"
         },
         {
           "indexed": false,
-          "name": "_totalPriceInToken",
+          "name": "_amountOfTokenConverted",
           "type": "uint256"
         },
         {
           "indexed": false,
-          "name": "_tokensKept",
+          "name": "_requiredTokenBalance",
           "type": "uint256"
         }
       ],
@@ -596,12 +420,12 @@
         },
         {
           "indexed": false,
-          "name": "_price",
+          "name": "_pricePerLandInMana",
           "type": "uint256"
         },
         {
           "indexed": false,
-          "name": "_totalPrice",
+          "name": "_manaAmountToBurn",
           "type": "uint256"
         },
         {
@@ -633,11 +457,11 @@
         },
         {
           "indexed": false,
-          "name": "_price",
+          "name": "_pricePerLandInMana",
           "type": "uint256"
         }
       ],
-      "name": "AuctionEnded",
+      "name": "AuctionFinished",
       "type": "event"
     },
     {
@@ -859,6 +683,182 @@
       ],
       "name": "OwnershipTransferred",
       "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_xs",
+          "type": "int256[]"
+        },
+        {
+          "name": "_ys",
+          "type": "int256[]"
+        },
+        {
+          "name": "_beneficiary",
+          "type": "address"
+        },
+        {
+          "name": "_fromToken",
+          "type": "address"
+        }
+      ],
+      "name": "bid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCurrentPrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_srcToken",
+          "type": "address"
+        },
+        {
+          "name": "_destToken",
+          "type": "address"
+        },
+        {
+          "name": "_srcAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "getRate",
+      "outputs": [
+        {
+          "name": "rate",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_fee",
+          "type": "uint256"
+        }
+      ],
+      "name": "setConversionFee",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "finishAuction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_landsLimitPerBid",
+          "type": "uint256"
+        }
+      ],
+      "name": "setLandsLimitPerBid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_gasPriceLimit",
+          "type": "uint256"
+        }
+      ],
+      "name": "setGasPriceLimit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_dex",
+          "type": "address"
+        }
+      ],
+      "name": "setDex",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_address",
+          "type": "address"
+        },
+        {
+          "name": "_decimals",
+          "type": "uint256"
+        },
+        {
+          "name": "_shouldBurnTokens",
+          "type": "bool"
+        },
+        {
+          "name": "_shouldForwardTokens",
+          "type": "bool"
+        },
+        {
+          "name": "_forwardTarget",
+          "type": "address"
+        }
+      ],
+      "name": "allowToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "disableToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ]
 }
