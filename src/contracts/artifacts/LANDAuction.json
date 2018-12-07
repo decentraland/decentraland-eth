@@ -74,6 +74,20 @@
     {
       "constant": true,
       "inputs": [],
+      "name": "PERCENTAGE_OF_TOKEN_BALANCE",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
       "name": "conversionFee",
       "outputs": [
         {
@@ -196,20 +210,6 @@
       "constant": true,
       "inputs": [],
       "name": "gasPriceLimit",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "PERCENTAGE_OF_TOKEN_TO_KEEP",
       "outputs": [
         {
           "name": "",
