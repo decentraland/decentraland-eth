@@ -34,7 +34,7 @@
     "decentraland"
   ],
   "author": "Decentraland",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@ledgerhq/hw-app-eth": "^4.21.0",
     "@ledgerhq/hw-transport-u2f": "^4.21.0",
