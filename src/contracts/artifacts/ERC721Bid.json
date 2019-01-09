@@ -1,14 +1,42 @@
 {
-  "contractName": "DecentralandInvite",
   "abi": [
     {
       "constant": true,
-      "inputs": [],
-      "name": "name",
+      "inputs": [
+        {
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "_bidder",
+          "type": "address"
+        }
+      ],
+      "name": "getBidByBidder",
       "outputs": [
         {
-          "name": "",
-          "type": "string"
+          "name": "bidIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "bidId",
+          "type": "bytes32"
+        },
+        {
+          "name": "bidder",
+          "type": "address"
+        },
+        {
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "name": "expiresAt",
+          "type": "uint256"
         }
       ],
       "payable": false,
@@ -17,85 +45,12 @@
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "_tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getApproved",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_to",
-          "type": "address"
-        },
-        {
-          "name": "_tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "approve",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "target",
-          "type": "address"
-        },
-        {
-          "name": "note",
-          "type": "bytes"
-        }
-      ],
-      "name": "invite",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "name": "uri",
-          "type": "string"
-        }
-      ],
-      "name": "setTokenURI",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
       "inputs": [],
-      "name": "totalSupply",
+      "name": "ERC721Composable_ValidateFingerprint",
       "outputs": [
         {
           "name": "",
-          "type": "uint256"
+          "type": "bytes4"
         }
       ],
       "payable": false,
@@ -110,15 +65,38 @@
           "type": "address"
         },
         {
-          "name": "_to",
+          "name": "",
           "type": "address"
         },
         {
           "name": "_tokenId",
           "type": "uint256"
+        },
+        {
+          "name": "_data",
+          "type": "bytes"
         }
       ],
-      "name": "transferFrom",
+      "name": "onERC721Received",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_ownerCutPerMillion",
+          "type": "uint256"
+        }
+      ],
+      "name": "setOwnerCutPerMillion",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -128,15 +106,15 @@
       "constant": true,
       "inputs": [
         {
-          "name": "_owner",
+          "name": "",
           "type": "address"
         },
         {
-          "name": "_index",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "tokenOfOwnerByIndex",
+      "name": "bidCounterByToken",
       "outputs": [
         {
           "name": "",
@@ -145,6 +123,38 @@
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "ERC721_Interface",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "cancelBid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -157,36 +167,53 @@
       "type": "function"
     },
     {
-      "constant": false,
+      "constant": true,
       "inputs": [
         {
-          "name": "_from",
-          "type": "address"
-        },
-        {
-          "name": "_to",
+          "name": "_tokenAddress",
           "type": "address"
         },
         {
           "name": "_tokenId",
           "type": "uint256"
+        },
+        {
+          "name": "_index",
+          "type": "uint256"
         }
       ],
-      "name": "safeTransferFrom",
-      "outputs": [],
+      "name": "getBidByToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": true,
       "inputs": [
         {
-          "name": "_tokenId",
-          "type": "uint256"
+          "name": "account",
+          "type": "address"
         }
       ],
-      "name": "exists",
+      "name": "isPauser",
       "outputs": [
         {
           "name": "",
@@ -199,17 +226,12 @@
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "_index",
-          "type": "uint256"
-        }
-      ],
-      "name": "tokenByIndex",
+      "inputs": [],
+      "name": "ERC721_Received",
       "outputs": [
         {
           "name": "",
-          "type": "uint256"
+          "type": "bytes4"
         }
       ],
       "payable": false,
@@ -231,59 +253,12 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "ownerOf",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "constant": false,
-      "inputs": [
-        {
-          "name": "target",
-          "type": "address"
-        },
-        {
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "allow",
+      "inputs": [],
+      "name": "renouncePauser",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_owner",
-          "type": "address"
-        }
-      ],
-      "name": "balanceOf",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -296,14 +271,54 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
+      "constant": true,
+      "inputs": [],
+      "name": "manaToken",
+      "outputs": [
         {
-          "name": "target",
+          "name": "",
           "type": "address"
         }
       ],
-      "name": "revoke",
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "_price",
+          "type": "uint256"
+        },
+        {
+          "name": "_expiresIn",
+          "type": "uint256"
+        }
+      ],
+      "name": "placeBid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "addPauser",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -335,131 +350,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "symbol",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_to",
-          "type": "address"
-        },
-        {
-          "name": "_approved",
-          "type": "bool"
-        }
-      ],
-      "name": "setApprovalForAll",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_from",
-          "type": "address"
-        },
-        {
-          "name": "_to",
-          "type": "address"
-        },
-        {
-          "name": "_tokenId",
-          "type": "uint256"
-        },
-        {
-          "name": "_data",
-          "type": "bytes"
-        }
-      ],
-      "name": "safeTransferFrom",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "tokenURI",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "metadata",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "balance",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_owner",
-          "type": "address"
-        },
-        {
-          "name": "_operator",
-          "type": "address"
-        }
-      ],
-      "name": "isApprovedForAll",
+      "name": "isOwner",
       "outputs": [
         {
           "name": "",
@@ -471,10 +362,128 @@
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [],
+      "name": "ONE_MILLION",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "ownerCutPerMillion",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "MAX_BID_DURATION",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "bidByTokenAndBidder",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [
         {
-          "name": "_newOwner",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "_price",
+          "type": "uint256"
+        },
+        {
+          "name": "_expiresIn",
+          "type": "uint256"
+        },
+        {
+          "name": "_fingerprint",
+          "type": "bytes"
+        }
+      ],
+      "name": "placeBid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "bidIndexByBidId",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newOwner",
           "type": "address"
         }
       ],
@@ -485,7 +494,30 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [],
+      "name": "MIN_BID_DURATION",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_manaToken",
+          "type": "address"
+        },
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -495,26 +527,41 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "who",
+          "name": "_id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "_bidder",
           "type": "address"
         },
         {
           "indexed": false,
-          "name": "target",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "id",
+          "name": "_price",
           "type": "uint256"
         },
         {
           "indexed": false,
-          "name": "note",
+          "name": "_expiresAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_fingerprint",
           "type": "bytes"
         }
       ],
-      "name": "Invited",
+      "name": "BidCreated",
       "type": "event"
     },
     {
@@ -522,16 +569,36 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "who",
+          "name": "_id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_bidder",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_buyer",
           "type": "address"
         },
         {
           "indexed": false,
-          "name": "amount",
+          "name": "_price",
           "type": "uint256"
         }
       ],
-      "name": "UpdateInvites",
+      "name": "BidAccepted",
       "type": "event"
     },
     {
@@ -539,28 +606,62 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "id",
+          "name": "_id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_tokenId",
           "type": "uint256"
         },
         {
-          "indexed": false,
-          "name": "newUri",
-          "type": "string"
+          "indexed": true,
+          "name": "_bidder",
+          "type": "address"
         }
       ],
-      "name": "URIUpdated",
+      "name": "BidCancelled",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [],
-      "name": "Pause",
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_ownerCutPerMillion",
+          "type": "uint256"
+        }
+      ],
+      "name": "ChangedOwnerCutPerMillion",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [],
-      "name": "Unpause",
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
       "type": "event"
     },
     {
@@ -568,11 +669,23 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "previousOwner",
+          "name": "account",
           "type": "address"
         }
       ],
-      "name": "OwnershipRenounced",
+      "name": "PauserAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "PauserRemoved",
       "type": "event"
     },
     {
@@ -591,73 +704,6 @@
       ],
       "name": "OwnershipTransferred",
       "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "_from",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "_to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "Transfer",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "_owner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "_approved",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "Approval",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "_owner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "_operator",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_approved",
-          "type": "bool"
-        }
-      ],
-      "name": "ApprovalForAll",
-      "type": "event"
     }
-  ],
-  "linkReferences": {}
+  ]
 }
