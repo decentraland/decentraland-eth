@@ -589,12 +589,17 @@
         },
         {
           "indexed": true,
-          "name": "_buyer",
+          "name": "_seller",
           "type": "address"
         },
         {
           "indexed": false,
           "name": "_price",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_fee",
           "type": "uint256"
         }
       ],
