@@ -67,7 +67,7 @@ testGeth(provider => {
           data: '0xfafafa',
           value: 0,
           to: account,
-          gas: 10000000
+          gas: 1000000
         })
 
         const tx = await txUtils.getConfirmedTransaction(txId)

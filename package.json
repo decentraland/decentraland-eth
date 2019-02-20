@@ -41,6 +41,7 @@
     "@ledgerhq/hw-transport-u2f": "^4.24.0",
     "@ledgerhq/web3-subprovider": "^4.24.0",
     "@types/bignumber.js": "^5.0.0",
+    "babel-polyfill": "^6.26.0",
     "comma-separated-values": "^3.6.4",
     "ethereumjs-util": "^6.0.0",
     "web3": "^0.20.7",

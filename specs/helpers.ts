@@ -20,12 +20,4 @@ export function testGeth(doTest: (provider: any) => void) {
       provider.dispose()
     })
   })
-
-  describe('Transport: HTTP', function() {
-    this.timeout(99999999)
-
-    const provider = new providers.HTTPProvider('http://localhost:8545')
-
-    doTest(provider)
-  })
 }

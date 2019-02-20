@@ -126,6 +126,8 @@ Builds an static page with the JSDoc documentation
 
 Run tests using mocha and chai
 
+`./test.sh`
+
 ### Release
 
 We use [semantic-release](https://github.com/semantic-release/semantic-release) to automate the release process of this package. Every time we merge to `master`, the CI will run `semantic-release` and it will publish a new version of the package. It will determine the next version of the package and it will generate release notes from the commit messages. That's why we enforce the following format for commit messages:

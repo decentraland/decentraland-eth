@@ -1,3 +1,5 @@
+require('babel-polyfill')
+
 import Web3 = require('web3')
 
 import TransportU2F from '@ledgerhq/hw-transport-u2f'
@@ -79,13 +81,11 @@ export class LedgerWallet extends Wallet {
    * @return {object} The web3 provider
    */
   async getProvider(providerUrl = 'https://mainnet.infura.io/', networkId = '1'): Promise<any> {
-    let ledgerWalletSubProvider = createLedgerSubProvider(
-      () => TransportU2F.create(), {
-        networkId: parseInt(networkId, 10),
-        path: this.derivationPath,
-        askConfirm: true
-      }
-    )
+    let ledgerWalletSubProvider = createLedgerSubProvider(() => TransportU2F.create(), {
+      networkId: parseInt(networkId, 10),
+      path: this.derivationPath,
+      askConfirm: true
+    })
 
     this.engine.addProvider(ledgerWalletSubProvider)
     this.engine.addProvider(
