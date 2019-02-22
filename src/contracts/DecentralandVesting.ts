@@ -1,11 +1,8 @@
 import { eth, Contract } from '../ethereum'
 import { fulfillContractMethods } from './verification'
+import { BigNumber } from 'bignumber.js'
 
 const { abi } = require('./artifacts/DecentralandVesting.json')
-
-export type BigNumber = {
-  toNumber(): number
-}
 
 /** DecentralandVesting contract class */
 export class DecentralandVesting extends Contract {

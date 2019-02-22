@@ -58,8 +58,9 @@ export const ethUtils = {
    * @param  {Buffer | string | number} data - The input data
    * @param  {Number} [bits] - Number the SHA-3 width. Defaults to 256
    * @return {string}      [description]
+   * @deprecated use keccak
    */
-  sha3(data: Buffer | string | number, bits: Number = 256): Buffer {
+  sha3(data: Buffer | string | number, bits: number = 256): Buffer {
     return ethUtils.keccak(data, bits)
   },
 
@@ -69,7 +70,7 @@ export const ethUtils = {
    * @param  {Number} [bits] - Number the Keccak width. Defaults to 256
    * @return {Buffer}      [description]
    */
-  keccak(data: Buffer | string | number, bits: Number = 256): Buffer {
+  keccak(data: Buffer | string | number, bits: number = 256): Buffer {
     return ethereumJsUtil.keccak(data, bits)
   },
 
@@ -96,7 +97,7 @@ export const ethUtils = {
    */
   localRecover(data: Buffer | string, signature: string) {
     if (typeof data === 'string') {
-      data = ethereumJsUtil.sha3(data)
+      data = ethereumJsUtil.keccak(data)
     }
     let [r, s, v] = signature.split('||')
 
@@ -104,7 +105,7 @@ export const ethUtils = {
     const bufferS = Buffer.from(s, 'hex')
     const bufferV = parseInt(v, 10)
 
-    const publicKey = ethereumJsUtil.ecrecover(data, bufferV, bufferR, bufferS)
+    const publicKey = ethereumJsUtil.ecrecover(data as Buffer, bufferV, bufferR, bufferS)
 
     return publicKey.toString('hex')
   },
@@ -114,7 +115,7 @@ export const ethUtils = {
    * @param  {Buffer|string} privKey - private key from where to derive the public key
    * @return {string} Hex public key
    */
-  privateToPublicHex(privKey: string | Buffer) {
+  privateToPublicHex(privKey: Buffer | string) {
     if (typeof privKey === 'string') privKey = new Buffer(privKey, 'hex')
     return ethereumJsUtil.privateToPublic(privKey).toString('hex')
   },
@@ -124,7 +125,8 @@ export const ethUtils = {
    * @param  {string} pubKey - public key from where to derive the address
    * @return {string} Hex address
    */
-  pubToAddressHex(pubkey: string) {
+  pubToAddressHex(pubkey: Buffer | string) {
+    if (typeof pubkey === 'string') pubkey = new Buffer(pubkey, 'hex')
     return ethereumJsUtil.pubToAddress(pubkey).toString('hex')
   },
 

@@ -195,6 +195,11 @@ export namespace eth {
         id: '42',
         name: 'kovan',
         label: 'Kovan Test Network'
+      },
+      {
+        id: '53611',
+        name: 'TEST_RPC',
+        label: 'TEST_RPC Network'
       }
     ]
   }

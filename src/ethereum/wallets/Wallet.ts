@@ -1,5 +1,6 @@
 import { promisify } from '../../utils'
 import { Abi } from '../abi/Abi'
+import { BigNumber } from 'bignumber.js'
 
 export interface TransactionReceipt {
   transactionHash: string
@@ -97,7 +98,7 @@ export abstract class Wallet {
    * Returns the balance of the account
    * @return {Promise<any>} accounts
    */
-  async getBalance(coinbase: string): Promise<any> {
+  async getBalance(coinbase: string): Promise<BigNumber> {
     return promisify(this.getWeb3().eth.getBalance)(coinbase)
   }
 
@@ -158,7 +159,7 @@ export abstract class Wallet {
    * @return {boolean} Whether the operation was successfull or not
    */
   async unlockAccount(password: string) {
-    return promisify(this.web3.personal.unlockAccount)(this.getAccount(), password)
+    return promisify(this.web3.personal.unlockAccount)(this.getAccount(), password, 300)
   }
 
   /**

@@ -8,7 +8,20 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:8
-
+      - image: ethereum/client-go
+        command: |
+          --identity="TEST_NODE"
+          --networkid="53611"
+          --rpc
+          --rpcaddr 0.0.0.0
+          --rpcapi admin,debug,eth,miner,net,personal,shh,txpool,web3
+          --ws
+          --wsaddr 0.0.0.0
+          --wsapi admin,debug,eth,miner,net,personal,shh,txpool,web3
+          --wsorigins "*"
+          --mine
+          --minerthreads=1
+          --dev
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -27,7 +40,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v3-dependencies-{{ checksum "package-lock.json" }}
+            - v3-dependencies-{{ checksum "package-lock.json" }}
 
       - run: npm install
 
@@ -40,10 +53,11 @@ jobs:
       - run: npm run prebuild && npm test
 
       - run: npm run build
+      - run: npm run cleanup-dev
 
       - save_cache:
           paths:
-            - "."
+            - '.'
           key: dist-{{ .Revision }}
 
   deploy:
@@ -55,18 +69,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-          - dist-{{ .Revision }}
-      # semantic-release requires node >= 8.3 and the latest version available at circle-ci is node 7.10
-      # they recommend using npx to install node 8 and then use it to run semantic-release (https://github.com/semantic-release/semantic-release/blob/caribou/docs/support/node-version.md)
-      # since node 7.10 comes with npm 4 and npx is only available on npm >= 5 it has to be installed first, and run from the local node_modules
-      # TODO: we should replace the following line with just "npm run semantic-release" once there's a node:8 image available at circle-ci
-      - run: npm install npx && node_modules/npx/index.js -p node@8 -c "npx semantic-release"
-
-  #     # Build the docs only on deployments
-  #     - run: mkdir -m 700 ~/.ssh
-  #     - run: ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
-  #     - run: ./docs.sh
-
+            - dist-{{ .Revision }}
+      - run: npx semantic-release
 workflows:
   version: 2
   build-deploy:

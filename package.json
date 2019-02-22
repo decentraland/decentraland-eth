@@ -19,7 +19,8 @@
     "fastbuild": "npm run clean && tsc -p tsconfig.json",
     "test": "npm run build && tsc -p specs/tsconfig.json && mocha specs/**/*.spec.js --exit",
     "semantic-release": "semantic-release",
-    "commitmsg": "validate-commit-msg"
+    "commitmsg": "validate-commit-msg",
+    "cleanup-dev": "node ./scripts/prePublish.js && npm ddp && npm prune --production"
   },
   "repository": {
     "type": "git",
@@ -36,13 +37,15 @@
   "author": "Decentraland",
   "license": "ISC",
   "dependencies": {
-    "@ledgerhq/hw-app-eth": "^4.21.0",
-    "@ledgerhq/hw-transport-u2f": "^4.21.0",
-    "@ledgerhq/web3-subprovider": "^4.21.0",
+    "@ledgerhq/hw-app-eth": "^4.24.0",
+    "@ledgerhq/hw-transport-u2f": "^4.24.0",
+    "@ledgerhq/web3-subprovider": "^4.24.0",
+    "@types/bignumber.js": "^5.0.0",
+    "babel-polyfill": "^6.26.0",
     "comma-separated-values": "^3.6.4",
-    "ethereumjs-util": "^5.1.5",
+    "ethereumjs-util": "^6.0.0",
     "web3": "^0.20.7",
-    "web3-provider-engine": "^14.0.6"
+    "web3-provider-engine": "^14.1.0"
   },
   "prettier": {
     "printWidth": 120,
@@ -54,19 +57,23 @@
     "@types/glob": "^5.0.35",
     "@types/mocha": "^5.0.0",
     "@types/node": "^8.10.1",
-    "chai": "^4.1.2",
-    "commander": "^2.15.1",
-    "dcl-tslint-config-standard": "^1.0.1",
-    "ganache-cli": "^6.1.0",
+    "@types/websocket": "0.0.40",
+    "chai": "^4.2.0",
+    "commander": "^2.19.0",
+    "dcl-tslint-config-standard": "^1.1.0",
+    "eth-connect": "^0.3.2",
+    "ganache-cli": "^6.1.8",
     "husky": "^0.14.3",
+    "isomorphic-fetch": "^2.2.1",
     "mocha": "^4.0.1",
     "prettier": "^1.8.2",
     "rimraf": "^2.6.2",
     "semantic-release": "^12.2.5",
     "sinon": "^6.1.5",
-    "tslint": "^5.9.1",
+    "tslint": "^5.11.0",
     "tslint-language-service": "^0.9.9",
-    "typescript": "^2.8.1",
-    "validate-commit-msg": "^2.14.0"
+    "typescript": "^3.1.3",
+    "validate-commit-msg": "^2.14.0",
+    "websocket": "^1.0.28"
   }
 }

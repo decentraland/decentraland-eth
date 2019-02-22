@@ -36,7 +36,7 @@ export class SignedMessage {
    * Decodes the signature of a message
    */
   decodeSignature() {
-    return ethereumJsUtil.fromRpcSig(new Buffer(this.signature.substr(2), 'hex'))
+    return ethereumJsUtil.fromRpcSig(this.signature.substr(2))
   }
 
   /**

@@ -1,3 +1,6 @@
 {
-  "extends": "dcl-tslint-config-standard"
+  "extends": "dcl-tslint-config-standard",
+  "linterOptions": {
+    "exclude": ["specs"]
+  }
 }
