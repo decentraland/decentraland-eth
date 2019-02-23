@@ -1,5 +1,5 @@
 import * as CSV from 'comma-separated-values'
-import { Contract } from '../ethereum'
+import { Contract, Abi } from '../ethereum'
 import { fulfillContractMethods } from './verification'
 const { abi } = require('./artifacts/LANDRegistry.json')
 
@@ -18,8 +18,9 @@ export class LANDRegistry extends Contract {
   static DataError = DataError
 
   constructor(address: string) {
-    super(address, abi)
-    fulfillContractMethods(this, abi)
+    const sanitizedABI = Abi.sanitize(abi)
+    super(address, sanitizedABI)
+    fulfillContractMethods(this, sanitizedABI)
   }
 
   static decodeLandData(data = '') {

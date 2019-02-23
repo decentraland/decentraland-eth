@@ -43,6 +43,28 @@ const abi = {
     if (param) {
       return param.value
     }
+  },
+
+  /**
+   * Sanitize ABI.
+   * Web3 0.X.X has "owner" as a reserved word, so if one of the event parameters name is "owner"
+   * it will break. This method will change every "owner" to "_owner"
+   * @param  {array} ABI
+   * @return {array} - Sanitized ABI
+   */
+  sanitize(abi) {
+    return abi.map(prop => {
+      let inputs = prop.inputs
+      if (prop.name && prop.type === 'event') {
+        inputs = prop.inputs.map(input => {
+          if (input.name === 'owner') {
+            input.name = '_owner'
+          }
+          return input
+        })
+      }
+      return { ...prop, inputs }
+    })
   }
 }
 
