@@ -1,5 +1,3 @@
-require('babel-polyfill')
-
 import Web3 = require('web3')
 
 import TransportU2F from '@ledgerhq/hw-transport-u2f'
