@@ -540,6 +540,40 @@
       "inputs": [
         {
           "indexed": true,
+          "name": "_caller",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_deployer",
+          "type": "address"
+        }
+      ],
+      "name": "DeployAuthorized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_caller",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_deployer",
+          "type": "address"
+        }
+      ],
+      "name": "DeployForbidden",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
           "name": "from",
           "type": "address"
         },
@@ -594,12 +628,12 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "operator",
+          "name": "holder",
           "type": "address"
         },
         {
           "indexed": true,
-          "name": "holder",
+          "name": "operator",
           "type": "address"
         },
         {
