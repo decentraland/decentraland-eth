@@ -1,6 +1,7 @@
 import { promisify } from '../utils'
 import { Abi } from './abi'
 import { Event } from './Event'
+import { fulfillContractMethods } from '../contracts/verification'
 
 /** Class to work with Ethereum contracts */
 export abstract class Contract<T = any> {
@@ -14,7 +15,11 @@ export abstract class Contract<T = any> {
    */
   constructor(address: string, abi: object) {
     this.setAddress(address)
-    this.setAbi(abi)
+    const sanitizedABI = Abi.sanitize(abi)
+
+    this.setAbi(sanitizedABI)
+
+    fulfillContractMethods(this, sanitizedABI)
 
     this.instance = null
   }

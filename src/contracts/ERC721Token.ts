@@ -1,5 +1,4 @@
 import { Contract } from '../ethereum'
-import { fulfillContractMethods } from './verification'
 
 const { abi } = require('./artifacts/ERC721Token.json')
 
@@ -8,7 +7,6 @@ const { abi } = require('./artifacts/ERC721Token.json')
 export class ERC721Token extends Contract {
   constructor(address: string) {
     super(address, abi)
-    fulfillContractMethods(this, abi)
   }
 
   getContractName() {

@@ -1,5 +1,4 @@
 import { eth, Contract } from '../ethereum'
-import { fulfillContractMethods } from './verification'
 
 const { abi } = require('./artifacts/MANAToken.json')
 
@@ -25,7 +24,6 @@ export interface MANAToken {
 export class MANAToken extends Contract {
   constructor(address: string) {
     super(address, abi)
-    fulfillContractMethods(this, abi)
   }
 
   getContractName() {
