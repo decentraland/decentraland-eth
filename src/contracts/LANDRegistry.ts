@@ -1,6 +1,5 @@
 import * as CSV from 'comma-separated-values'
 import { Contract } from '../ethereum'
-import { fulfillContractMethods } from './verification'
 const { abi } = require('./artifacts/LANDRegistry.json')
 
 const MAX_NAME_LENGTH = 50
@@ -19,7 +18,6 @@ export class LANDRegistry extends Contract {
 
   constructor(address: string) {
     super(address, abi)
-    fulfillContractMethods(this, abi)
   }
 
   static decodeLandData(data = '') {

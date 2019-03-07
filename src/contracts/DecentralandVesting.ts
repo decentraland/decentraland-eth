@@ -1,5 +1,4 @@
 import { eth, Contract } from '../ethereum'
-import { fulfillContractMethods } from './verification'
 import { BigNumber } from 'bignumber.js'
 
 const { abi } = require('./artifacts/DecentralandVesting.json')
@@ -8,7 +7,6 @@ const { abi } = require('./artifacts/DecentralandVesting.json')
 export class DecentralandVesting extends Contract {
   constructor(address: string = process.env.TERRAFORM_RESERVE_CONTRACT_ADDRESS) {
     super(address, abi)
-    fulfillContractMethods(this, abi)
   }
 
   getContractName() {

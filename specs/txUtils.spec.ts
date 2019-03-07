@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { deployContract } from './deployContract'
 import { eth, txUtils } from '../dist'
 import { testGeth } from './helpers'
+import { sleep } from '../dist/utils'
 
 testGeth(provider => {
   it('initializes eth provider', async () => {
@@ -13,11 +14,15 @@ testGeth(provider => {
       it('should return the confirmed transaction status and its receipt', async function() {
         this.timeout(100000)
 
+        await sleep(500)
         const contract = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
+        await sleep(500)
+
         /* tslint:disable-next-line:no-unnecessary-type-assertion */
         const { receipt, ...tx } = (await txUtils.getTransaction(
           contract.transactionHash
         )) as txUtils.ConfirmedTransaction
+        await sleep(500)
 
         expect(tx).to.include.keys([
           'type',
