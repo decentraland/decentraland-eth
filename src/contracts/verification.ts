@@ -48,20 +48,19 @@ export function fulfillContractMethods(instance: Contract, abi: ABIMethod[]) {
 }
 
 function createMethod(instance: Contract, method: ABIMethod, args: string) {
-  const { name, stateMutability, type } = method
+  const { name, stateMutability, type, constant } = method
 
   switch (type) {
     case 'function': {
-      if (stateMutability === 'view' || stateMutability === 'pure') {
+      if (stateMutability === 'view' || stateMutability === 'pure' || constant) {
         return function() {
           return instance.sendCallByType(name, args, ...arguments)
         }
-      } else if (stateMutability === 'nonpayable') {
+      } else {
         return function() {
           return instance.sendTransactionByType(name, args, ...arguments)
         }
       }
-      break
     }
   }
 
