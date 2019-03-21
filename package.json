@@ -42,7 +42,7 @@
     "@ledgerhq/web3-subprovider": "4.21.0",
     "@types/bignumber.js": "^5.0.0",
     "comma-separated-values": "^3.6.4",
-    "ethereumjs-util": "^6.0.0",
+    "ethereumjs-util": "5.2.0",
     "web3": "^0.20.7",
     "web3-provider-engine": "^14.1.0"
   },
