@@ -17,7 +17,8 @@ docker run \
     --rpc --rpcaddr 0.0.0.0 --rpcapi admin,debug,eth,miner,net,personal,shh,txpool,web3 \
     --ws  --wsaddr 0.0.0.0  --wsapi admin,debug,eth,miner,net,personal,shh,txpool,web3 --wsorigins \* \
     --mine --minerthreads=1 \
-    --dev
+    --dev \
+    --allow-insecure-unlock
 
 # run the tests
 npm run test
