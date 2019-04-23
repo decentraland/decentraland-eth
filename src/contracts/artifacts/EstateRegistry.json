@@ -38,6 +38,29 @@
       "constant": true,
       "inputs": [
         {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "updateManager",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
           "name": "_tokenId",
           "type": "uint256"
         }
@@ -170,29 +193,6 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        },
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "updateOperatorForAll",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -690,7 +690,7 @@
           "type": "bool"
         }
       ],
-      "name": "UpdateOperatorForAll",
+      "name": "UpdateManager",
       "type": "event"
     },
     {
@@ -926,7 +926,7 @@
           "type": "bool"
         }
       ],
-      "name": "setUpdateOperatorForAll",
+      "name": "setUpdateManager",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
