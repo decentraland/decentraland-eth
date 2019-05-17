@@ -1,100 +1,6 @@
 {
-  "contractName": "UsernameRegistry",
+  "contractName": "AvatarNameRegistry",
   "abi": [
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_beneficiary",
-          "type": "address"
-        },
-        {
-          "name": "_userId",
-          "type": "string"
-        },
-        {
-          "name": "_username",
-          "type": "string"
-        },
-        {
-          "name": "_metadata",
-          "type": "string"
-        }
-      ],
-      "name": "registerUsername",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "userExists",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_mana",
-          "type": "address"
-        },
-        {
-          "name": "_register",
-          "type": "address"
-        },
-        {
-          "name": "_blocksUntilReveal",
-          "type": "uint256"
-        }
-      ],
-      "name": "initialize",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_userId",
-          "type": "string"
-        },
-        {
-          "name": "_username",
-          "type": "string"
-        },
-        {
-          "name": "_metadata",
-          "type": "string"
-        }
-      ],
-      "name": "getHash",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
     {
       "constant": true,
       "inputs": [],
@@ -137,60 +43,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_userId",
-          "type": "string"
-        },
-        {
-          "name": "_username",
-          "type": "string"
-        },
-        {
-          "name": "_metadata",
-          "type": "string"
-        }
-      ],
-      "name": "revealUsername",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_account",
-          "type": "address"
-        },
-        {
-          "name": "_allowed",
-          "type": "bool"
-        }
-      ],
-      "name": "setAllowed",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_hash",
-          "type": "bytes32"
-        }
-      ],
-      "name": "commitUsername",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "manaToken",
@@ -214,10 +66,6 @@
       ],
       "name": "user",
       "outputs": [
-        {
-          "name": "userId",
-          "type": "string"
-        },
         {
           "name": "username",
           "type": "string"
@@ -246,20 +94,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_metadata",
-          "type": "string"
-        }
-      ],
-      "name": "setMetadata",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [
         {
@@ -279,36 +113,12 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_username",
-          "type": "string"
-        }
-      ],
-      "name": "isUsernameAvailable",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "anonymous": false,
       "inputs": [
         {
           "indexed": true,
           "name": "_owner",
           "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_userId",
-          "type": "string"
         },
         {
           "indexed": false,
@@ -411,6 +221,183 @@
       ],
       "name": "RevealUsername",
       "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_mana",
+          "type": "address"
+        },
+        {
+          "name": "_register",
+          "type": "address"
+        },
+        {
+          "name": "_blocksUntilReveal",
+          "type": "uint256"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_account",
+          "type": "address"
+        },
+        {
+          "name": "_allowed",
+          "type": "bool"
+        }
+      ],
+      "name": "setAllowed",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_beneficiary",
+          "type": "address"
+        },
+        {
+          "name": "_username",
+          "type": "string"
+        },
+        {
+          "name": "_metadata",
+          "type": "string"
+        }
+      ],
+      "name": "registerUsername",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_hash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "commitUsername",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_username",
+          "type": "string"
+        },
+        {
+          "name": "_metadata",
+          "type": "string"
+        },
+        {
+          "name": "_salt",
+          "type": "bytes32"
+        }
+      ],
+      "name": "revealUsername",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_username",
+          "type": "string"
+        },
+        {
+          "name": "_metadata",
+          "type": "string"
+        },
+        {
+          "name": "_salt",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getHash",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_metadata",
+          "type": "string"
+        }
+      ],
+      "name": "setMetadata",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "userExists",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_username",
+          "type": "string"
+        }
+      ],
+      "name": "isUsernameAvailable",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     }
   ]
 }
