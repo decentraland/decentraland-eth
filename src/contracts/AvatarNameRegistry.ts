@@ -1,6 +1,6 @@
 import { Contract } from '../ethereum'
 
-const { abi } = require('./artifacts/UsernameRegistry.json')
+const { abi } = require('./artifacts/AvatarNameRegistry.json')
 
 export class UsernameRegistry extends Contract {
   constructor(address: string) {
@@ -8,6 +8,6 @@ export class UsernameRegistry extends Contract {
   }
 
   getContractName() {
-    return 'UsernameRegistry'
+    return 'AvatarNameRegistry'
   }
 }
