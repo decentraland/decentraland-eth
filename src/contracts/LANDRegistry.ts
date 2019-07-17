@@ -24,7 +24,9 @@ export class LANDRegistry extends Contract {
     const version = data.charAt(0)
     switch (version) {
       case '0': {
-        const [version, name, description, ipns] = CSV.parse(data)[0]
+        const [version, name, description, ipns] = CSV.parse(data, {
+          cellDelimiter: ','
+        })[0]
 
         return {
           version,
