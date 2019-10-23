@@ -71,7 +71,7 @@ jobs:
       - restore_cache:
           keys:
             - dist-{{ .Revision }}
-      - run: ssh -o StrictHostKeyChecking=no
+      - run: ssh -oStrictHostKeyChecking=no
       - run: npx semantic-release
 workflows:
   version: 2
