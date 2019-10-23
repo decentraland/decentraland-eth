@@ -71,6 +71,7 @@ jobs:
       - restore_cache:
           keys:
             - dist-{{ .Revision }}
+      - run: ssh -y
       - run: npx semantic-release
 workflows:
   version: 2
