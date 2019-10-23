@@ -71,10 +71,6 @@ jobs:
       - restore_cache:
           keys:
             - dist-{{ .Revision }}
-<<<<<<< HEAD
-      - run: ssh -o StrictHostKeyChecking=no git@github.com
-=======
->>>>>>> feat: add exclusive erc721
       - run: npx semantic-release
 workflows:
   version: 2
