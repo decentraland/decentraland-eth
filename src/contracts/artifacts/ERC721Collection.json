@@ -104,6 +104,26 @@
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_beneficiaries",
+          "type": "address[]"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "_wearableIds",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "issueTokens",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "totalSupply",
@@ -112,21 +132,6 @@
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "allowed",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
         }
       ],
       "payable": false,
@@ -218,6 +223,26 @@
       "constant": false,
       "inputs": [
         {
+          "internalType": "string",
+          "name": "_wearableId",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_maxIssuance",
+          "type": "uint256"
+        }
+      ],
+      "name": "addWearable",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
           "internalType": "bytes32[]",
           "name": "_wearableIds",
           "type": "bytes32[]"
@@ -254,6 +279,26 @@
         }
       ],
       "name": "safeTransferFrom",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_operator",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "_allowed",
+          "type": "bool"
+        }
+      ],
+      "name": "setAllowed",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -383,6 +428,27 @@
     },
     {
       "constant": true,
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_wearableId",
+          "type": "string"
+        }
+      ],
+      "name": "getWearableKey",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [],
       "name": "owner",
       "outputs": [
@@ -498,21 +564,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_allowed",
-          "type": "address"
-        }
-      ],
-      "name": "setAllowed",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [
         {
@@ -548,6 +599,27 @@
           "internalType": "string",
           "name": "",
           "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "allowed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
         }
       ],
       "payable": false,
@@ -670,7 +742,7 @@
         },
         {
           "internalType": "address",
-          "name": "_allowed",
+          "name": "_operator",
           "type": "address"
         },
         {
@@ -708,14 +780,14 @@
         {
           "indexed": true,
           "internalType": "address",
-          "name": "_oldAllowed",
+          "name": "_operator",
           "type": "address"
         },
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "_newAllowed",
-          "type": "address"
+          "indexed": false,
+          "internalType": "bool",
+          "name": "_allowed",
+          "type": "bool"
         }
       ],
       "name": "Allowed",
