@@ -1,35 +1,26 @@
 import { Wallet } from '../dist/ethereum/wallets/Wallet'
-import { future } from 'eth-connect/dist/utils/future'
-import { Contract } from '../dist'
 
 export type Artifact = {
   abi: any[]
   bytecode: string
 }
 
-export async function deployContract<T extends Contract & { transactionHash: string }>(
-  wallet: Wallet,
-  name: string,
-  contract: Artifact
-) {
-  const account = await wallet.getAccount()
-
-  const newContract = await wallet.getContract(contract.abi)
+export async function deployContract(wallet: Wallet, name: string, contract: Artifact): Promise<string> {
+  const account = wallet.getAccount()
   const gasEstimate = await wallet.estimateGas({ data: contract.bytecode })
-
   console.log(`> Will deploy contract ${name} with gas: ${gasEstimate}`)
 
-  const options = { from: account, data: contract.bytecode, gas: gasEstimate }
+  const instance = wallet.createContractInstance(contract.abi)
 
-  const contractFuture = future<T>()
-
-  newContract.new(options, function(err, myContract) {
-    if (err) {
-      contractFuture.reject(err)
-    } else {
-      contractFuture.resolve(myContract)
-    }
+  return new Promise((resolve, reject) => {
+    instance
+      .deploy({ data: contract.bytecode })
+      .send({ from: account, gas: gasEstimate })
+      .on('transactionHash', txHash => {
+        resolve(txHash)
+      })
+      .on('error', err => {
+        reject(err)
+      })
   })
-
-  return contractFuture
 }

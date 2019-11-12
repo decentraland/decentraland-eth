@@ -21,7 +21,7 @@ describe('ETH tests (geth)', () => {
 
 function doTest() {
   it('should get the addresses', async () => {
-    const account = await eth.wallet.getAccount()
+    const account = eth.wallet.getAccount()
     console.log(`> Using account ${account}`)
     // tslint:disable-next-line:no-unused-expression
     expect(account).to.be.string
@@ -52,8 +52,8 @@ function doTest() {
     const messageToSign = '0x' + (Math.abs(Math.random() * 0x7fffffff) | 0).toString(16)
     console.log(`> Signed message ${messageToSign}`)
     const signature = await eth.wallet.sign(messageToSign)
-    console.log(`> Signatre ${signature}`)
-    const publicKey = await eth.wallet.getAccount()
+    console.log(`> Signature ${signature}`)
+    const publicKey = eth.wallet.getAccount()
 
     expect(await eth.wallet.recover(messageToSign, signature)).to.eq(publicKey)
   })
@@ -62,21 +62,21 @@ function doTest() {
 
   it('deploys a new contract', async function() {
     this.timeout(100000)
-    const contract = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
-    console.log(`> Tx: ${contract.transactionHash}`)
+    const transactionHash = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
+    console.log(`> Tx: ${transactionHash}`)
 
-    const tx = await txUtils.getTransaction(contract.transactionHash)
+    const tx = await txUtils.getTransaction(transactionHash)
 
     expect(tx.type).to.eq('confirmed')
 
-    const txRecipt = await eth.wallet.getTransactionReceipt(contract.transactionHash)
+    const txRecipt = await eth.wallet.getTransactionReceipt(transactionHash)
     expect(typeof txRecipt.contractAddress).to.eq('string')
     expect(txRecipt.contractAddress.length).to.be.greaterThan(0)
 
     /* tslint:disable-next-line:no-unnecessary-type-assertion */
-    const x = (await txUtils.getTransaction(contract.transactionHash)) as txUtils.ConfirmedTransaction
+    const x = (await txUtils.getTransaction(transactionHash)) as txUtils.ConfirmedTransaction
     expect(typeof x).eq('object')
-    expect(x.hash).eq(contract.transactionHash)
+    expect(x.hash).eq(transactionHash)
     expect(typeof x.receipt).eq('object')
 
     manaAddress = txRecipt.contractAddress
@@ -94,7 +94,7 @@ function doTest() {
 
   it('should get 0 mana balance by default', async () => {
     {
-      const account = await eth.wallet.getAccount()
+      const account = eth.wallet.getAccount()
       const balance = await MANAFacade.balanceOf(account)
       expect(balance.toString()).eq('0')
       expect(typeof balance).eq('number')
@@ -124,7 +124,7 @@ function doTest() {
 
   it('should work with injected methods from ABI', async function() {
     this.timeout(1000000)
-    const account = await eth.wallet.getAccount()
+    const account = eth.wallet.getAccount()
     {
       const mintingFinished = MANAFacade.mintingFinished()
       expect('then' in mintingFinished).eq(true, 'The injected methods should be thenable')

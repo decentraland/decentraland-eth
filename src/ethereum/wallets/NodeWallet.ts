@@ -1,4 +1,7 @@
-import Web3 = require('web3')
+// We use this to have a typed Web3 class until fixed by web.js
+// More info: https://github.com/ethereum/web3.js/issues/2363
+import Web3Type from 'web3'
+const Web3 = require('web3')
 
 import { Wallet } from './Wallet'
 import { Contract } from '../Contract'
@@ -6,7 +9,7 @@ import { Contract } from '../Contract'
 declare var window
 
 export class NodeWallet extends Wallet {
-  web3: any
+  web3: Web3Type
 
   getType(): string {
     return 'node'
@@ -20,9 +23,7 @@ export class NodeWallet extends Wallet {
     }
 
     this.web3 = new Web3(theProvider)
-
     const accounts = await this.getAccounts()
-
     if (accounts.length !== 0) {
       this.setAccount(accounts[0])
     }
@@ -34,8 +35,8 @@ export class NodeWallet extends Wallet {
    * @return {object} The web3 provider
    */
   getProvider(providerUrl: string = 'http://localhost:8545') {
-    if (typeof window !== 'undefined' && window.web3 && window.web3.currentProvider) {
-      return window.web3.currentProvider
+    if (typeof window !== 'undefined' && window.ethereum) {
+      return window.ethereum
     } else {
       return new Web3.providers.HttpProvider(providerUrl)
     }
@@ -47,12 +48,12 @@ export class NodeWallet extends Wallet {
 
   async sign(message: string) {
     const account = this.getAccount()
-    const sign = this.web3.personal.sign.bind(this.web3.personal)
+    const sign = this.web3.eth.personal.sign.bind(this.web3.eth)
     return Contract.sendTransaction(sign, message, account)
   }
 
   async recover(message: string, signature: string) {
-    const recover = this.web3.personal.ecRecover.bind(this.web3.personal)
+    const recover = this.web3.eth.personal.ecRecover.bind(this.web3.eth.personal)
     return Contract.sendTransaction(recover, message, signature)
   }
 }

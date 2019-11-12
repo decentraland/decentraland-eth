@@ -1,9 +1,8 @@
-import Web3 = require('web3')
-
 import TransportU2F from '@ledgerhq/hw-transport-u2f'
 import Eth from '@ledgerhq/hw-app-eth'
 import createLedgerSubProvider from '@ledgerhq/web3-subprovider'
 
+const Web3 = require('web3')
 import * as ProviderEngine from 'web3-provider-engine'
 import * as RpcSubprovider from 'web3-provider-engine/subproviders/rpc'
 

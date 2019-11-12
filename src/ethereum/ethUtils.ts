@@ -1,7 +1,5 @@
-import Web3 = require('web3')
+import * as web3utils from 'web3-utils'
 import ethereumJsUtil = require('ethereumjs-util')
-
-const web3utils = new Web3()
 
 /**
  * Some utility functions to work with Ethereum dapps.
@@ -10,30 +8,30 @@ const web3utils = new Web3()
  */
 export const ethUtils = {
   /**
-   * Converts a given number into a BigNumber instance. Check {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3tobignumber} for more info.
+   * Converts a given number into a BigNumber instance. Check {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3toBN} for more info.
    */
-  toBigNumber: web3utils.toBigNumber,
+  toBigNumber: web3utils.toBN,
 
   /**
    * Converts a number of wei into the desired unit
-   * @param  {number|BigNumber} amount - Amount to parse
-   * @param  {string} [unit=ether]     - Which unit to use. {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3fromwei} for more info
-   * @return {string} - Parsed result
+   * @param  {number} amount - Amount to parse
+   * @param  {web3utils.Unit} [unit=ether] - Which unit to use. {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3fromwei} for more info
+   * @return {number} - Parsed result
    */
-  fromWei(amount, unit = 'ether'): number {
-    amount = web3utils.toBigNumber(amount)
-    return web3utils.fromWei(amount, unit).toNumber(10)
+  fromWei(amount: number, unit: web3utils.Unit = 'ether'): number {
+    const bnAmount = web3utils.toBN(amount)
+    return parseFloat(web3utils.fromWei(bnAmount, unit))
   },
 
   /**
    * Converts an ethereum unit into wei
    * @param  {number|BigNumber} amount - Amount to convert
-   * @param  {string} [unit=ether]     - Which unit to use. {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3towei} for more info
-   * @return {string} - Parsed result
+   * @param  {web3utils.Unit} [unit=ether] - Which unit to use. {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3towei} for more info
+   * @return {number} - Parsed result
    */
-  toWei(amount: number, unit = 'ether'): number {
-    amount = web3utils.toBigNumber(amount)
-    return web3utils.toWei(amount, unit).toNumber(10)
+  toWei(amount: number, unit: web3utils.Unit = 'ether'): number {
+    const bnAmount = web3utils.toBN(amount)
+    return web3utils.toWei(bnAmount, unit).toNumber()
   },
 
   toHex(utf8: string): string {
@@ -142,10 +140,9 @@ export const ethUtils = {
   /**
    * Converts any ASCII string to a HEX string.
    * @param  {string} val - An ASCII string to be converted to HEX.
-   * @param {number} (optional) padding - The number of bytes the returned HEX string should have.
    * @return {string} The converted HEX string.
    */
-  fromAscii(val: string, padding: Number) {
-    return web3utils.fromAscii(val, padding)
+  fromAscii(val: string) {
+    return web3utils.fromAscii(val)
   }
 }

@@ -18,22 +18,22 @@ testGeth(provider => {
     let account = '0x0'
 
     async function deployManaContract() {
-      const contract = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
+      const transactionHash = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
 
       while (true) {
-        const tx = await txUtils.getTransaction(contract.transactionHash)
+        const tx = await txUtils.getTransaction(transactionHash)
         if (tx.type !== 'pending') {
           expect(tx.type).to.eq('confirmed', 'could not deploy MANA contract')
           break
         }
       }
 
-      const txRecipt = await eth.wallet.getTransactionReceipt(contract.transactionHash)
+      const txRecipt = await eth.wallet.getTransactionReceipt(transactionHash)
       manaAddress = txRecipt.contractAddress
 
       MANAFacade = new MANAToken(manaAddress)
       await eth.setContracts([MANAFacade])
-      account = await eth.wallet.getAccount()
+      account = eth.wallet.getAccount()
     }
 
     async function watchMintEvents(type, options, callback, value) {

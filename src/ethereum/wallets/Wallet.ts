@@ -1,6 +1,11 @@
-import { promisify } from '../../utils'
+// We use this to have a typed Web3 class until fixed by web.js
+// More info: https://github.com/ethereum/web3.js/issues/2363
+import Web3Type from 'web3'
+import { Contract, ContractOptions } from 'web3-eth-contract'
+import BigNumber from 'bignumber.js'
+
 import { Abi } from '../abi/Abi'
-import { BigNumber } from 'bignumber.js'
+import { promisify } from '../../utils'
 
 export interface TransactionReceipt {
   transactionHash: string
@@ -32,12 +37,10 @@ export type TransactionStatus = {
 // Interface
 export abstract class Wallet {
   type = this.getType()
-  web3 = null
+  web3: Web3Type = null
   derivationPath = null
 
-  constructor(private account?: string) {
-    // stub
-  }
+  constructor(private account?: string) {}
 
   abstract getType(): string
 
@@ -53,7 +56,7 @@ export abstract class Wallet {
     if (!this.account) {
       throw new Error("The current wallet/provider doesn't have any linked account")
     }
-    return this.account
+    return this.account.toLowerCase()
   }
 
   setAccount(account: string) {
@@ -99,7 +102,8 @@ export abstract class Wallet {
    * @return {Promise<any>} accounts
    */
   async getBalance(coinbase: string): Promise<BigNumber> {
-    return promisify(this.getWeb3().eth.getBalance)(coinbase)
+    const balance = await this.getWeb3().eth.getBalance(coinbase)
+    return new BigNumber(balance)
   }
 
   async getCoinbase(): Promise<string> {
@@ -112,10 +116,6 @@ export abstract class Wallet {
 
   async sendTransaction(transactionObject: any) {
     return promisify(this.getWeb3().eth.sendTransaction)(transactionObject)
-  }
-
-  async getContract(abi: any[]) {
-    return this.getWeb3().eth.contract(abi)
   }
 
   /**
@@ -148,9 +148,8 @@ export abstract class Wallet {
    * @param  {string} address - Contract address
    * @return {object} instance
    */
-  async createContractInstance(abi: any[], address: string) {
-    const contract = await this.getContract(abi)
-    return contract.at(address)
+  createContractInstance(abi: any[], address?: string, options?: ContractOptions): Contract {
+    return new this.web3.eth.Contract(abi, address, options)
   }
 
   /**
@@ -159,7 +158,7 @@ export abstract class Wallet {
    * @return {boolean} Whether the operation was successfull or not
    */
   async unlockAccount(password: string) {
-    return promisify(this.web3.personal.unlockAccount)(this.getAccount(), password, 300)
+    return promisify(this.web3.eth.personal.unlockAccount)(this.getAccount(), password, 300)
   }
 
   /**

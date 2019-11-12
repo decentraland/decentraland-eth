@@ -57,7 +57,8 @@ export namespace eth {
 
       return true
     } catch (error) {
-      console.info(`Error trying to connect Ethereum wallet: ${error.message}`)
+      console.error(`Error trying to connect Ethereum wallet: ${error.message}`)
+      console.error(error)
       return false
     }
   }
@@ -129,8 +130,8 @@ export namespace eth {
         continue
       }
 
-      const instance = await wallet.createContractInstance(contract.abi, contract.address)
-      contract.setInstance(instance)
+      const instance = wallet.createContractInstance(contract.abi, contract.address)
+      contract.setInstance(instance.methods)
 
       contracts[contractName] = contract
     }
@@ -209,9 +210,9 @@ export namespace eth {
    * @return {object} - An object describing the current network: { id, name, label }
    */
   export async function getNetwork(): Promise<Network> {
-    const id = await promisify(wallet.getWeb3().version.getNetwork)()
+    const id = await promisify(wallet.getWeb3().eth.net.getId)()
     const networks = getNetworks()
-    const network = networks.find(network => network.id === id)
+    const network = networks.find(network => parseInt(network.id, 10) === id)
     if (!network) {
       throw new Error(`Unknown Network id: ${id}`)
     }

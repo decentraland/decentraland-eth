@@ -1,11 +1,11 @@
-import { promisify } from '../utils'
-import { Abi } from './abi'
-import { Event } from './Event'
 import { fulfillContractMethods } from '../contracts/verification'
+import { promisify } from '../utils'
+import { Event } from './Event'
+import { Abi } from './abi'
 
 /** Class to work with Ethereum contracts */
-export abstract class Contract<T = any> {
-  instance: T
+export abstract class Contract {
+  instance: any
   abi: any
   address: string
 
@@ -44,7 +44,7 @@ export abstract class Contract<T = any> {
    * See {@link Contract#sendCall}
    */
   static async sendCall(prop, ...args): Promise<any> {
-    return promisify(prop.call)(...args)
+    return prop(...args).call()
   }
 
   /**

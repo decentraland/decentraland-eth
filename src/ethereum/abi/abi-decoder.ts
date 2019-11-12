@@ -1,9 +1,5 @@
-// This is a port.
-// It fixes https://github.com/ConsenSys/abi-decoder
-// which is not correctly published and can't be minified by webpack as an npm module
-
-import SolidityCoder = require('web3/lib/solidity/coder.js')
-import Web3 = require('web3')
+const Web3 = require('web3')
+import { sha3, toBN } from 'web3-utils'
 
 const state = {
   savedABIs: [],
@@ -15,12 +11,11 @@ function _getABIs() {
 }
 
 function _addABI(abiArray) {
-  const signerWeb3 = new Web3()
   if (Array.isArray(abiArray)) {
     // Iterate new abi to generate method id's
     abiArray.forEach(abi => {
       if (abi.name) {
-        const signature = signerWeb3.sha3(
+        const signature = sha3(
           abi.name +
             '(' +
             abi.inputs
@@ -49,7 +44,7 @@ function _removeABI(abiArray) {
     // Iterate new abi to generate method id's
     abiArray.forEach(abi => {
       if (abi.name) {
-        const signature = new Web3().sha3(
+        const signature = sha3(
           abi.name +
             '(' +
             abi.inputs
@@ -84,13 +79,13 @@ function _decodeMethod(data) {
   const abiItem = state.methodIDs[methodID]
   if (abiItem) {
     const params = abiItem.inputs.map(item => item.type)
-    let decoded = SolidityCoder.decodeParams(params, data.slice(10))
+    let decoded = new Web3('').eth.abi.decodeParameters(params, data.slice(10))
     return {
       name: abiItem.name,
       params: decoded.map((param, index) => {
         let parsedParam = param
         if (abiItem.inputs[index].type.indexOf('uint') !== -1) {
-          parsedParam = new Web3().toBigNumber(param).toString()
+          parsedParam = toBN(param).toString()
         }
         return {
           name: abiItem.inputs[index].name,
@@ -134,7 +129,7 @@ function _decodeLogs(logs) {
           dataTypes.push(input.type)
         }
       })
-      const decodedData = SolidityCoder.decodeParams(dataTypes, logData.slice(2))
+      const decodedData = new Web3('').eth.abi.decodeParameters(dataTypes, logData.slice(2))
       // Loop topic and data to get the params
       method.inputs.forEach(function(param) {
         let decodedP = {
@@ -152,9 +147,9 @@ function _decodeLogs(logs) {
         }
 
         if (param.type === 'address') {
-          decodedP.value = padZeros(new Web3().toBigNumber(decodedP.value).toString(16))
+          decodedP.value = padZeros(toBN(decodedP.value).toString(16))
         } else if (param.type === 'uint256' || param.type === 'uint8' || param.type === 'int') {
-          decodedP.value = new Web3().toBigNumber(decodedP.value).toString(10)
+          decodedP.value = toBN(decodedP.value).toString(10)
         }
 
         decodedParams.push(decodedP)

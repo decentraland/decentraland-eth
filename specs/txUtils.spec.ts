@@ -15,13 +15,11 @@ testGeth(provider => {
         this.timeout(100000)
 
         await sleep(500)
-        const contract = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
+        const transactionHash = await deployContract(eth.wallet, 'MANA', require('./fixtures/MANAToken.json'))
         await sleep(500)
 
         /* tslint:disable-next-line:no-unnecessary-type-assertion */
-        const { receipt, ...tx } = (await txUtils.getTransaction(
-          contract.transactionHash
-        )) as txUtils.ConfirmedTransaction
+        const { receipt, ...tx } = (await txUtils.getTransaction(transactionHash)) as txUtils.ConfirmedTransaction
         await sleep(500)
 
         expect(tx).to.include.keys([

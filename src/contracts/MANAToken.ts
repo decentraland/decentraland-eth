@@ -40,7 +40,14 @@ export class MANAToken extends Contract {
   }
 
   async balanceOf(owner: string): Promise<number> {
-    const manaBalance = await this.sendCall('balanceOf', owner)
-    return eth.utils.fromWei(manaBalance)
+    try {
+      const manaBalance = await this.sendCall('balanceOf', owner)
+      return eth.utils.fromWei(manaBalance)
+    } catch (error) {
+      if (error.message.includes('invalid address')) {
+        return 0
+      }
+      throw error
+    }
   }
 }
