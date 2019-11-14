@@ -1,8 +1,8 @@
+import { promisify } from '../utils/index'
+import { Wallet, TransactionStatus } from './wallets/Wallet'
 import { NodeWallet } from './wallets'
 import { ethUtils } from './ethUtils'
-import { promisify } from '../utils/index'
 import { Contract } from './Contract'
-import { Wallet, TransactionStatus } from './wallets/Wallet'
 
 export type ConnectOptions = {
   /** An array of objects defining contracts or Contract subclasses to use. Check {@link eth#setContracts} */
@@ -130,8 +130,12 @@ export namespace eth {
         continue
       }
 
-      const instance = wallet.createContractInstance(contract.abi, contract.address)
-      contract.setInstance(instance.methods)
+      const instance = wallet.createContractInstance(contract.sanitizedAbi, contract.address)
+
+      // default sender
+      instance.options.from = this.getAccount()
+
+      contract.setInstance(instance)
 
       contracts[contractName] = contract
     }
@@ -224,7 +228,7 @@ export namespace eth {
    * @return {number} - The number of the latest block
    */
   export async function getBlockNumber(): Promise<number> {
-    return promisify(wallet.getWeb3().eth.getBlockNumber)()
+    return wallet.getWeb3().eth.getBlockNumber()
   }
 
   /**
@@ -232,7 +236,7 @@ export namespace eth {
    * @return {object} - An ehtereum block
    */
   export async function getBlock(blockHashOrBlockNumber: string | number, returnTransactionObjects: boolean = false) {
-    return promisify(wallet.getWeb3().eth.getBlock)(blockHashOrBlockNumber, returnTransactionObjects)
+    return wallet.getWeb3().eth.getBlock(blockHashOrBlockNumber, returnTransactionObjects)
   }
 
   /**
@@ -257,9 +261,9 @@ export namespace eth {
     const accountTransactions = []
     for (let i = startBlockNumber; i <= endBlockNumber; i++) {
       let block = await this.getBlock(i, true)
-      if (block != null && block.transactions != null) {
-        block.transactions.forEach(function(tx: TransactionStatus) {
-          if (address === '*' || address === tx.from || address === tx.to) {
+      if (block && block.transactions) {
+        block.transactions.forEach((tx: TransactionStatus) => {
+          if (address === '*' || address === tx.from.toLowerCase() || address === tx.to.toLowerCase()) {
             accountTransactions.push(tx)
           }
         })

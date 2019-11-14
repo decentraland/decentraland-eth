@@ -107,15 +107,20 @@ export abstract class Wallet {
   }
 
   async getCoinbase(): Promise<string> {
-    return promisify(this.getWeb3().eth.getCoinbase)()
+    return this.getWeb3().eth.getCoinbase()
   }
 
   async estimateGas(options: { data: string; to?: string }) {
     return promisify(this.getWeb3().eth.estimateGas)(options)
   }
 
-  async sendTransaction(transactionObject: any) {
-    return promisify(this.getWeb3().eth.sendTransaction)(transactionObject)
+  async sendTransaction(transactionObject: any): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.getWeb3()
+        .eth.sendTransaction(transactionObject)
+        .on('transactionHash', txHash => resolve(txHash))
+        .on('error', err => reject(err))
+    })
   }
 
   /**
@@ -124,7 +129,7 @@ export abstract class Wallet {
    * @return {object}      - An object describing the transaction (if it exists)
    */
   async getTransactionStatus(txId: string): Promise<TransactionStatus> {
-    return promisify(this.getWeb3().eth.getTransaction)(txId)
+    return this.getWeb3().eth.getTransaction(txId)
   }
 
   /**
@@ -133,13 +138,14 @@ export abstract class Wallet {
    * @return {object} - An object describing the transaction receipt (if it exists) with it's logs
    */
   async getTransactionReceipt(txId: string): Promise<TransactionReceipt> {
-    const receipt = await promisify(this.getWeb3().eth.getTransactionReceipt)(txId)
+    const receipt = await this.getWeb3().eth.getTransactionReceipt(txId)
 
     if (receipt && receipt.logs) {
       receipt.logs = Abi.decodeLogs(receipt.logs)
     }
 
-    return receipt
+    // TODO Start using Web3 TransactionReceipt type
+    return (receipt as any) as TransactionReceipt
   }
 
   /**
@@ -158,7 +164,7 @@ export abstract class Wallet {
    * @return {boolean} Whether the operation was successfull or not
    */
   async unlockAccount(password: string) {
-    return promisify(this.web3.eth.personal.unlockAccount)(this.getAccount(), password, 300)
+    return this.web3.eth.personal.unlockAccount(this.getAccount(), password, 300)
   }
 
   /**

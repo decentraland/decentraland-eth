@@ -4,7 +4,6 @@ import Web3Type from 'web3'
 const Web3 = require('web3')
 
 import { Wallet } from './Wallet'
-import { Contract } from '../Contract'
 
 declare var window
 
@@ -43,17 +42,17 @@ export class NodeWallet extends Wallet {
   }
 
   async getAccounts(): Promise<any[]> {
-    return Contract.sendTransaction(this.web3.eth.getAccounts)
+    return this.web3.eth.getAccounts()
   }
 
   async sign(message: string) {
     const account = this.getAccount()
     const sign = this.web3.eth.personal.sign.bind(this.web3.eth)
-    return Contract.sendTransaction(sign, message, account)
+    return sign(message, account)
   }
 
   async recover(message: string, signature: string) {
     const recover = this.web3.eth.personal.ecRecover.bind(this.web3.eth.personal)
-    return Contract.sendTransaction(recover, message, signature)
+    return recover(message, signature)
   }
 }

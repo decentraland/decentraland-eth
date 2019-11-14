@@ -192,15 +192,15 @@ testGeth(provider => {
           await getMintEvents('getAll', null, callback, 1)
           expect(response.length).to.equal(1)
           expect(response[0].event).to.equal('Mint')
-          expect(response[0].args.to).to.equal(account)
-          expect(response[0].args.amount.toNumber()).to.equal(10)
+          expect(response[0].returnValues.to.toLowerCase()).to.equal(account)
+          expect(parseFloat(response[0].returnValues.amount)).to.equal(10)
         })
         it('should get Mint events with options', async function() {
           await getMintEvents('getAll', {}, callback, 1)
           expect(response.length).to.equal(1)
           expect(response[0].event).to.equal('Mint')
-          expect(response[0].args.to).to.equal(account)
-          expect(response[0].args.amount.toNumber()).to.equal(10)
+          expect(response[0].returnValues.to.toLowerCase()).to.equal(account)
+          expect(parseFloat(response[0].returnValues.amount)).to.equal(10)
         })
         it('should not get Mint event with args filter', async function() {
           await getMintEvents(
@@ -228,8 +228,8 @@ testGeth(provider => {
           )
           expect(response.length).to.equal(1)
           expect(response[0].event).to.equal('Mint')
-          expect(response[0].args.to).to.equal(account)
-          expect(response[0].args.amount.toNumber()).to.equal(10)
+          expect(response[0].returnValues.to.toLowerCase()).to.equal(account)
+          expect(parseFloat(response[0].returnValues.amount)).to.equal(10)
         })
         it('should not get Mint event with opts filter', async function() {
           await getMintEvents(
@@ -259,8 +259,8 @@ testGeth(provider => {
           )
           expect(response.length).to.equal(10)
           expect(response[0].event).to.equal('Mint')
-          expect(response[0].args.to).to.equal(account)
-          expect(response[0].args.amount.toNumber()).to.equal(10)
+          expect(response[0].returnValues.to.toLowerCase()).to.equal(account)
+          expect(parseFloat(response[0].returnValues.amount)).to.equal(10)
         })
       })
       describe('getAllByType', function() {
@@ -268,15 +268,15 @@ testGeth(provider => {
           await getMintEvents('getAllByType', null, callback, 1)
           expect(response.length).to.equal(1)
           expect(response[0].event).to.equal('Mint')
-          expect(response[0].args.to).to.equal(account)
-          expect(response[0].args.amount.toNumber()).to.equal(10)
+          expect(response[0].returnValues.to.toLowerCase()).to.equal(account)
+          expect(parseFloat(response[0].returnValues.amount)).to.equal(10)
         })
         it('should get Mint event with options ', async function() {
           await getMintEvents('getAllByType', {}, callback, 1)
           expect(response.length).to.equal(1)
           expect(response[0].event).to.equal('Mint')
-          expect(response[0].args.to).to.equal(account)
-          expect(response[0].args.amount.toNumber()).to.equal(10)
+          expect(response[0].returnValues.to.toLowerCase()).to.equal(account)
+          expect(parseFloat(response[0].returnValues.amount)).to.equal(10)
         })
         it('should not get Mint event with opts filter', async function() {
           await getMintEvents(
@@ -302,8 +302,8 @@ testGeth(provider => {
           )
           expect(response.length).to.equal(10)
           expect(response[0].event).to.equal('Mint')
-          expect(response[0].args.to).to.equal(account)
-          expect(response[0].args.amount.toNumber()).to.equal(10)
+          expect(response[0].returnValues.to.toLowerCase()).to.equal(account)
+          expect(parseFloat(response[0].returnValues.amount)).to.equal(10)
         })
       })
     })

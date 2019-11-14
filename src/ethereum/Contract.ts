@@ -1,12 +1,14 @@
+import { Contract as Web3Contract } from 'web3-eth-contract'
+
 import { fulfillContractMethods } from '../contracts/verification'
-import { promisify } from '../utils'
 import { Event } from './Event'
 import { Abi } from './abi'
 
 /** Class to work with Ethereum contracts */
 export abstract class Contract {
-  instance: any
+  instance: Web3Contract
   abi: any
+  sanitizedAbi: any[]
   address: string
 
   /**
@@ -36,8 +38,17 @@ export abstract class Contract {
   /**
    * See {@link Contract#sendTransaction}
    */
-  static async sendTransaction(method: Function, ...args): Promise<any> {
-    return promisify(method)(...args)
+  static async sendTransaction(method: Function, ...args): Promise<string> {
+    return new Promise((resolve, reject) => {
+      method(...args)
+        .send()
+        .on('transactionHash', txHash => {
+          resolve(txHash)
+        })
+        .on('error', err => {
+          reject(err)
+        })
+    })
   }
 
   /**
@@ -83,6 +94,7 @@ export abstract class Contract {
     }
 
     this.abi = Abi.new(abi)
+    this.sanitizedAbi = abi
   }
 
   setInstance(instance) {
@@ -97,7 +109,7 @@ export abstract class Contract {
    * @return {Promise} - promise that resolves when the transaction does
    */
   sendTransactionByType(method: string, args: string, ...params) {
-    const fn = this.instance[method][args]
+    const fn = this.instance.methods[`${method}(${args})`]
     return this._sendTransaction(fn, method, ...params)
   }
 
@@ -108,7 +120,7 @@ export abstract class Contract {
    * @return {Promise} - promise that resolves when the transaction does
    */
   sendTransaction(method: string, ...params) {
-    const fn = this.instance[method]
+    const fn = this.instance.methods[method]
     return this._sendTransaction(fn, method, ...params)
   }
 
@@ -120,7 +132,7 @@ export abstract class Contract {
    * @return {Promise} - promise that resolves when the call does
    */
   sendCallByType(method: string, args: string, ...params) {
-    const fn = this.instance[method][args]
+    const fn = this.instance.methods[`${method}(${args})`]
     return this._sendCall(fn, method, ...params)
   }
 
@@ -131,7 +143,7 @@ export abstract class Contract {
    * @return {Promise} - promise that resolves when the call does
    */
   sendCall(method: string, ...params) {
-    const fn = this.instance[method]
+    const fn = this.instance.methods[method]
     return this._sendCall(fn, method, ...params)
   }
 

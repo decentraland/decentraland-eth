@@ -28,7 +28,9 @@ testGeth(provider => {
         }
       }
 
+      // Check that there is a transaction and wait for it
       await txUtils.getConfirmedTransaction(txId)
+
       const txs = await eth.getTransactionsByAccount(account)
       const originalValue = txs.length
       expect(originalValue).to.be.gt(0)

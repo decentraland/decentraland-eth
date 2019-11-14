@@ -16,7 +16,7 @@ export class Event {
   }
 
   get instance() {
-    return this.contract.instance[this.name]
+    return this.contract.instance.events[this.name]
   }
 
   /**
@@ -25,7 +25,6 @@ export class Event {
    * @param  {object} [options.args] - Indexed return values you want to filter the logs by
    * @param  {object} [options.opts] - Additional filter options, fordwarded to {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethfilter}
    * @param  {number|string} [options.fromBlock='latest'] - The number of the earliest block. latest means the most recent and pending currently mining, block
-   * @param  {number|string} [options.toBlock='latest'] - The number of the latest block latest means the most recent and pending currently mining, block
    * @param  {string} [options.address] - An address or a list of addresses to only get logs from particular account(s).
    * @param  {Array<strings>} [options.topics] - An array of values which must each appear in the log entries. The order is important, if you want to leave topics out use null.
    * @param  {Function} callback     - Callback function for each event found
@@ -34,8 +33,29 @@ export class Event {
   watch(options: WatchOptions, callback?: Function)
   watch(options: WatchOptions | Function, callback?: Function) {
     const { args, opts } = typeof options === 'function' ? ({} as WatchOptions) : options
+
+    let fromBlock
+    let toBlock
+
+    if (opts) {
+      fromBlock = opts.fromBlock
+      toBlock = opts.toBlock
+      delete opts.toBlock
+    }
+
     const func = typeof options === 'function' ? options : callback
-    this.instance(args, opts).watch(func)
+
+    this.instance({ filter: args, ...opts }, (err, event) => {
+      if (err) {
+        func(err)
+      } else {
+        if ((fromBlock && event.blockNumber < fromBlock) || (toBlock && event.blockNumber > toBlock)) {
+          return
+        }
+
+        func(null, event)
+      }
+    })
   }
 
   /**
@@ -54,7 +74,14 @@ export class Event {
   getAll(options: WatchOptions | Function, callback?: Function) {
     const { args, opts } = typeof options === 'function' ? ({} as WatchOptions) : options
     const func = typeof options === 'function' ? options : callback
-    this.instance(args, opts).get(func)
+    this.contract.instance
+      .getPastEvents(this.name, { filter: args, ...opts })
+      .then(events => {
+        func(null, events)
+      })
+      .catch(err => {
+        func(err)
+      })
   }
 
   /**
@@ -62,7 +89,6 @@ export class Event {
    * @param  {object|function} [options] - If options is a function it'll be used as callback, ignoring the second argument
    * @param  {object} [options.opts] - Additional filter options, fordwarded to {@link https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethfilter}
    * @param  {number|string} [options.fromBlock='latest'] - The number of the earliest block. latest means the most recent and pending currently mining, block
-   * @param  {number|string} [options.toBlock='latest'] - The number of the latest block latest means the most recent and pending currently mining, block
    * @param  {string} [options.address] - An address or a list of addresses to only get logs from particular account(s).
    * @param  {Array<strings>} [options.topics] - An array of values which must each appear in the log entries. The order is important, if you want to leave topics out use null.
    * @param  {Function} callback     - Callback function for each event found
@@ -70,11 +96,34 @@ export class Event {
   watchByType(callback: Function)
   watchByType(options: WatchOptions, callback?: Function)
   watchByType(options: WatchOptions | Function, callback?: Function) {
-    const opts = typeof options === 'function' ? ({} as WatchOptions) : options
-    const func = typeof options === 'function' ? options : callback
-    for (let event in this.instance) {
-      this.instance[event](opts).watch(func)
+    const { args, opts } = typeof options === 'function' ? ({} as WatchOptions) : options
+
+    let fromBlock
+    let toBlock
+
+    if (opts) {
+      fromBlock = opts.fromBlock
+      toBlock = opts.toBlock
+      delete opts.toBlock
     }
+
+    const func = typeof options === 'function' ? options : callback
+
+    this.instance({ filter: args, ...opts }, (err, event) => {
+      if (err) {
+        func(err)
+      } else {
+        console.log(
+          'condition',
+          (fromBlock && event.blockNumber < fromBlock) || (toBlock && event.blockNumber > toBlock)
+        )
+        if ((fromBlock && event.blockNumber < fromBlock) || (toBlock && event.blockNumber > toBlock)) {
+          return
+        }
+
+        func(null, event)
+      }
+    })
   }
 
   /**
@@ -92,8 +141,13 @@ export class Event {
   getAllByType(options: WatchOptions | Function, callback?: Function) {
     const opts = typeof options === 'function' ? ({} as WatchOptions) : options
     const func = typeof options === 'function' ? options : callback
-    for (let event in this.instance) {
-      this.instance[event](opts).get(func)
-    }
+    this.contract.instance
+      .getPastEvents(this.name, opts as any)
+      .then(events => {
+        func(null, events)
+      })
+      .catch(err => {
+        func(err)
+      })
   }
 }

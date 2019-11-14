@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js'
+
 import { eth, Contract } from '../ethereum'
 
 const { abi } = require('./artifacts/MANAToken.json')
@@ -5,7 +7,7 @@ const { abi } = require('./artifacts/MANAToken.json')
 export interface MANAToken {
   mintingFinished(): Promise<boolean>
   name(): Promise<string>
-  totalSupply(): Promise<any /* BigNumber */>
+  totalSupply(): Promise<BigNumber>
   transferFrom(from: string, to: string, value): Promise<boolean>
   decimals(): Promise<number>
   unpause(): Promise<boolean>
@@ -49,5 +51,10 @@ export class MANAToken extends Contract {
       }
       throw error
     }
+  }
+
+  async totalSupply(): Promise<BigNumber> {
+    const supply = await this.sendCall('totalSupply')
+    return new BigNumber(supply)
   }
 }

@@ -56,6 +56,7 @@
     "@types/glob": "^5.0.35",
     "@types/mocha": "^5.0.0",
     "@types/node": "^8.10.1",
+    "@types/sinon": "^7.5.0",
     "@types/websocket": "0.0.40",
     "chai": "^4.2.0",
     "commander": "^2.19.0",
