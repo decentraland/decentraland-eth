@@ -133,7 +133,13 @@ export namespace eth {
       const instance = wallet.createContractInstance(contract.sanitizedAbi, contract.address)
 
       // default sender
-      instance.options.from = this.getAccount()
+      try {
+        instance.options.from = this.getAccount()
+      } catch (error) {
+        if (error.message !== `The current wallet/provider doesn't have any linked account`) {
+          throw error
+        }
+      }
 
       contract.setInstance(instance)
 

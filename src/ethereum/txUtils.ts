@@ -117,7 +117,7 @@ export namespace txUtils {
     const receipt = await eth.wallet.getTransactionReceipt(hash)
 
     // reverted
-    if (receipt == null || receipt.status === '0x0') {
+    if (receipt == null || !receipt.status) {
       const tx: RevertedTransaction = {
         type: 'reverted',
         ...status

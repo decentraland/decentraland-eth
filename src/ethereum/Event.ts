@@ -49,7 +49,11 @@ export class Event {
       if (err) {
         func(err)
       } else {
-        if ((fromBlock && event.blockNumber < fromBlock) || (toBlock && event.blockNumber > toBlock)) {
+        if (fromBlock && event.blockNumber < fromBlock) {
+          return
+        }
+
+        if (toBlock && event.blockNumber > toBlock) {
           return
         }
 
@@ -96,7 +100,7 @@ export class Event {
   watchByType(callback: Function)
   watchByType(options: WatchOptions, callback?: Function)
   watchByType(options: WatchOptions | Function, callback?: Function) {
-    const { args, opts } = typeof options === 'function' ? ({} as WatchOptions) : options
+    const opts = typeof options === 'function' ? ({} as any) : options
 
     let fromBlock
     let toBlock
@@ -109,15 +113,15 @@ export class Event {
 
     const func = typeof options === 'function' ? options : callback
 
-    this.instance({ filter: args, ...opts }, (err, event) => {
+    this.instance(opts, (err, event) => {
       if (err) {
         func(err)
       } else {
-        console.log(
-          'condition',
-          (fromBlock && event.blockNumber < fromBlock) || (toBlock && event.blockNumber > toBlock)
-        )
-        if ((fromBlock && event.blockNumber < fromBlock) || (toBlock && event.blockNumber > toBlock)) {
+        if (fromBlock && event.blockNumber < fromBlock) {
+          return
+        }
+
+        if (toBlock && event.blockNumber > toBlock) {
           return
         }
 
