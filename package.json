@@ -67,7 +67,7 @@
     "mocha": "^4.0.1",
     "prettier": "^1.8.2",
     "rimraf": "^2.6.2",
-    "semantic-release": "^12.2.5",
+    "semantic-release": "^17.2.3",
     "sinon": "^6.1.5",
     "tslint": "^5.11.0",
     "tslint-language-service": "^0.9.9",
