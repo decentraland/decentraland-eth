@@ -1,0 +1,1 @@
+{"version":3,"file":"AvatarNameRegistry.js","sourceRoot":"","sources":["../../src/contracts/AvatarNameRegistry.ts"],"names":[],"mappings":";;AAAA,0CAAsC;AAEtC,MAAM,EAAE,GAAG,EAAE,GAAG,OAAO,CAAC,qCAAqC,CAAC,CAAA;AAE9D,MAAa,kBAAmB,SAAQ,mBAAQ;IAC9C,YAAY,OAAe;QACzB,KAAK,CAAC,OAAO,EAAE,GAAG,CAAC,CAAA;IACrB,CAAC;IAED,eAAe;QACb,OAAO,oBAAoB,CAAA;IAC7B,CAAC;CACF;AARD,gDAQC"}

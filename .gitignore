@@ -5,9 +5,12 @@
 
 #/dist/
 
-**/*.js
-**/*.js.map
-**/*.d.ts
+#**/*.js
+#**/*.js.map
+#**/*.d.ts
+**/**.spec.js
+/specs/*
+scripts/**/**.js
 .DS_Store
 **/.DS_Store
 .idea

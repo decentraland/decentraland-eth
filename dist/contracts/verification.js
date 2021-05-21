@@ -1,0 +1,68 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * This class decorator adds the missing methods to the prototype of a class
+ * @param contract abi of the contract
+ */
+function fulfillContractMethods(instance, abi) {
+    const namesToSet = new Map();
+    for (const method of abi) {
+        const { name, type } = method;
+        if (type !== 'function')
+            continue;
+        const proto = Object.getPrototypeOf(instance);
+        if (name in proto && typeof proto[name] === 'function') {
+            // Some contract classes as MANAToken has predefined methods.
+            // we should not override them
+            continue;
+        }
+        if (!namesToSet.has(name)) {
+            namesToSet.set(name, []);
+        }
+        const addToList = namesToSet.get(name);
+        addToList.push(method);
+    }
+    namesToSet.forEach((methodList, name) => {
+        if (methodList.length === 1) {
+            const method = methodList[0];
+            const args = method.inputs.map(input => input.type).join(',');
+            instance[name] = createMethod(instance, method, args);
+        }
+        else {
+            instance[name] = fullfilOverloadedMethod(name, methodList);
+        }
+        methodList.forEach(method => {
+            const args = method.inputs.map(input => input.type).join(',');
+            instance[name][args] = createMethod(instance, method, args);
+        });
+    });
+}
+exports.fulfillContractMethods = fulfillContractMethods;
+function createMethod(instance, method, args) {
+    const { name, stateMutability, type, constant } = method;
+    switch (type) {
+        case 'function': {
+            if (stateMutability === 'view' || stateMutability === 'pure' || constant) {
+                return function () {
+                    return instance.sendCallByType(name, args, ...arguments);
+                };
+            }
+            else {
+                return function () {
+                    return instance.sendTransactionByType(name, args, ...arguments);
+                };
+            }
+        }
+    }
+    throw new Error(`Method: ${name} is not a function`);
+}
+function fullfilOverloadedMethod(name, methodList) {
+    const availableMethods = methodList
+        .map(method => method.inputs.map(input => input.type).join(','))
+        .map(args => `contract.${name}[${JSON.stringify(args)}](...)`)
+        .join(', ');
+    return function () {
+        throw new Error(`Method: ${name} is overloaded. Options available are: ${availableMethods}`);
+    };
+}
+//# sourceMappingURL=verification.js.map

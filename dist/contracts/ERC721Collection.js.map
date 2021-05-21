@@ -1,0 +1,1 @@
+{"version":3,"file":"ERC721Collection.js","sourceRoot":"","sources":["../../src/contracts/ERC721Collection.ts"],"names":[],"mappings":";;AAAA,0CAAsC;AAEtC,MAAM,EAAE,GAAG,EAAE,GAAG,OAAO,CAAC,mCAAmC,CAAC,CAAA;AAE5D,MAAa,gBAAiB,SAAQ,mBAAQ;IAC5C,YAAY,OAAe;QACzB,KAAK,CAAC,OAAO,EAAE,GAAG,CAAC,CAAA;IACrB,CAAC;IAED,eAAe;QACb,OAAO,kBAAkB,CAAA;IAC3B,CAAC;CACF;AARD,4CAQC"}
