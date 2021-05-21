@@ -191,7 +191,7 @@ export namespace eth {
         name: 'rinkeby',
         label: 'Rinkeby Test Network'
       },
-       {
+      {
         id: '5',
         name: 'goerli',
         label: 'Goerli Test Network'
@@ -262,7 +262,7 @@ export namespace eth {
     for (let i = startBlockNumber; i <= endBlockNumber; i++) {
       let block = await this.getBlock(i, true)
       if (block != null && block.transactions != null) {
-        block.transactions.forEach(function(tx: TransactionStatus) {
+        block.transactions.forEach(function (tx: TransactionStatus) {
           if (address === '*' || address === tx.from || address === tx.to) {
             accountTransactions.push(tx)
           }
