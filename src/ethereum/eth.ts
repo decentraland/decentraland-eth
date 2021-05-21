@@ -191,6 +191,11 @@ export namespace eth {
         name: 'rinkeby',
         label: 'Rinkeby Test Network'
       },
+       {
+        id: '5',
+        name: 'goerli',
+        label: 'Goerli Test Network'
+      },
       {
         id: '42',
         name: 'kovan',
